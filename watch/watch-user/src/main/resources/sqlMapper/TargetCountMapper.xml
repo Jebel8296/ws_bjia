@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinamcom.framework.user.dao.mysql.manager.TargetCountMapper" >
+  <resultMap id="BaseResultMap" type="com.chinamcom.framework.user.dao.TargetCount" >
+  	<id column="id" property="id" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="target" property="target" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    `id`,`uid`, `target`, `create_time`,`imei` 
+  </sql>
+  <select id="queryTargetCount" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from target_count 
+    <where>
+    <trim prefixOverrides="and">
+		<if test="imei != null">
+		and imei = #{imei,jdbcType=VARCHAR}
+		</if>
+		<if test="dateStar !=null">
+   		<![CDATA[and create_time >=#{dateStar,jdbcType=VARCHAR}]]>
+  		</if> 
+  		<if test="dateEnd !=null">
+   		<![CDATA[and create_time <=#{dateEnd,jdbcType=VARCHAR}]]>
+  		</if> 
+	</trim>
+    </where>
+  </select>
+  
+  <update id="updateTargetCount" parameterType="map" keyProperty="id">
+   update target_count 
+  <set>
+  <if test="target !=null">
+	`target` = #{target,jdbcType=INTEGER},
+  </if>
+  `create_time` = NOW() 
+  </set>
+  <where>
+  <trim prefixOverrides="and">
+  <if test="id !=null">
+  and id=#{id,jdbcType=INTEGER}
+  </if>
+  <if test="imei != null">
+	and imei = #{imei,jdbcType=VARCHAR}
+  </if>
+  </trim>
+  </where>
+  </update>
+  
+   <insert id="addTargetCount" parameterType="com.chinamcom.framework.user.dao.TargetCount" keyProperty="id">
+   insert into target_count (`uid`,`target`,`create_time`,`imei`)
+   values(
+   #{uid,jdbcType=INTEGER},
+   #{target,jdbcType=INTEGER},
+   NOW(),
+   #{imei,jdbcType=VARCHAR}
+   )
+  </insert>
+</mapper>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinamcom.framework.user.dao.mysql.manager.FriendLikesMapper" >
+  <resultMap id="BaseResultMap" type="com.chinamcom.framework.user.dao.FriendLikesInfo" >
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="head_img" property="headImg" jdbcType="VARCHAR" />
+    <result column="step" property="step" jdbcType="INTEGER" />
+    <result column="likes_num" property="likesNum" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="rank" property="rank" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <select id="selectFriendLikesList" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+select rankTable.*,rankTable.rownum as rank from (SELECT obj.*, @rownum := @rownum + 1 AS rownum 
+FROM (
+  	SELECT * FROM ((SELECT
+		a.UID_1 uid,
+		CASE IFNULL(a.ALIAS_0,'') WHEN '' THEN c.nickname ELSE a.ALIAS_0 END AS nick_name,
+		b.imei,
+		c.headimage head_img,
+		IFNULL(SUM(d.step), 0) step,
+		IFNULL(f.likes_num, 0) likes_num,
+		IFNULL(g.status, 0) `status`
+	FROM
+		app_friendship a
+	LEFT JOIN app_user b ON b.UID = a.UID_1
+	LEFT JOIN app_userinfo c ON c.uid = a.UID_1
+	LEFT JOIN sport_info d ON d.imei = b.IMEI and DATE_FORMAT(d.upload_time,'%Y-%m-%d') = CURDATE()
+	LEFT JOIN friend_likes f ON a.UID_1 = f.uid AND f.create_time = curdate()
+	LEFT JOIN friend_likes_record g ON g.from_uid = #{uid,jdbcType=INTEGER}  AND g.uid = a.UID_1 AND g.create_time = CURDATE() AND g.`status` = 1
+	WHERE
+		a.UID_0 = #{uid,jdbcType=INTEGER} 
+	AND a.status = 1
+	GROUP BY
+		imei
+	LIMIT 5)
+	UNION 
+	(SELECT 
+	  a.uid,
+	  a.nickname nick_name,
+	  b.IMEI,
+	  a.headimage head_img,
+	  IFNULL(SUM(c.step), 0) step,
+		IFNULL(d.likes_num, 0) likes_num,
+		IFNULL(g.status, 0) `status` 
+	from app_userinfo a
+	LEFT JOIN app_user b on a.uid =  b.UID
+	LEFT JOIN sport_info c on b.IMEI = c.imei and DATE_FORMAT(c.upload_time,'%Y-%m-%d') = CURDATE()
+	LEFT JOIN friend_likes d on a.uid = d.uid and d.create_time = curdate()
+	LEFT JOIN friend_likes_record g ON g.from_uid = #{uid,jdbcType=INTEGER}  AND g.uid = a.uid AND g.create_time = CURDATE() AND g.`status` = 1
+	where 
+		a.uid = #{uid,jdbcType=INTEGER}
+	 ) )a
+	ORDER BY a.step DESC) obj,(SELECT @rownum := 0 ) r ) rankTable
+  </select>
+    <insert id="insert" parameterType="com.chinamcom.framework.user.dao.FriendLikes" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into friend_likes (uid, likes_num, create_time)
+    values (#{uid,jdbcType=INTEGER}, #{likesNum,jdbcType=INTEGER}, CURDATE())
+  </insert>
+  
+  <update id="updateFriendLikes" parameterType="map">
+  	update friend_likes
+  	<if test="status!=0">
+  		set likes_num = likes_num + 1
+  	</if>
+  	<if test="status!=1">
+  		set likes_num = likes_num - 1
+  	</if>
+  	<where>
+		  uid = #{uid,jdbcType=INTEGER}
+	  and create_time = CURDATE()
+  	</where>
+  </update>
+</mapper>

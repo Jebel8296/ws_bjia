@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinamcom.framework.sport.dao.LocationInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.chinamcom.framework.sport.model.LocationInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="imei" property="imei" jdbcType="VARCHAR" />
+    <result column="sport_type" property="sportType" jdbcType="VARCHAR" />
+    <result column="location_type" property="locationType" jdbcType="VARCHAR" />
+    <result column="accuracy" property="accuracy" jdbcType="INTEGER" />
+    <result column="lon" property="lon" jdbcType="VARCHAR" />
+    <result column="lat" property="lat" jdbcType="VARCHAR" />
+    <result column="lon_fix" property="lonFix" jdbcType="VARCHAR" />
+    <result column="lat_fix" property="latFix" jdbcType="VARCHAR" />
+    <result column="lbs_data" property="lbsData" jdbcType="VARCHAR" />
+    <result column="battery" property="battery" jdbcType="INTEGER" />
+    <result column="location_time" property="locationTime" jdbcType="TIMESTAMP" />
+    <result column="upload_time" property="uploadTime" jdbcType="TIMESTAMP" />
+    <result column="show" property="show" jdbcType="INTEGER" />
+    <result column="map" property="map" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="msg_id" property="msgId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    `id`, `imei`, `sport_type`, `location_type`, `accuracy`, `lon`, `lat`, `lon_fix`, `lat_fix`, `lbs_data`,
+    `battery`, `location_time`, `upload_time`, `show`, `map`, `address`, `msg_id`  
+  </sql>
+  <select id="sportInfoPath" parameterType="map" resultMap="BaseResultMap">
+  select  
+  distinct `id`,`lat_fix`, `lon_fix`
+  from location_info
+  <where>
+  <trim prefixOverrides="and" >
+  <if test="dateStar !=null">
+   <![CDATA[and location_time >=#{dateStar,jdbcType=VARCHAR}]]>
+  </if>
+  <if test="dateEnd !=null">
+   <![CDATA[and location_time <=#{dateEnd,jdbcType=VARCHAR}]]>
+  </if> 
+  <if test="imei !=null">
+  and imei = #{imei,jdbcType=VARCHAR}
+  </if>
+  <if test="sportType !=null">
+  and sport_type = #{sportType,jdbcType=VARCHAR}
+  </if>
+  <!-- GROUP BY sport_type,address -->
+   and location_type =1 
+   ORDER BY id,location_time
+  </trim>
+  </where>
+  </select>
+  
+  <select id="locationBreakPoints" parameterType="map" resultMap="BaseResultMap">
+  
+SELECT * FROM (
+SELECT A.id,A.imei,A.lon_fix,A.lat_fix,A.location_time,
+ABS(TIMESTAMPDIFF(SECOND,B.location_time,A.location_time)) AS sub_seconds 
+FROM (
+ SELECT a.imei,a.id,a.lon_fix,a.lat_fix,a.`location_time`,
+ (@i := @i + 1) AS ord_num FROM location_info a,(SELECT @i := 1) d  
+ WHERE 
+ <trim prefixOverrides="and" >
+ <if test="imei !=null">
+  and imei = #{imei,jdbcType=VARCHAR}
+  </if>
+  <if test="dateStar !=null">
+   <![CDATA[and location_time >=#{dateStar,jdbcType=VARCHAR}]]>
+  </if>
+  <if test="dateEnd !=null">
+   <![CDATA[and location_time <=#{dateEnd,jdbcType=VARCHAR}]]>
+  </if> 
+  <if test="sportType !=null">
+  and sport_type = #{sportType,jdbcType=VARCHAR}
+  </if>
+   AND location_type =1 
+   </trim>
+   ORDER BY id,location_time
+) AS A LEFT JOIN (
+SELECT a.imei,a.id,a.lon_fix,a.lat_fix,a.`location_time`,
+(@j := @j + 1) AS ord_num FROM location_info a,(SELECT @j := 0) c 
+WHERE <trim prefixOverrides="and" >
+ <if test="imei !=null">
+  and imei = #{imei,jdbcType=VARCHAR}
+  </if>
+  <if test="dateStar !=null">
+   <![CDATA[and location_time >=#{dateStar,jdbcType=VARCHAR}]]>
+  </if>
+  <if test="dateEnd !=null">
+   <![CDATA[and location_time <=#{dateEnd,jdbcType=VARCHAR}]]>
+  </if> 
+  <if test="sportType !=null">
+  and sport_type = #{sportType,jdbcType=VARCHAR}
+  </if>
+   AND location_type =1 
+   </trim>
+ ORDER BY id,location_time
+)AS B ON A.ord_num=B.ord_num AND A.imei=B.imei ) AS Table_e
+WHERE Table_e.sub_seconds >= 600
+  </select>
+  
+</mapper>

@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>健康周报</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=yes">
+    <link rel="stylesheet" href="static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/cssForHealth.css">
+    <script src="static/js/angular.js"></script>
+    <script src="static/js/jquery-1.11.1.min.js"></script>
+    <script src="static/js/highcharts.js"></script>
+    <input type="hidden" name="metadata" id="metadata" value="{{respBody}}"/>
+</head>
+<body ng-controller="myCtrl">
+<header>
+<h6 ng-bind="formateTime" class="forTime">toushijian</h6>
+</header>
+<section>
+    <div class="dataBox">
+        <img src="static/images/blueBack.png" class="montainBack">
+       <div class="listTestBox">
+           <img src="static/images/triangles.png" class="bagkgroundOfSky">
+           <img id="myheadImg" class="avatarB" height="60" width="60">
+           <div class="listTest">
+               <ul class="firstUl">
+                   <li><div><img src="static/images/jiangbei.png"><h3 class="fontSize-16">好友排名</h3><span class="fontSize-18" ng-bind="rank"></span></div></li>
+                   <li>
+                       <div class="insert-top-4x">
+                       <span class="fontSize-14 grey">本周总步数</span>
+                       <h3 class="grey fontSize-12" ng-bind="week">12.04-12.07</h3>
+                       <span class="orange fontSize-18"  ng-bind="weeklySumStep"></span>
+                      </div>
+                   </li>
+                   <li><div><img src="static/images/dabiao.png"><h3 class="fontSize-16">达标天数</h3><span class="fontSize-18" ng-bind="goalDays"></span></div></li>
+               </ul>
+               <ul class="secondUl">
+                   <li> <div><img src="static/images/average.png"><h3 class="fontSize-16">平均步数</h3><span class="fontSize-20" ng-bind="weeklyAvgStep"></span></div></li>
+               </ul>
+               <!--ul class="listFun" >
+                   <li>
+                       <div>
+                           <em><img src="static/images/weights.png"><h3 class="fontSize-16">好友排名</h3><span class="fontSize-18">1</span></em>
+                       </div>
+                   </li>
+                   <li>
+                       <div>
+                           <em><span class="fontSize-12 grey">本周总步数</span><h3 class="grey fontSize-14" >12.01-12.07</h3><span class="orange fontSize-18">12345678步</span></em>
+                       </div>
+                   </li>
+                   <li>
+                       <div>
+                           <em><img src="static/images/weights.png"><h3 class="fontSize-16">达标天数</h3><span class="fontSize-18">1</span></em>
+                       </div>
+                   </li>
+                   <li>
+                       <div>
+                           <em><img src="static/images/weights.png"><h3 class="fontSize-16">平均步数</h3><span class="fontSize-18">666</span></em>
+                       </div>
+                   </li>
+               </ul-->
+           </div>
+       </div>
+
+        <div class="commonBox speciaTitle">
+            <!--本周步数趋势title-->
+            <div class="commonTitle">
+                <img src="static/images/steps.png">
+                <p class="text">
+                    <span class="grey fontSize-20">本周步数趋势</span><br/>
+                    <span class="light-gray fontSize-14" >达标了<span ng-bind="goalDays">12</span>天，小婊贝要坚持每日适量运动哟~</span>
+                </p>
+            </div>
+            <!--本周步数趋势title end-->
+         </div>
+    </div>
+
+
+    <div class="commonBox">
+        <!--本周步数-->
+        <div class="squareBox">
+            <div class="hCharts">
+                <div id="container" class="hChartExp" style="height:230px"></div>
+            </div>
+            <h5 class="text-center fontSize-16" ><span class="text-center fontSize-16" ng-bind="txtUp">本周状态不错，运动量上升111</span><span class="orange" ng-bind="upDownNum">10%</span><img src="static/images/up.png"> </h5>
+            <div class="hCharts">
+                <div id="shipments" style="height:230px"></div>
+
+            </div>
+        </div>
+    </div>
+
+    <!--上学运动 -->
+    <div style="background: url('static/images/blueB.png') repeat-x; height:4px"></div>
+    <div class="skyBackground weekendBack">
+        <div class="commonBox">
+            <!--上学日 title -->
+            <div class="commonTitle">
+                <img src="static/images/PK.png">
+                <p class="text">
+                    <span class="blue fontSize-20">上学日&周末日大PK</span><br>
+                    <span class="light-blue fontSize-14" ng-bind="txtPk">小婊贝周末更要多多运动哟~</span>
+                </p>
+            </div>
+            <!--上学日title end-->
+            <!--上学图标-->
+            <div class="roundIcon" style="position: relative; height:219px">
+                <img src="static/images/clouds.png" style="width:100%">
+                <!--图标-->
+                <div class="chartsPiebox">
+                        <div class="whiteCycle">
+                            <div class="charttext">
+                                <p>上学日<br><span class="purpleB fontSize-18" ng-bind="workDayPercentage +'%'">60%</span></p>
+                                <h5 class="fontSize-19">PK</h5>
+                                <p>周末日<br><span class="colorY fontSize-18" ng-bind="weekendDayPercentage +'%'">40%</span></p>
+                            </div>
+                        </div>
+                        <div id="myChart" style="margin-left: auto;margin-right: auto;margin-top:-1.5rem; min-width:20.5rem;height:20.5rem"></div>
+
+                    <div class="colors hchartM">
+                        <p><em class="backG-purple"></em>上学日</p>
+                        <p><em class="backG-grey"></em>周末日 </p>
+                    </div>
+                </div>
+            </div>
+            <!--上学图标 end -->
+            <!--运动消耗热量title-->
+            <div class="commonTitle">
+                <img src="static/images/sports.png">
+                <p class="text">
+                    <span class="grey fontSize-20">运动消耗热量</span>
+                </p>
+            </div>
+            <!--运动消耗热量title end-->
+            <p class="text-center fontSize-14">相当于减掉了<sapn class="purple" ng-bind="SumWeight">15</sapn><span class="purple">斤</span>肥肉</p>
+            <p class="text-center lilac fontSize-14">效果不错，比上周<span ng-bind="SubtractTxt">多减</span>了<span ng-bind="SubtractW"></span>斤，继续保持</p>
+        </div>
+
+        <div class="cycleBack">
+            <img src="static/images/Sback.png">
+            <div class="cycleBox">
+                <div>
+                    <p class="light-grey fontSize-16">卡路里消耗</p>
+                    <p class="purpleB fontSize-30 inset-top-bottom-2x" ng-bind="weeklySumCalorie">4890</p>
+                    <p class="light-grey fontSize-24">kcal</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--上学运动 end -->
+    <!--本周排名 -->
+    <div class="rankingBox">
+            <div class="rtitle text-center"><img src="static/images/ranking.png"> </div>
+            <p class="text-center lineHeight-3x fontSize-16 outside-bottom-2x">击败了<span ng-bind="beatNum"></span>位好友，<span ng-bind="sex" >女nan</span>性好友排名中<span class="pinky" ng-bind="'第'+sexRank +'名'"></span></p>
+        <div class="commonBox">
+            <div class="ccc">
+                <img src="static/images/rankingBack.png">
+                <table class="table rankingList">
+                    <tr>
+                    <!--
+                        <td ng-repeat="item in rankList" ng-class="{me:item.uid==10000125}" style="width:20%">
+                            <img ng-src="{item.headImg}" ng-class="{noBorder:item.headImg==null}">
+                            <h6 ng-bind="formatForCom(item.rank)"></h6>
+                            <span ng-bind="item.nickName">姓名姓名</span>
+                           
+                        </td>
+                        -->
+                        <!--
+                        <td id="rank1">
+                            <img src="static/images/PK.png">
+                            <h6></h6>
+                            <span></span>
+                        </td>
+                        
+                        -->
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!--本周排名 end -->
+
+</section>
+<!--
+<footer>
+
+</footer>
+-->
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function($scope) {
+        var data = document.getElementById('metadata').value;
+        var jsonData = new Function("return" + data)();
+       /*var jsonData = {"code":200,"msg":"success","respData":{
+           "sportsummary":{
+               "weekendDayPercentage":"40",
+               "weekSatr":1480780800000,
+               "weeklyAvgStep":96241,
+               "goalDays":0,
+               "lastWeekSumCalorie":5918,
+               "weeklySumCalorie":134854,
+               "lastWeekSumStep":120452,
+               "workDayPercentage":"60",
+               "weekEnd":1481385599000,
+               "rank":1,
+               "sysTime":1481769066293,
+               "lastWeekAvgStep":17207,
+               "weeklySumStep":673688,
+               "beatNum":5,
+               "sexRank":'1',
+               "rankList":[ {"show": 0},
+                   { "headImg": "http://111.202.112.195:40020/download/20161107/4a04064d-aec3-4a14-8c94-98c85db6f809", "nickName": "啦啦", "rank": 1, "uid": 10000110 },
+                   { "nickName": "2222222", "rank": 2, "uid": 10000125 },
+                   { "headImg": "http://111.202.112.195:40020/download/20161107/4a04064d-aec3-4a14-8c94-98c85db6f809", "nickName": "啦啦", "rank": 3, "uid": 10000110 },
+                   { "headImg": "http://111.202.112.195:40020/download/20161107/4a04064d-aec3-4a14-8c94-98c85db6f809", "nickName": "小白", "rank": 4, "uid": 10000007 } ],
+               "stepList":[
+                   { "createTime": 1479051000000, "index": 0 ,"yValue": 500},
+                   { "createTime": 1479137400000, "index": 1, "extremum": 1, "yValue": 2911 },
+                   { "createTime": 1479223800000, "index": 2, "yValue": 2360 },
+                   { "createTime": 1479310200000, "index": 3, "yValue": 2516 },
+                   { "createTime": 1479396600000, "index": 4, "yValue": 1744 },
+                   { "createTime": 1479483000000, "index": 5, "yValue": 103 },
+                   { "createTime": 1479569400000, "index": 6, "yValue": 100 }
+               ],
+           }
+       },"ts":1481799451147};
+*/
+
+        $scope.weeklySumStep = jsonData.respData.sportsummary.weeklySumStep + "步";//本周总步数
+        $scope.goalDays = jsonData.respData.sportsummary.goalDays; //达标天数
+        $scope.weeklyAvgStep =jsonData.respData.sportsummary.weeklyAvgStep;//本周平均步数
+        $scope.rank =jsonData.respData.sportsummary.rank;//排名
+        $scope.beatNum =jsonData.respData.sportsummary.beatNum;//击败了多少名好友
+        $scope.sexRank =jsonData.respData.sportsummary.sexRank;//性别排名
+        $scope.rankList =jsonData.respData.sportsummary.rankList;//
+        $scope.workDayPercentage =jsonData.respData.sportsummary.workDayPercentage;//工作日运动步数%
+        $scope.weekendDayPercentage =jsonData.respData.sportsummary.weekendDayPercentage;//周末日运动步数%
+        $scope.weeklySumCalorie =(jsonData.respData.sportsummary.weeklySumCalorie/1000).toFixed();//本周消耗总热量
+        $scope.SumWeight = (((jsonData.respData.sportsummary.weeklySumCalorie/1000).toFixed())/3585).toFixed();//本周消耗总热量
+        var SumWeightLast = ((jsonData.respData.sportsummary.lastWeekSumCalorie/1000).toFixed()/3585).toFixed();//本周消耗总热量
+        var feirouC =  $scope.SumWeight - SumWeightLast;
+        $scope.SubtractW = (((jsonData.respData.sportsummary.weeklySumCalorie/1000).toFixed()/3585).toFixed(1)-SumWeightLast).toFixed();
+        if(feirouC>=0){
+        $scope.SubtractTxt = "多减";
+        }else{
+        $scope.SubtractTxt = "少减";
+        }
+        if(jsonData.respData.sportsummary.sex==0){
+         $scope.sex="男";
+        }else{
+        $scope.sex="女";
+        }
+        function formatImg(item){
+        	if(item==null){
+        		return "static/images/PK.png"
+        	}else{
+        		return item;
+        	}
+        }
+        
+        var rankList = jsonData.respData.sportsummary.rankList;
+          for(var i=0; i< rankList.length;i++){
+            if(rankList[i].rank !=null){
+            	$(".rankingList td").eq(2).addClass("me");
+            	var imgT = '<td style="width:20%"><img src="'+formatImg(rankList[i].headImg) +'" > <h6>第'+rankList[i].rank+'名</h6> <span>'+rankList[i].nickName+'</span> </td>';
+                    $(".rankingList tr").append(imgT)
+            }else{
+                var imgT = '<td> <h6></h6> <span></span> </td>';
+                $(".rankingList tr").append(imgT)
+            }
+        }
+        
+		if(jsonData.respData.sportsummary.headImg!=null){
+		$("#myheadImg").attr('src',jsonData.respData.sportsummary.headImg); 
+		}else{
+		$("#myheadImg").attr('src',"static/images/PK.png"); 
+		}
+ 		
+ 		$scope.myheadImg = jsonData.respData.sportsummary.headImg; 
+ 		var avgstepNum= jsonData.respData.sportsummary.weeklyAvgStep-jsonData.respData.sportsummary.lastWeekAvgStep;
+		if(avgstepNum>0){
+		if(jsonData.respData.sportsummary.lastWeekAvgStep>0){
+		$scope.txtUp = "本周状态不错，运动量上升";
+		$scope.upDownNum = (avgstepNum/jsonData.respData.sportsummary.lastWeekAvgStep*100).toFixed(2)+"%"
+		}else{
+		$scope.txtUp = "状态不错，继续保持";
+		}
+		}else{
+		$scope.txtUp = "本周有所松懈，运动量下降";
+		$scope.upDownNum = (Math.abs(avgstepNum)/jsonData.respData.sportsummary.lastWeekAvgStep*100).toFixed(2)+"%"
+		}
+        var workDayPercentage = parseInt(jsonData.respData.sportsummary.workDayPercentage),weekendDayPercentage =  parseInt(jsonData.respData.sportsummary.weekendDayPercentage);
+		if(workDayPercentage>70){
+		$scope.txtPk ="小婊贝周末要多多运动";
+		}else{
+		$scope.txtPk ="不要只顾周末运动，上学日也要在意呀";
+		}
+        $scope.formatForImg = function(item) {
+           for(var i=0; i<item.length;i++){
+               if(item.headImg==null){
+                   $("img").remove();
+               }
+           }
+        }
+
+        $scope.formatForCom = function(item) {
+            if(item==null){
+                return ""
+            }else{
+                if(item==1){
+                    return "第"+"一"+"名";
+                }
+                if(item==2){
+                    return "第"+"二"+"名";
+                }
+                if(item==3){
+                    return "第"+"三"+"名";
+                }
+                if(item==4){
+                    return "第"+"四"+"名";
+                }
+                if(item==5){
+                    return "第"+"五"+"名";
+                }
+
+            }
+        }
+
+        var weekStar = new Date(jsonData.respData.sportsummary.weekSatr);
+        Y = weekStar.getFullYear()+".";
+        M = (weekStar.getMonth()+1 < 10 ? '0'+(weekStar.getMonth()+1) : weekStar.getMonth()+1)+".";
+        D = weekStar.getDate() <10 ? '0'+weekStar.getDate() : weekStar.getDate();
+        var weekEnd = new Date(jsonData.respData.sportsummary.weekEnd);
+        Y1 = weekEnd.getFullYear()+".";
+        M1 = (weekEnd.getMonth()+1 < 10 ? '0'+(weekEnd.getMonth()+1) : weekEnd.getMonth()+1)+".";
+        D1 = weekEnd.getDate() < 10 ? '0'+ weekEnd.getDate() : weekEnd.getDate();
+        $scope.week = M+D+"-"+M1+D1;
+        var formateDate = Y+M+D+"-"+Y1+M1+D1;
+        console.log(formateDate);
+       	function replaceAll(str , replaceKey , replaceVal){
+  		var reg = new RegExp(replaceKey , 'g');//g就是代表全部
+  		return str.replace(reg , replaceVal || '');
+		}
+        $scope.formateTime = formateDate.replace(/\./g,"/");
+        var stepList =jsonData.respData.sportsummary.stepList;//本周步数趋势
+
+   
+
+
+
+
+        init();
+        function init(){
+            var workAndweekend = [['周末日', weekendDayPercentage], ['上学日', workDayPercentage]];
+
+            //一周步数
+            var stepData = [];  //总数据
+            for(var m=0; m<stepList.length;m++){
+                var stepV ={};
+                stepV.y= stepList[m].yValue;
+                stepV.color="#6cd1b3";
+                stepData.push(stepV)
+            }
+            var t =[];
+            for(var i=0; i<stepData.length;i++){
+                t.push(stepData[i].y);
+            }
+            var maxInNumbers = Math.max.apply(Math, t);
+            var minInNumbers = Math.min.apply(Math, t);
+           for(var i=0; i<stepData.length;i++){
+               var max= 2360,min=0;
+               if(stepData[i].y==maxInNumbers){
+                   stepData[i].color = "#ff7a01";
+               }
+               if(stepData[i].y == minInNumbers){
+                   stepData[i].color = "#ffe401";
+               }
+           }
+            //1
+            var chart = Highcharts.chart('container', {
+                chart: {
+                    type: 'column',
+                    backgroundColor: 'rgba(255, 255, 255, 0)'
+                },
+                title: {
+                    text: null
+                },
+                xAxis: {
+                    categories: ['周日', '周一', '周二', '周三', '周四', '周五','周六'],
+
+                    tickWidth: 0,
+                    x:15
+                },
+                yAxis: {
+                    tickWidth:0,        //设置刻度标签宽度
+                    labels:{
+                        enabled:false
+                    },
+                    title: {
+                        // text:null
+                    },
+                    gridLineWidth: 0,
+                    //max: '${max}',    //设置Y轴最大值为“max”
+                    tickInterval: 100,
+                    plotLines:[{
+                        label:{
+                            color:'#ccc',
+                            useHTML:true,
+                            text:'<h5 style="position: relative; width:24rem; margin-top:-1.5rem; color:#ddd; font-size:1rem">8000<span style="position: absolute; right: 0">达标线</span></h5>',     //标签的内容
+                            x:0                         //标签相对于被定位的位置水平偏移的像素，重新定位，水平居左10px
+                        },
+                        color:'#ccc',           //线的颜色，定义为红色
+                        dashStyle:'ShortDash',     //默认值，这里定义为实线
+                        value:8000,          //定义在那个值上显示标示线，这里是在x轴上刻度为3的值处垂直化一条线
+                        width:1                //标示线的宽度，2px
+                    }]
+                },
+                series: [{
+                    //name: 'Sales',
+                    data: stepData,
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.y}'
+                    }
+                }],
+                credits: {
+                    enabled: false
+                },
+                legend: {
+                    enabled: false
+                },
+                responsive: {
+                    rules: [{
+                        condition: {
+                            // maxWidth: 500
+                        },
+                        // Make the labels less space demanding on mobile
+                        chartOptions: {
+                            xAxis: {
+                                labels: {
+                                    //formatter: function () {
+                                    //   return this.value.charAt(0);
+                                    //  }
+                                }
+                            },
+                            yAxis: {
+                                labels: { },
+                                title: { text: ''  }
+                            },
+                            colorByPoint:true
+
+                        }
+                    }]
+                }
+            });
+
+            //2
+            $('#shipments').highcharts({
+                chart: {
+                    type: 'spline'
+                },
+                title: {
+                    text: null
+                },
+                xAxis: {
+                    categories: ['本周', '上周'],
+                    startOnTick:false,
+                    tickWidth: 0,
+                    plotLines: [{
+                        value: 0,
+                        width: 1,
+                        dashStyle:'ShortDash',     //默认值，这里定义为实线
+                        color: '#ccc'
+                    },{
+                        value: 1,
+                        width: 1,
+                        dashStyle:'ShortDash',     //默认值，这里定义为实线
+                        color: '#ccc'
+                    }]
+                },
+                yAxis: {
+                    tickWidth:0,        //设置刻度标签宽度
+                    labels:{
+                        enabled:false
+                    },
+                    title: {
+                         text: ''
+                    },
+                    gridLineWidth: 0,
+                    //max: '10000',    //设置Y轴最大值为“max”
+                    // min:'5000',
+                    plotLines:[{
+                        label:{
+                            color:'#ddd',
+                            useHTML:true,
+                            text:'<span style="color:#ddd">日均步数</span>',     //标签的内容
+                            align:'left',                //标签的水平位置，水平居左,默认是水平居中center
+                            x:0                         //标签相对于被定位的位置水平偏移的像素，重新定位，水平居左10px
+                        },
+                        color:'#ccc',           //线的颜色，定义为红色
+                        dashStyle:'ShortDash',     //默认值，这里定义为实线
+                        value:8000,          //定义在那个值上显示标示线，这里是在x轴上刻度为3的值处垂直化一条线
+                        width:1                //标示线的宽度，2px
+                    },{
+                        label:{
+                            color:'#ddd',
+                            text:'<span style="color:#ddd">总步数</span>',     //标签的内容
+                            align:'left',                //标签的水平位置，水平居左,默认是水平居中center
+                            x:0                        //标签相对于被定位的位置水平偏移的像素，重新定位，水平居左10px
+                        },
+                        color:'#ccc',           //线的颜色，定义为红色
+                        dashStyle:'ShortDash',     //默认值，这里定义为实线
+                        value:3000,          //定义在那个值上显示标示线，这里是在x轴上刻度为3的值处垂直化一条线
+                        width:1                //标示线的宽度，2px
+                    }]
+                },
+                credits: {
+                    enabled: false
+                },
+                legend: {
+                    enabled: false
+                },
+                tooltip: {
+                    crosshairs: true,
+                    shared: true
+                },
+                plotOptions: {
+                    spline: {
+                        marker: {
+                            radius: 8,
+                            lineColor: '#ff7a00',
+                            lineWidth: 1
+                        }
+                    }
+                },
+                series: [{
+                    name: '',
+                    lineColor:'#ff7a00',
+                    dataLabels: {
+                        enabled: true
+                    },
+                    marker: {
+                        radius:5,
+                        lineColor: '#ff7a00',
+                        lineWidth:2,
+                        fillColor:'rgba(255, 255, 255, 0)',
+                        symbol: 'circle'
+                    },
+                     //data: [10000,30000]
+                    data: [jsonData.respData.sportsummary.lastWeekSumStep,jsonData.respData.sportsummary.weeklySumStep]
+                }, {
+                    name: '',
+                    lineColor:'#76d4b9',
+                    dataLabels: {
+                        enabled: true
+                    },
+                    marker: {
+                        radius:5,
+                        lineWidth:2,
+                        symbol: 'circle',
+                        fillColor:'rgba(255, 255, 255, 0)',
+                        lineColor: '#76d4b9'  //线颜色
+                    },
+                    //data: [4000,6289]
+                    data: [jsonData.respData.sportsummary.lastWeekAvgStep,jsonData.respData.sportsummary.weeklyAvgStep]
+                }]
+            });
+
+            //3
+            $('#myChart').highcharts({
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: 0,
+                    plotShadow: false,
+                    backgroundColor: 'rgba(255, 255, 255, 0)'
+                },
+                title: {
+                    text: null
+                },
+                tooltip: {
+                    pointFormat: null
+                },
+                plotOptions: {
+                    pie: {
+                        dataLabels: {
+                            enabled: false,
+                            distance: -50,
+                            style: {
+                                fontWeight: 'bold',
+                                color: 'white',
+                                textShadow: '0px 1px 2px black'
+                            }
+                        },
+                        colors:['#fcd76c','#caa4df']
+                    }
+                },
+                dataLabels:{
+                    enabled:false
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                    type: 'pie',
+                    name: '',
+                    innerSize: '70%',
+                    innerColor:'#fff',
+                    data: workAndweekend
+
+                }]
+            });
+        }
+    });
+
+</script>
+</body>
+</html>

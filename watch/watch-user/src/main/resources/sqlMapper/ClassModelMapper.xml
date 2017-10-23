@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinamcom.framework.user.dao.mysql.manager.ClassModelMapper" >
+  <resultMap id="BaseResultMap" type="com.chinamcom.framework.user.dao.ClassModel" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="did" property="did" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="VARCHAR" />
+    <result column="repeat" property="repeat" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="power" property="power" jdbcType="INTEGER" />
+    <result column="imei" property="imei" jdbcType="VARCHAR" />
+     <result column="display_order" property="displayOrder" jdbcType="INTEGER" />
+    
+  </resultMap>
+  <sql id="Base_Column_List" >
+    `id`, `uid`, `did`, `time`, `repeat`, `create_time`, `status`,`power`,`imei`,`display_order`   
+  </sql>
+  <select id="getClassModelList" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from class_model
+    <where>
+    <trim prefixOverrides="and"> 
+    <if test="imei !=null ">
+    and imei = #{imei,jdbcType=VARCHAR}
+    </if>
+    <if test="uid !=null ">
+    and uid = #{uid,jdbcType=INTEGER}
+    </if>
+    <if test="power !=null ">
+    and power = #{power,jdbcType=INTEGER}
+    </if>
+    <if test="power !=null ">
+    and status = #{status,jdbcType=INTEGER}
+    </if>
+    </trim>
+    </where>
+    order by display_order ASC
+  </select>
+  
+  <insert id="batchInsert" parameterType="java.util.List">
+  insert into class_model(`did`,`time`,`repeat`,`create_time`,`status`,`uid`,`power`,`imei`,`display_order`) values 
+  <foreach collection="list" item="item" index="index" separator=","> 
+  (#{item.did,jdbcType=VARCHAR},
+  #{item.time,jdbcType=VARCHAR},
+  #{item.repeat,jdbcType=VARCHAR},
+  NOW(),
+  #{item.status,jdbcType=INTEGER},
+  #{item.uid,jdbcType=INTEGER},
+  #{item.power,jdbcType=INTEGER},
+  #{item.imei,jdbcType=VARCHAR},
+  #{item.displayOrder,jdbcType=INTEGER}
+  ) 
+  </foreach>
+  </insert>
+ 
+ <update id="updateclassmodel" parameterType="com.chinamcom.framework.user.dao.ClassModel" keyProperty="id">
+ update class_model 
+  <set>
+  <if test="did !=null">
+	`did` = #{did,jdbcType=VARCHAR},
+  </if>
+  <if test="time !=null">
+	`time` = #{time,jdbcType=VARCHAR},
+  </if>
+   <if test="repeat !=null">
+	`repeat` = #{repeat,jdbcType=VARCHAR},
+  </if>
+   <if test="createTime !=null">
+	`create_time` = NOW(),
+  </if>
+  <if test="status !=null">
+	`status` = #{status,jdbcType=INTEGER},
+  </if>
+  <if test="power !=null">
+	`power` = #{power,jdbcType=INTEGER},
+  </if>
+  </set>
+  <where>
+  <trim prefixOverrides="and">
+  <if test="id !=null">
+  and id=#{id,jdbcType=INTEGER}
+  </if>
+  <if test="imei !=null">
+  and imei=#{imei,jdbcType=VARCHAR}
+  </if>
+  <if test="uid !=null">
+  and uid=#{uid,jdbcType=INTEGER}
+  </if>
+  </trim>
+  </where>
+ </update>
+ 
+ <update id="classmodelopenorclose" parameterType="map" keyProperty="id">
+ update class_model 
+  <set>
+  <if test="status !=null">
+	`status` = #{status,jdbcType=INTEGER},
+  </if>
+  </set>
+  <where>
+  <trim prefixOverrides="and">
+  <if test="id !=null">
+  and id=#{id,jdbcType=INTEGER}
+  </if>
+  <if test="imei !=null">
+  and imei=#{imei,jdbcType=VARCHAR}
+  </if>
+  <if test="uid !=null">
+  and uid=#{uid,jdbcType=INTEGER}
+  </if>
+  </trim>
+  </where>
+ </update>
+ 
+ <update id="updatepower" parameterType="map" keyProperty="id">
+  update class_model 
+  <set>
+  <if test="power !=null">
+	`power` = #{power,jdbcType=INTEGER},
+  </if>
+  </set>
+  <where>
+  <trim prefixOverrides="and">
+  <if test="imei !=null">
+  and imei=#{imei,jdbcType=VARCHAR}
+  </if>
+  <if test="uid !=null">
+  and uid=#{uid,jdbcType=INTEGER}
+  </if>
+  </trim>
+  </where>
+ </update>
+ 
+ <insert id="insertClassModel" parameterType="com.chinamcom.framework.user.dao.ClassModel" keyProperty="id">
+ insert into class_model(`did`,`time`,`repeat`,`create_time`,`status`,`uid`,`power`,`imei`,`display_order`) 
+ values (
+  #{did,jdbcType=VARCHAR},
+  #{time,jdbcType=VARCHAR},
+  #{repeat,jdbcType=VARCHAR},
+  NOW(),
+  #{status,jdbcType=INTEGER},
+  #{uid,jdbcType=INTEGER},
+  #{power,jdbcType=INTEGER},
+  #{imei,jdbcType=VARCHAR},
+  #{displayOrder,jdbcType=INTEGER}
+ )
+ </insert>
+ 
+ <select id="queryClassMode" resultMap="BaseResultMap" parameterType="map">
+ select 
+    <include refid="Base_Column_List" />
+    from class_model
+    <where>
+    <trim prefixOverrides="and"> 
+    <if test="imei !=null ">
+    and imei = #{imei,jdbcType=VARCHAR}
+    </if>
+    <if test="uid !=null ">
+    and uid = #{uid,jdbcType=INTEGER}
+    </if>
+     <if test="displayOrder !=null ">
+    and display_order = #{displayOrder,jdbcType=INTEGER}
+    </if>
+    </trim>
+    </where>
+ </select>
+</mapper>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinamcom.framework.sport.dao.SportHealthWeeklyMapper" >
+  <resultMap id="BaseResultMap" type="com.chinamcom.framework.sport.model.SportHealthWeekly" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="imei" property="imei" jdbcType="VARCHAR" />
+    <result column="step" property="step" jdbcType="INTEGER" />
+    <result column="calorie" property="calorie" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="weekstar_time" property="weekstarTime" jdbcType="TIMESTAMP" />
+    <result column="weekend_time" property="weekendTime" jdbcType="TIMESTAMP" />
+    <result column="rank" property="rank" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="head_img" property="headImg" jdbcType="VARCHAR" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, imei, step, calorie, weekstar_time, weekend_time, create_time
+  </sql>
+  
+   <select id="weeklyHealthSportSummary" resultMap="BaseResultMap" parameterType="map" >
+    SELECT imei,SUM(step) AS step,SUM(calorie) AS calorie, (SELECT SUBDATE(CURRENT_TIMESTAMP(),DATE_FORMAT(CURRENT_TIMESTAMP(),'%w'))) AS weekstar_time,
+	(SELECT SUBDATE(CURRENT_TIMESTAMP(),DATE_FORMAT(CURDATE(),'%w')-6))AS weekend_time 
+	FROM sport_summary 
+	<where>
+	sport_type IN (1,2) 
+	<if test="weekstarTime != null">
+  	<![CDATA[and count_time >=#{weekstarTime,jdbcType=VARCHAR}]]>
+  	</if>
+  	<if test="weekendTime !=null">
+  	<![CDATA[and count_time <=#{weekendTime,jdbcType=VARCHAR}]]>
+  	</if>  
+	</where> 
+	GROUP BY imei 
+   </select>
+  
+  <insert id="batchInsert" parameterType="java.util.List">
+  insert into sport_healthweekly(imei,step,
+  calorie,weekstar_time,weekend_time,create_time) values 
+  <foreach collection="list" item="item" index="index" separator=","> 
+  (
+  #{item.imei,jdbcType=VARCHAR},
+  #{item.step,jdbcType=INTEGER},
+  #{item.calorie,jdbcType=INTEGER},
+  #{item.weekstarTime,jdbcType=TIMESTAMP},
+  #{item.weekendTime,jdbcType=TIMESTAMP},
+  NOW()
+  ) 
+  </foreach>
+  </insert>
+  
+  <select id="queryRank" resultMap="BaseResultMap" parameterType="map" >
+SELECT rankTable.rownum AS rank,rankTable.uid,rankTable.head_img,rankTable.nick_name,rankTable.sex FROM (
+SELECT obj.*, @rownum := @rownum + 1 AS rownum FROM (
+SELECT * FROM (
+(SELECT a.UID_1 uid, 
+	b.imei,c.headimage head_img,
+	CASE IFNULL(a.ALIAS_0,'') WHEN '' THEN c.nickname ELSE a.ALIAS_0 END AS nick_name,
+	c.sex,
+	IFNULL(SUM(d.step), 0) step
+	FROM app_friendship a 
+	LEFT JOIN app_user b ON b.UID = a.UID_1 
+	LEFT JOIN `app_userinfo` c ON a.uid_1 = c.uid
+	LEFT JOIN sport_summary d ON d.imei = b.IMEI 
+	<![CDATA[and d.count_time >=#{weekStar,jdbcType=VARCHAR}]]>
+	<![CDATA[and d.count_time <=#{weekEnd,jdbcType=VARCHAR}]]>
+	<!-- AND d.sport_type IN (1,2) -->
+	WHERE a.uid_0 =#{uid,jdbcType=INTEGER} AND a.status = 1
+	GROUP BY b.imei)
+UNION(
+SELECT  a.uid,
+	b.IMEI,
+	a.headimage head_img,
+	a.nickname nick_name,
+	a.sex,  
+	IFNULL(SUM(c.step), 0) step
+	FROM app_userinfo a
+	 LEFT JOIN app_user b ON a.uid =  b.UID
+	 LEFT JOIN sport_summary c ON c.imei = b.IMEI
+	<![CDATA[and c.count_time >=#{weekStar,jdbcType=VARCHAR}]]>
+	<![CDATA[and c.count_time <=#{weekEnd,jdbcType=VARCHAR}]]>
+	 <!--AND c.sport_type IN (1,2) -->
+	 WHERE a.uid =#{uid,jdbcType=INTEGER} ) 
+) a 
+ORDER BY a.step DESC
+) obj,(SELECT @rownum := 0 ) r ) rankTable
+  </select>
+  
+   <select id="querySexRank" resultType="java.lang.Integer" parameterType="map" >
+SELECT rankTable.rownum AS sexRank FROM (
+SELECT obj.*, @rownum := @rownum + 1 AS rownum FROM (
+SELECT * FROM (
+(SELECT a.UID_1 uid, 
+	b.imei,c.headimage head_img,CASE IFNULL(a.ALIAS_0,'') WHEN '' THEN c.nickname ELSE a.ALIAS_0 END AS nick_name,
+	IFNULL(SUM(d.step), 0) step
+	FROM app_friendship a 
+	LEFT JOIN app_user b ON b.UID = a.UID_1 
+	LEFT JOIN `app_userinfo` c ON a.uid_1 = c.uid
+	LEFT JOIN sport_summary d ON d.imei = b.IMEI 
+	<![CDATA[and d.count_time >=#{weekStar,jdbcType=VARCHAR}]]>
+	<![CDATA[and d.count_time <=#{weekEnd,jdbcType=VARCHAR}]]>
+	<!-- AND d.sport_type IN (1,2) -->
+	WHERE a.uid_0 =#{uid,jdbcType=INTEGER} AND a.status = 1 
+	AND c.sex = (SELECT sex FROM `app_userinfo` WHERE uid = #{uid,jdbcType=INTEGER})
+	GROUP BY b.imei)
+UNION(
+SELECT  a.uid,
+	b.IMEI,
+	a.headimage head_img,
+	a.nickname nick_name, 
+	IFNULL(SUM(c.step), 0) step
+	FROM app_userinfo a
+	 LEFT JOIN app_user b ON a.uid =  b.UID
+	 LEFT JOIN sport_summary c ON c.imei = b.IMEI
+	<![CDATA[and c.count_time >=#{weekStar,jdbcType=VARCHAR}]]>
+	<![CDATA[and c.count_time <=#{weekEnd,jdbcType=VARCHAR}]]>
+	 <!-- AND c.sport_type IN (1,2) -->
+	 WHERE a.uid =#{uid,jdbcType=INTEGER} ) 
+) a 
+ORDER BY a.step DESC
+) obj,(SELECT @rownum := 0 ) r ) rankTable 
+WHERE uid = #{uid,jdbcType=INTEGER}  
+  </select>
+  
+</mapper>

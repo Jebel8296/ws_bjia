@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinamcom.framework.user.dao.mysql.manager.AppUserInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.chinamcom.framework.user.dao.AppUserInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="birthday" property="birthday" jdbcType="TIMESTAMP" />
+    <result column="height" property="height" jdbcType="INTEGER" />
+    <result column="weight" property="weight" jdbcType="INTEGER" />
+    <result column="phonenum" property="phonenum" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="headimage" property="headimage" jdbcType="VARCHAR" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="update_time" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="target" property="target" jdbcType="INTEGER" />
+    <result column="watch_hand" property="watchHand" jdbcType="INTEGER" />
+    <result column="watch_pwd" property="watchPwd" jdbcType="VARCHAR" />
+    <result column="first_login" property="firstLogin" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="alias0" property="alias0" jdbcType="VARCHAR" />
+    <result column="uid0" property="uid0" jdbcType="INTEGER" />
+    <result column="uid1" property="uid1" jdbcType="INTEGER" />
+    <result column="watchstat" property="watchstat" jdbcType="INTEGER" />
+    
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, nickname, sex, birthday, height, weight, phonenum, email, headimage, 
+    uid, create_time,target,first_login,watch_hand,watch_pwd
+  </sql>
+  <select id="getAppUserInfoByUid" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from app_userinfo
+    <where>
+    uid = #{uid,jdbcType=INTEGER}
+    </where>
+    limit 0,1
+  </select>
+  
+  <update id="updateById"  parameterType="com.chinamcom.framework.user.dao.AppUserInfo"
+		keyProperty="id">
+		update app_userinfo
+		<set>
+		<if test="nickname != null">
+			nickname = #{nickname,jdbcType=VARCHAR},
+		</if>
+		<if test="sex != null">
+			sex = #{sex,jdbcType=INTEGER},
+		</if>
+		<if test="birthday != null">
+			birthday = #{birthday,jdbcType=TIMESTAMP},
+		</if>
+		<if test="height != null">
+			height = #{height,jdbcType=INTEGER},
+		</if>
+		<if test="weight != null">
+			weight = #{weight,jdbcType=INTEGER},
+		</if>
+		<if test="phonenum != null">
+			phonenum = #{phonenum,jdbcType=VARCHAR},
+		</if>
+		<if test="email != null">
+			email = #{email,jdbcType=VARCHAR},
+		</if>
+		<if test="headimage != null">
+			headimage = #{headimage,jdbcType=VARCHAR},
+		</if>
+		<if test="target != null">
+			target = #{target,jdbcType=VARCHAR},
+		</if>
+		<if test="watchHand != null">
+			watch_hand = #{watchHand,jdbcType=VARCHAR},
+		</if>
+		<if test="watchPwd != null">
+			watch_pwd = #{watchPwd,jdbcType=VARCHAR},
+		</if>
+		<if test="firstLogin != null">
+			first_login =#{firstLogin,jdbcType=INTEGER},
+		</if>
+			update_time = NOW(),
+		</set>
+		<where>
+		<trim prefixOverrides="and">
+		<if test="id != null">
+		and	id = #{id,jdbcType=INTEGER}
+		</if>
+		<if test="uid != null">
+		and	uid = #{uid,jdbcType=INTEGER}
+		</if>
+		</trim>
+		</where>
+  </update>
+  
+  <insert id="addAppUserInfo" parameterType="com.chinamcom.framework.user.dao.AppUserInfo" keyProperty="id">
+  insert into app_userinfo (nickname, sex, birthday, height, weight, phonenum, email, headimage,
+   uid, create_time,target,watch_hand,watch_pwd)
+    values(
+     #{nickname,jdbcType=VARCHAR},
+  	 #{sex,jdbcType=INTEGER},
+ 	 #{birthday,jdbcType=TIMESTAMP},
+ 	 #{height,jdbcType=INTEGER},
+ 	 #{weight,jdbcType=INTEGER},  
+ 	 #{phonenum,jdbcType=VARCHAR},
+ 	 #{email,jdbcType=VARCHAR},
+ 	 #{headimage,jdbcType=VARCHAR},
+ 	 #{uid,jdbcType=INTEGER},
+ 	 NOW(),
+ 	 #{target,jdbcType=INTEGER},
+ 	 #{watchHand,jdbcType=INTEGER},
+ 	 #{watchPwd,jdbcType=VARCHAR}
+    )
+  </insert>
+  <update id="setTarget" parameterType="map" keyProperty="id">
+  update app_userinfo 
+  <set>
+  <if test="target !=null ">
+  target = #{target,jdbcType=INTEGER},
+  </if>
+  update_time = NOW(),
+  </set>
+  <where>
+  <trim prefixOverrides="and">
+  <if test="id !=null">
+  and id = #{id,jdbcType=INTEGER}
+  </if>
+  <if test="uid !=null">
+  and uid = #{uid,jdbcType=INTEGER}
+  </if>
+  </trim>
+  </where>
+  </update>
+  
+  <select id="appUserInfoList" resultMap="BaseResultMap" parameterType="map">
+  select 
+  <include refid="Base_Column_List" />
+    from app_userinfo
+    <where>
+    <trim prefixOverrides="and">
+    <if test="uids !=null">
+    and uid in 
+    <foreach item="item" index="index" collection="uids" open="(" separator="," close=")">  
+  		#{item}  
+ 	</foreach>  
+  	</if>
+    </trim>
+    </where>
+  </select>
+  
+  <insert id="insertAppUserInfo" parameterType="com.chinamcom.framework.user.dao.AppUserInfo" useGeneratedKeys="true" keyProperty="id">
+  insert into app_userinfo (nickname,headimage,uid, create_time,target)
+    values(
+     #{nickname,jdbcType=VARCHAR},
+ 	 #{headimage,jdbcType=VARCHAR},
+ 	 #{uid,jdbcType=INTEGER},
+ 	 NOW(),
+ 	 #{target,jdbcType=INTEGER}
+    )
+  </insert>
+  
+  <select id="queryTarget" resultType="java.lang.Integer" parameterType="map">
+  select 
+   target
+    from app_userinfo
+    <where>
+    <trim prefixOverrides="and">
+    <if test="uid !=null">
+    and uid =#{uid,jdbcType=INTEGER} 
+  	</if>
+    </trim>
+    </where>
+  </select>
+  
+  <select id="queryAppUserInfoByUid" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  select 
+   uid,headimage,phonenum 
+    from app_userinfo
+    <where>
+    uid =#{uid,jdbcType=INTEGER} 
+    </where>
+  </select>
+  
+  <select id="queryFriendinfo" parameterType="map" resultMap="BaseResultMap">
+  SELECT * FROM (
+  (select userinfo.phonenum,userinfo.headimage,
+  userinfo.nickname as nickname,
+  friend.uid_0 as uid0 
+  from app_userinfo userinfo 
+  LEFT JOIN `app_friendship` friend 
+  ON userinfo.uid = friend.UID_0 
+    where userinfo.uid =#{friendUid,jdbcType=INTEGER} 
+    and friend.uid_1 =#{uid,jdbcType=INTEGER} 
+  ) AS a )
+  LEFT JOIN ((
+  SELECT uid_1,ALIAS_0 AS alias0,STATUS,watchstat FROM `app_friendship`
+   where
+    uid_0 =#{uid,jdbcType=INTEGER} 
+    and uid_1 =#{friendUid,jdbcType=INTEGER} 
+    )AS b ) ON a.uid0 = b.uid_1
+  </select>
+  
+  <select id ="findFriendinfo" parameterType="map" resultMap="BaseResultMap">
+  select userinfo.phonenum,userinfo.headimage, userinfo.uid as uid0,
+  userinfo.nickname, 1 as watchstat 
+  from app_userinfo userinfo 
+  <where>
+  <trim prefixOverrides="and">
+    <if test="friendUid !=null">
+    and userinfo.uid =#{friendUid,jdbcType=INTEGER} 
+  	</if>
+    </trim>
+  </where>
+  </select>
+  
+  <select id="countFriend" parameterType="map" resultType="java.lang.Integer" >
+  select count(id) from app_friendship 
+  <where>
+  <trim prefixOverrides="and">
+    <if test="uid !=null">
+    and uid_0 = #{uid,jdbcType=INTEGER}
+    </if>
+    <if test="watchstat !=null">
+    and watchstat = #{watchstat,jdbcType=INTEGER}
+    </if>
+    </trim>
+  </where>
+  </select>
+  
+  <update id="updateFriendShow" parameterType="map" keyProperty="id">
+  update app_friendship 
+  <set>
+  <if test="watchstat !=null ">
+  watchstat = #{watchstat,jdbcType=INTEGER},
+  </if>
+  update_time = NOW(),
+  </set>
+  <where>
+  <trim prefixOverrides="and">
+  <if test="uid !=null">
+  and uid_0 = #{uid,jdbcType=INTEGER}
+  </if>
+  <if test="friendUid !=null">
+  and uid_1 = #{friendUid,jdbcType=INTEGER}
+  </if>
+  </trim>
+  </where>
+  </update>
+  
+  <select id="queryAllFriends" parameterType="map" resultMap="BaseResultMap" >
+  select friend.uid_1 as uid1 ,
+  CASE WHEN friend.alias_0 IS NULL THEN userinfo.nickname
+  WHEN friend.alias_0= '' THEN userinfo.nickname 
+  ELSE friend.alias_0 END AS NAME   
+  FROM `app_friendship` friend 
+  LEFT JOIN `app_userinfo` userinfo ON  
+  friend.uid_1 = userinfo.`uid`
+  <where>
+  <trim prefixOverrides="and">
+    <if test="uid !=null">
+    and uid_0 = #{uid,jdbcType=INTEGER}
+    </if>
+    <if test="watchstat !=null">
+    and watchstat = #{watchstat,jdbcType=INTEGER}
+    </if>
+    and status = 1
+    </trim>
+  </where>
+  </select>
+</mapper>

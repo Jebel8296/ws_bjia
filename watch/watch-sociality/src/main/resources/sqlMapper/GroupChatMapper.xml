@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinamcom.framework.sociality.dao.GroupChatMapper">
+	<resultMap id="AppGroupResultMap"
+		type="com.chinamcom.framework.sociality.model.AppGroup">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="head" property="head" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="DATE" />
+		<result column="create_uid" property="createUid" jdbcType="INTEGER" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="description" property="description" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="AppGroupUserResultMap"
+		type="com.chinamcom.framework.sociality.model.AppGroupUser">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="gid" property="gid" jdbcType="INTEGER" />
+		<result column="uid" property="uid" jdbcType="INTEGER" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="watchstat" property="watchstat" jdbcType="INTEGER" />
+		<result column="screenstat" property="screenstat" jdbcType="INTEGER" />
+		<result column="alias" property="alias" jdbcType="VARCHAR" />
+		<result column="headimage" property="headimage" jdbcType="VARCHAR" />
+		
+	</resultMap>
+	<select id="findAppGroupCountByUid" parameterType="java.lang.Integer"
+		resultType="java.lang.Integer">
+		SELECT COUNT(1) AS groupcount
+		FROM app_group
+		WHERE status=1
+		AND create_uid=#{uid}
+		GROUP BY create_uid
+	</select>
+	<select id="findAppGroupByUid" parameterType="com.chinamcom.framework.sociality.model.AppGroup"
+		resultMap="AppGroupResultMap">
+		SELECT id,name,head,create_time,status,description
+		FROM app_group
+		WHERE id=#{id} AND create_uid=#{createUid}
+	</select>
+
+<!-- 
+	<select id="selectAppGroupUsers"
+		parameterType="com.chinamcom.framework.sociality.model.AppGroupUser"
+		resultMap="AppGroupUserResultMap">
+		select b.id,b.gid,b.status,b.watchstat,b.screenstat,b.uid,
+		CASE WHEN d.alias_0 IS NULL THEN c.nickname WHEN d.alias_0 ="" 
+		THEN c.nickname ELSE d.alias_0 END AS alias,c.headimage
+		from app_group a left join app_group_user b on a.id=b.gid left join app_userinfo c on b.uid=c.uid left join app_friendship d on a.create_uid = d.uid_0 and b.uid = d.uid_1
+		where a.id=#{gid} AND b.STATUS!=#{status}
+	</select>
+	 	 -->
+	<select id="selectAppGroupUsers"
+		parameterType="com.chinamcom.framework.sociality.model.AppGroupUser"
+		resultMap="AppGroupUserResultMap">
+		select b.id,b.gid,b.status,b.watchstat,b.screenstat,b.uid,
+		c.headimage,b.alias
+		from app_group a left join app_group_user b on a.id=b.gid 
+		LEFT JOIN app_userinfo c ON b.uid=c.uid 
+		where a.id=#{gid} AND b.STATUS!=#{status}
+	</select> 
+
+	 <select id ="selectFriendAlias" parameterType="map"
+		resultType="java.lang.String">
+	 	select alias_0 as alias 
+	 	from app_friendship where uid_0 = #{uid_0}
+	 	and uid_1=#{uid_1}
+	 </select>
+	 
+	 <select id="selectUserNickname" parameterType="java.lang.Integer"
+		resultType="java.lang.String">
+	 	select nickname   
+	 	from app_userinfo where uid= #{uid}
+	 </select>
+	 
+	<select id="selectAppGroups"
+		parameterType="com.chinamcom.framework.sociality.model.AppGroup"
+		resultMap="AppGroupResultMap">
+		SELECT id,name,head,create_time,status,description
+		FROM app_group 
+		WHERE create_uid=#{createUid} AND STATUS=1
+	</select>
+	
+	<select id="selectAllAppGroups"
+		parameterType="com.chinamcom.framework.sociality.model.AppGroup"
+		resultMap="AppGroupResultMap">
+		SELECT id,name,head,create_time,status,description
+		FROM app_group 
+		WHERE STATUS=#{status}
+	</select>
+	
+	<select id="selectHeadByUid"
+		parameterType="java.lang.Integer"
+		resultType="java.lang.String">
+		SELECT headimage FROM watch.app_userinfo where uid=#{uid}
+	</select>
+	
+	<select id="selectAppGroupCountByWatchstat" parameterType="com.chinamcom.framework.sociality.model.AppGroupUser" resultType="java.lang.Integer">
+		SELECT COUNT(1) gnum
+		FROM app_group_user a,app_group b
+		WHERE a.gid=b.id AND a.status=1 AND b.status=1 AND a.watchstat=1 AND a.uid = #{uid}
+	</select>
+	
+	<select id="selectAllAppGroupsByUID"
+		parameterType="com.chinamcom.framework.sociality.model.AppGroup"
+		resultMap="AppGroupResultMap">
+		SELECT DISTINCT a.id,a.name,a.head,a.create_time,a.status,a.description
+		FROM app_group a,app_group_user	b
+		WHERE a.id=b.gid and a.status=1 and b.status=1 and b.watchstat=1 and b.uid=#{createUid}
+	</select>
+
+	<insert id="insertAppGroup" parameterType="com.chinamcom.framework.sociality.model.AppGroup"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into app_group
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				name,
+			</if>
+			<if test="head != null">
+				head,
+			</if>
+			<if test="createUid != null">
+				create_uid,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="description != null">
+				description,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				#{name},
+			</if>
+			<if test="head != null">
+				#{head},
+			</if>
+			<if test="createUid != null">
+				#{createUid},
+			</if>
+			<if test="status != null">
+				#{status},
+			</if>
+			<if test="description != null">
+				#{description},
+			</if>
+		</trim>
+	</insert>
+	<insert id="insertBatchAppGroupUser" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+		insert into app_group_user(gid,uid,status) values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.gid},#{item.uid},#{item.status})
+		</foreach>
+	</insert>
+	<update id="deleteBatchAppGroupUser" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" open=""
+			close="" separator=";">
+			update app_group_user set status = #{item.status} where gid = #{item.gid} and uid = #{item.uid}
+		</foreach>
+	</update>
+	
+	
+	<update id="deleteBatchScreenstatAppGroupUser" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" open=""
+			close="" separator=";">
+			update app_group_user set screenstat = #{item.screenstat} where gid = #{item.gid} and uid = #{item.uid}
+		</foreach>
+	</update>
+	
+	<update id="deleteBatchWatchstatAppGroupUser" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" open=""
+			close="" separator=";">
+			update app_group_user set watchstat = #{item.watchstat} where gid = #{item.gid} and uid = #{item.uid}
+		</foreach>
+	</update>
+	
+	<update id="updateAppGroupName" parameterType="com.chinamcom.framework.sociality.model.AppGroup">
+		update app_group set name = #{name} where id = #{id}
+	</update>
+	<update id="updateAppGroupUserAlias"
+		parameterType="com.chinamcom.framework.sociality.model.AppGroupUser">
+		update app_group_user set alias = #{alias} where gid = #{gid} and uid = #{uid}
+	</update>
+	<update id="deleteAppGroup" parameterType="com.chinamcom.framework.sociality.model.AppGroup">
+		update app_group set
+		status = #{status} where id = #{id} and create_uid = #{createUid}
+	</update>
+	<insert id="insertAppGroupUser"
+		parameterType="com.chinamcom.framework.sociality.model.AppGroupUser">
+		insert into app_group_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="gid != null">
+				gid,
+			</if>
+			<if test="uid != null">
+				uid,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="alias != null">
+				alias,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="gid != null">
+				#{gid},
+			</if>
+			<if test="uid != null">
+				#{uid},
+			</if>
+			<if test="status != null">
+				#{status},
+			</if>
+			<if test="alias != null">
+				#{alias},
+			</if>
+		</trim>
+	</insert>
+</mapper>

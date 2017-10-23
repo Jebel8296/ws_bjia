@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinamcom.framework.user.dao.mysql.manager.AppUserDeviceMapper" >
+  <resultMap id="BaseResultMap" type="com.chinamcom.framework.user.dao.AppUserDevice" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="did" property="did" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="server" property="server" jdbcType="VARCHAR" />
+    <result column="device_type" property="deviceType" jdbcType="VARCHAR" />
+    <result column="apple_id" property="appleId" jdbcType="VARCHAR" />
+    
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, uid, did, status, server, device_type, apple_id 
+  </sql>
+  <select id="findOnlineDevice" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from app_user_device
+    <where>
+     <trim prefixOverrides="and">
+     <if test="imei !=null ">
+ 	 and did = #{imei,jdbcType=VARCHAR}
+  	</if>
+  	<if test="deviceType !=null ">
+  	and device_type = #{deviceType,jdbcType=VARCHAR}
+  	</if>
+  	<if test="status !=null ">
+  	and status = #{status,jdbcType=INTEGER}
+  	</if>
+     </trim>
+    </where>
+  </select>
+  
+  <update id="appUserDeviceModify" parameterType="map" keyProperty="id">
+  update app_user_device 
+  <set>
+  <if test="uid !=null ">
+  uid = #{uid,jdbcType=INTEGER}
+  </if>
+  </set>
+  <where>
+  <trim prefixOverrides="and">
+  <if test="imei !=null ">
+  and did = #{imei,jdbcType=VARCHAR}
+  </if>
+  <if test="deviceType !=null ">
+  and device_type = #{deviceType,jdbcType=VARCHAR}
+  </if>
+  </trim>
+  </where>
+  </update>
+  
+  <update id="appUserDeviceOnline" parameterType="map" keyProperty="id">
+   update app_user_device 
+   <set>
+   status = 1
+   </set>
+  <where>
+  <trim prefixOverrides="and">
+  and did = #{did,jdbcType=VARCHAR}
+  and uid = #{uid,jdbcType=INTEGER}
+  <if test="env !=null ">
+  and env = #{env,jdbcType=INTEGER}
+  </if>
+  </trim>
+  </where>
+  </update>
+  <insert id="addUserDevice" parameterType="map">
+  	<selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID() AS value
+    </selectKey>
+	  insert into app_user_device( uid, did, status, server, device_type, apple_id, env)
+	    values(
+	  	 #{uid,jdbcType=INTEGER},
+	 	 #{did,jdbcType=VARCHAR},
+	 	 #{status,jdbcType=INTEGER},  
+	 	 #{server,jdbcType=VARCHAR},
+	 	 #{device_type,jdbcType=VARCHAR},
+	 	 #{apple_id,jdbcType=VARCHAR},
+	 	 #{env,jdbcType=INTEGER}
+	    )
+  </insert>
+</mapper>

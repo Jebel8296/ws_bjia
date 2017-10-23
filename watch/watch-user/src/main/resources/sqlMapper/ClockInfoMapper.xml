@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinamcom.framework.user.dao.mysql.manager.ClockInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.chinamcom.framework.user.dao.ClockInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="did" property="did" jdbcType="VARCHAR" />
+    <result column="model_type" property="modelType" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="VARCHAR" />
+    <result column="repeat" property="repeat" jdbcType="VARCHAR" />
+    <result column="remind" property="remind" jdbcType="INTEGER" />
+    <result column="remain_voice_id" property="remainVoiceId" jdbcType="VARCHAR" />
+    <result column="ring" property="ring" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="vol" property="vol" jdbcType="INTEGER" />
+    <result column="pic_type" property="picType" jdbcType="INTEGER" />
+    <result column="remindInputContent" property="remindInputContent" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="voice_body" property="voiceBody" jdbcType="VARCHAR" />
+    <result column="volsize" property="volsize" jdbcType="INTEGER" />
+    
+  </resultMap>
+  <sql id="Base_Column_List" >
+    `id`, `did`, `model_type`,`type`, `title`, `time`, `repeat`, `remind`, `remain_voice_id`, 
+    `ring`,`status`, `vol` ,`pic_type`,`uid`, `remindInputContent`,`volsize`      
+  </sql>
+  <select id="getClockInfoList" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from clock_info
+    <where>
+    <trim prefixOverrides="and">
+		<if test="id != null">
+		and id = #{id,jdbcType=INTEGER}
+		</if>
+		<if test="did != null">
+		and did = #{did,jdbcType=VARCHAR}
+		</if>
+		<if test="modelType != null">
+		and model_type = #{modelType,jdbcType=INTEGER}
+		</if>
+		<if test="uid != null">
+		and uid = #{uid,jdbcType=INTEGER}
+		</if>
+	</trim>
+    </where>
+    order by create_time desc 
+  </select>
+  
+  <update id="openAndCloseClock" parameterType="map" keyProperty="id">
+  update clock_info 
+  <set>
+  <if test="status !=null">
+	`status` = #{status,jdbcType=INTEGER},
+  </if>
+  </set>
+  <where>
+  <trim prefixOverrides="and">
+  <if test="id !=null">
+  and id=#{id,jdbcType=INTEGER}
+  </if>
+  <if test="did !=null">
+  and did=#{did,jdbcType=VARCHAR}
+  </if>
+  <if test="modelType != null">
+  and model_type = #{modelType,jdbcType=INTEGER}
+  </if>
+  <if test="uid != null">
+	and uid = #{uid,jdbcType=INTEGER}
+  </if>
+  </trim>
+  </where>
+  </update>
+  
+  <insert id="saveClock" parameterType="com.chinamcom.framework.user.dao.ClockInfo" useGeneratedKeys="true" keyProperty="id" >
+  insert into clock_info(`did`,`model_type`,`type`,`title`,`time`,`repeat`,`remind`,`remain_voice_id`,`ring`,
+  `vol`,`status`,`pic_type`,`remindInputContent`,`create_time`,`uid`,`voice_body`,`volsize`)
+  values
+  (
+  #{did,jdbcType=VARCHAR},
+  #{modelType,jdbcType=INTEGER},
+  #{type,jdbcType=INTEGER},
+  #{title,jdbcType=VARCHAR},
+  #{time,jdbcType=VARCHAR},  
+  #{repeat,jdbcType=VARCHAR},
+  #{remind,jdbcType=INTEGER},
+  #{remainVoiceId,jdbcType=VARCHAR},
+  #{ring,jdbcType=INTEGER},
+  #{vol,jdbcType=INTEGER},
+  #{status,jdbcType=INTEGER},
+  #{picType,jdbcType=INTEGER},
+  #{remindInputContent,jdbcType=VARCHAR},
+  NOW(),
+  #{uid,jdbcType=INTEGER},
+  #{voiceBody,jdbcType=VARCHAR},
+  #{volsize,jdbcType=INTEGER}
+  )
+  </insert>
+  
+  <delete id="deleteClock" parameterType="map" >
+  delete from clock_info
+  <where>
+   <trim prefixOverrides="and">
+   <if test="id != null">
+   and id=#{id,jdbcType=INTEGER}
+   </if>
+   <if test="did !=null">
+   and did=#{did,jdbcType=VARCHAR}
+   </if>
+   <if test="modelType != null">
+   and model_type = #{modelType,jdbcType=INTEGER}
+   </if>
+    <if test="uid != null">
+   and uid = #{uid,jdbcType=INTEGER}
+   </if>
+   </trim>
+  </where>
+  </delete>
+  
+  <update id="updateClock" parameterType="com.chinamcom.framework.user.dao.ClockInfo" keyProperty="id">
+  update clock_info 
+  <set>
+  <if test="type !=null">
+	`type` = #{type,jdbcType=INTEGER},
+  </if>
+  <if test="title !=null">
+	`title` = #{title,jdbcType=VARCHAR},
+  </if>
+   <if test="time !=null">
+	`time` = #{time,jdbcType=VARCHAR},
+  </if>
+    <if test="repeat !=null">
+	`repeat` = #{repeat,jdbcType=VARCHAR},
+  </if>
+    <if test="remind!=null">
+	`remind` = #{remind,jdbcType=INTEGER},
+  </if>
+  <if test="remainVoiceId !=null">
+	`remain_voice_id` = #{remainVoiceId,jdbcType=VARCHAR},
+  </if>
+  <if test="ring !=null">
+	`ring` = #{ring,jdbcType=INTEGER},
+  </if>
+  <if test="vol !=null">
+	`vol` = #{vol,jdbcType=INTEGER},
+  </if>
+  <if test="status !=null">
+	`status` = #{status,jdbcType=INTEGER},
+  </if>
+   <if test="picType !=null">
+	`pic_type` = #{picType,jdbcType=INTEGER},
+  </if>
+   <if test="remindInputContent !=null">
+	`remindInputContent` = #{remindInputContent,jdbcType=VARCHAR},
+  </if>
+  `create_time` = NOW(),
+   <if test="voiceBody !=null">
+	`voice_body` = #{voiceBody,jdbcType=VARCHAR},
+  </if>
+   <if test="volsize !=null">
+	`volsize` = #{volsize,jdbcType=INTEGER},
+  </if>
+  </set>
+  <where>
+  <trim prefixOverrides="and">
+  <if test="id !=null">
+  and id=#{id,jdbcType=INTEGER}
+  </if>
+  <if test="did !=null">
+  and did=#{did,jdbcType=VARCHAR}
+  </if>
+  <if test="modelType != null">
+  and model_type = #{modelType,jdbcType=INTEGER}
+  </if>
+  <if test="uid != null">
+  and uid = #{uid,jdbcType=INTEGER}
+  </if>
+  </trim>
+  </where>
+  </update>
+  
+  <select id="getPushClockInfoList" resultMap="BaseResultMap" parameterType="map" >
+    select `type`,`id`,`title`,`repeat`,`time`,`remind`,`ring`,`vol`,`status`,`uid`   
+    from clock_info
+    <where>
+    <trim prefixOverrides="and">
+		<if test="id != null">
+		and id = #{id,jdbcType=INTEGER}
+		</if>
+		<if test="did != null">
+		and did = #{did,jdbcType=VARCHAR}
+		</if>
+		<if test="modelType != null">
+		and model_type = #{modelType,jdbcType=INTEGER}
+		</if>
+		<if test="uid != null">
+  		and uid = #{uid,jdbcType=INTEGER}
+  		</if>
+	</trim>
+    </where>	
+    order by create_time desc 
+  </select>
+  
+  <select id="querySitInfo" resultMap="BaseResultMap" parameterType="map" >
+  select distinct
+    <include refid="Base_Column_List" />
+    from clock_info
+    <where>
+    <trim prefixOverrides="and">
+   <if test="did !=null">
+   and did=#{did,jdbcType=VARCHAR}
+   </if>
+   <if test="modelType != null">
+   and model_type = #{modelType,jdbcType=INTEGER}
+   </if>
+    <if test="uid != null">
+   and uid = #{uid,jdbcType=INTEGER}
+   </if>
+    </trim>
+    </where>
+  </select>
+  
+  <select id="countClock" resultType="java.lang.Integer" parameterType="map">
+  select count(id) from clock_info 
+  <where>
+  <trim prefixOverrides="and">
+  <if test="did !=null">
+  and did=#{did,jdbcType=VARCHAR}
+  </if>
+  <if test="modelType != null">
+  and model_type = #{modelType,jdbcType=INTEGER}
+  </if>
+  <if test="uid != null">
+	and uid = #{uid,jdbcType=INTEGER}
+  </if>
+  </trim>
+  </where>
+  </select>
+  
+  <select id="queryClockInfo" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    `id`, `did`, `model_type`,`title`,`uid`, `voice_body`,`volsize`   
+    from clock_info
+    <where>
+    <trim prefixOverrides="and">
+		<if test="id != null">
+		and id = #{id,jdbcType=INTEGER}
+		</if>
+		<if test="did != null">
+		and did = #{did,jdbcType=VARCHAR}
+		</if>
+		<if test="modelType != null">
+		and model_type = #{modelType,jdbcType=INTEGER}
+		</if>
+		<if test="uid != null">
+		and uid = #{uid,jdbcType=INTEGER}
+		</if>
+	</trim>
+    </where>
+    order by create_time desc 
+  </select>
+</mapper>

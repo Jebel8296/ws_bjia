@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinamcom.framework.sociality.dao.CallInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.chinamcom.framework.sociality.model.CallInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="device_imei" property="deviceImei" jdbcType="VARCHAR" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="CHAR" />
+    <result column="phone_no" property="phoneNo" jdbcType="VARCHAR" />
+    <result column="duration" property="duration" jdbcType="INTEGER" />
+    <result column="begin_time" property="beginTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, device_imei, nick_name, type, phone_no, duration, begin_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chinamcom.framework.sociality.model.CallInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from call_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="pageSize != null">
+       limit	#{beforeCount },#{pageSize }
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from call_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByPrimaryKeys" resultMap="BaseResultMap" parameterType="java.util.List" >
+    select 
+    begin_time
+    from call_info
+    where id IN
+    <foreach item="idItem" collection="array" open="(" separator="," close=")">
+		#{idItem}
+	</foreach>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from call_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByIDS" parameterType="java.util.List" >
+    delete from call_info
+    where id IN
+    <foreach item="idItem" collection="array" open="(" separator="," close=")">
+			#{idItem}
+		</foreach>
+  </delete>
+  <insert id="insert" parameterType="com.chinamcom.framework.sociality.model.CallInfo" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into call_info (device_imei, nick_name, type, 
+      phone_no, duration, begin_time
+      )
+    values (#{deviceImei,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, #{type,jdbcType=CHAR}, 
+      #{phoneNo,jdbcType=VARCHAR}, #{duration,jdbcType=INTEGER}, #{beginTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.chinamcom.framework.sociality.model.CallInfo" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into call_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="deviceImei != null" >
+        device_imei,
+      </if>
+      <if test="nickName != null" >
+        nick_name,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="phoneNo != null" >
+        phone_no,
+      </if>
+      <if test="duration != null" >
+        duration,
+      </if>
+      <if test="beginTime != null" >
+        begin_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="deviceImei != null" >
+        #{deviceImei,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="phoneNo != null" >
+        #{phoneNo,jdbcType=VARCHAR},
+      </if>
+      <if test="duration != null" >
+        #{duration,jdbcType=INTEGER},
+      </if>
+      <if test="beginTime != null" >
+        #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chinamcom.framework.sociality.model.CallInfo" >
+    update call_info
+    <set >
+      <if test="deviceImei != null" >
+        device_imei = #{deviceImei,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=CHAR},
+      </if>
+      <if test="phoneNo != null" >
+        phone_no = #{phoneNo,jdbcType=VARCHAR},
+      </if>
+      <if test="duration != null" >
+        duration = #{duration,jdbcType=INTEGER},
+      </if>
+      <if test="beginTime != null" >
+        begin_time = #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chinamcom.framework.sociality.model.CallInfo" >
+    update call_info
+    set device_imei = #{deviceImei,jdbcType=VARCHAR},
+      nick_name = #{nickName,jdbcType=VARCHAR},
+      type = #{type,jdbcType=CHAR},
+      phone_no = #{phoneNo,jdbcType=VARCHAR},
+      duration = #{duration,jdbcType=INTEGER},
+      begin_time = #{beginTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

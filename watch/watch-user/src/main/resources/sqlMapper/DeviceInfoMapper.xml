@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinamcom.framework.user.dao.mysql.manager.DeviceInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.chinamcom.framework.user.dao.DeviceInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="imei" property="imei" jdbcType="VARCHAR" />
+    <result column="imsi" property="imsi" jdbcType="VARCHAR" />
+    <result column="productId" property="productId" jdbcType="VARCHAR" />
+    <result column="fwVer" property="fwVer" jdbcType="VARCHAR" />
+    <result column="fwBuild" property="fwBuild" jdbcType="VARCHAR" />
+    <result column="mcuBuild" property="mcuBuild" jdbcType="VARCHAR" />
+    <result column="btName" property="btName" jdbcType="VARCHAR" />
+    <result column="btMac" property="btMac" jdbcType="VARCHAR" />
+    <result column="phoneNo" property="phoneNo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, imei, imsi, productId, fwVer, fwBuild, mcuBuild, btName, btMac, phoneNo
+  </sql>
+  <select id="imeiValid" resultType="java.lang.Integer" parameterType="map" >
+    select count(id) from device_info
+    <where>
+     <trim prefixOverrides="and">
+     <if test="imei !=null ">
+ 	 and imei = #{imei,jdbcType=VARCHAR}
+  	</if>
+     </trim>
+    </where>
+  </select>
+  
+  <select id="selectByImei" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	  select distinct
+    <include refid="Base_Column_List" />
+    from device_info
+    where imei = #{imei,jdbcType=VARCHAR}
+  </select>
+  
+</mapper>

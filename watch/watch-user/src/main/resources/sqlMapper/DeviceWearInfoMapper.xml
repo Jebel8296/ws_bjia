@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinamcom.framework.user.dao.mysql.manager.DeviceWearInfoMapper" >
+   <resultMap id="BaseResultMap" type="com.chinamcom.framework.user.dao.DeviceWearInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="device_phone" property="devicePhone" jdbcType="VARCHAR" />
+    <result column="device_imei" property="deviceImei" jdbcType="VARCHAR" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="device_name" property="deviceName" jdbcType="VARCHAR" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="device_head" property="deviceHead" jdbcType="VARCHAR" />
+    <result column="device_sex" property="deviceSex" jdbcType="INTEGER" />
+    <result column="device_birthday" property="deviceBirthday" jdbcType="TIMESTAMP" />
+    <result column="device_age" property="deviceAge" jdbcType="INTEGER" />
+    <result column="device_height" property="deviceHeight" jdbcType="INTEGER" />
+    <result column="device_weight" property="deviceWeight" jdbcType="INTEGER" />
+    <result column="device_stepd" property="deviceStepd" jdbcType="INTEGER" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="device_update_time" property="deviceUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="device_disable" property="deviceDisable" jdbcType="TIMESTAMP" />
+    <result column="firm" property="firm" jdbcType="VARCHAR" />
+    <result column="first" property="first" jdbcType="TIMESTAMP" />
+    <result column="device_status" property="deviceStatus" jdbcType="INTEGER" />
+    <result column="short_number" property="shortNumber" jdbcType="VARCHAR" />
+    <result column="address" property="phsaddress" jdbcType="VARCHAR" />
+    <result column="addnotes" property="addnotes" jdbcType="VARCHAR" />
+    <result column="balance" property="balance" jdbcType="VARCHAR" />
+    <result column="phone_balance" property="phoneBalance" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, device_phone, device_imei, device_name, uid, nick_name,device_head, device_sex, device_age, device_birthday, 
+    device_height, device_weight, device_stepd,  phone,device_update_time, device_disable, firm, first, device_status, 
+    short_number, address, addnotes, balance, phone_balance 
+  </sql>
+   <select id="getDeviceWearInfoByImei" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from device_wear_info
+    <where>
+    <trim prefixOverrides="and">
+    <if test="deviceImei !=null">
+    and device_imei = #{deviceImei,jdbcType=VARCHAR}
+    </if>
+    <if test="uid !=null">
+    and uid = #{uid,jdbcType=INTEGER}
+    </if>
+    </trim>
+    </where>
+    limit 0,1
+  </select>
+  
+  <update id="saveDeviceWearInfo" parameterType="com.chinamcom.framework.user.dao.DeviceWearInfo"
+		keyProperty="id">
+		update device_wear_info 
+		<set>
+		<if test="devicePhone !=null">
+			device_phone = #{devicePhone,jdbcType=VARCHAR},
+		</if>
+		<if test="deviceImei !=null">
+			device_imei = #{deviceImei,jdbcType=VARCHAR},
+		</if>
+		<if test="deviceName !=null">
+			device_name = #{deviceName,jdbcType=VARCHAR},
+		</if>
+		<if test="nickName !=null">
+			nick_name = #{nickName,jdbcType=VARCHAR},
+		</if>
+		<if test="deviceHead !=null">
+			device_head = #{deviceHead,jdbcType=VARCHAR},
+		</if>
+		<if test="deviceSex !=null">
+			device_sex = #{deviceSex,jdbcType=INTEGER},
+		</if>
+		<if test="deviceBirthday !=null">
+			device_birthday = #{deviceBirthday,jdbcType=TIMESTAMP},
+		</if>
+		<if test="deviceAge !=null">
+			device_age = #{deviceAge,jdbcType=INTEGER},
+		</if>
+		<if test="deviceHeight !=null">
+			device_height = #{deviceHeight,jdbcType=INTEGER},
+		</if>
+		<if test="deviceWeight !=null">
+			device_weight = #{deviceWeight,jdbcType=INTEGER},
+		</if>
+		<if test="deviceStepd !=null">
+			device_stepd = #{deviceStepd,jdbcType=INTEGER},
+		</if>
+		<if test="phone !=null">
+			phone = #{phone,jdbcType=VARCHAR},
+		</if>
+		<if test="deviceUpdateTime !=null">
+			device_update_time = #{deviceUpdateTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="deviceDisable !=null">
+			device_disable = #{deviceDisable,jdbcType=VARCHAR},
+		</if>
+		<if test="firm !=null">
+			firm = #{firm,jdbcType=VARCHAR},
+		</if>
+		<if test="first !=null">
+			first = #{first,jdbcType=TIMESTAMP},
+		</if>
+		<if test="deviceStatus !=null">
+			device_status = #{deviceStatus,jdbcType=INTEGER},
+		</if>
+		<if test="shortNumber !=null">
+			short_number = #{shortNumber,jdbcType=VARCHAR},
+		</if>
+		<if test="address !=null">
+			phsaddress = #{phsaddress,jdbcType=VARCHAR},
+		</if>
+		<if test="addnotes !=null">
+			addnotes = #{addnotes,jdbcType=VARCHAR},
+		</if>
+		<if test="balance !=null">
+			balance = #{balance,jdbcType=VARCHAR},
+		</if>
+		<if test="phoneBalance !=null">
+			phone_balance = #{phoneBalance,jdbcType=VARCHAR},
+		</if>
+		</set>
+		<where>
+		<trim  prefixOverrides="and">
+		<if test="id !=null">
+		and	id = #{id,jdbcType=INTEGER}
+		</if>
+		<if test="uid !=null">
+   		 and uid = #{uid,jdbcType=INTEGER}
+    	</if>
+		</trim>
+		</where>
+	</update>
+	
+	<insert id="insertDeviceWearInfo" parameterType="com.chinamcom.framework.user.dao.DeviceWearInfo"
+		useGeneratedKeys="true" keyProperty="id">
+		
+	insert into device_wear_info(device_phone, device_imei, device_name, uid, nick_name, 
+		device_head, device_sex, device_birthday, device_age, device_height, device_weight, 
+		device_stepd, phone, device_update_time, 
+		device_disable, firm, first, device_status, short_number, 
+		address, addnotes, balance, phone_balance) 
+		values(
+		#{devicePhone,jdbcType=VARCHAR},
+		#{deviceImei,jdbcType=VARCHAR},
+		#{deviceName,jdbcType=VARCHAR},
+		#{uid,jdbcType=INTEGER},
+		#{nickName,jdbcType=VARCHAR},
+		#{deviceHead,jdbcType=VARCHAR},
+		#{deviceSex,jdbcType=INTEGER},
+		#{deviceBirthday,jdbcType=TIMESTAMP},
+		#{deviceAge,jdbcType=INTEGER},
+		#{deviceHeight,jdbcType=INTEGER},
+		#{deviceWeight,jdbcType=INTEGER},
+		#{deviceStepd,jdbcType=INTEGER},
+		#{phone,jdbcType=VARCHAR},
+		#{deviceUpdateTime,jdbcType=TIMESTAMP},
+		#{deviceDisable,jdbcType=VARCHAR},
+		#{firm,jdbcType=VARCHAR},
+		#{first,jdbcType=TIMESTAMP},
+		#{deviceStatus,jdbcType=INTEGER},
+		#{shortNumber,jdbcType=VARCHAR},
+		#{address,jdbcType=VARCHAR},
+		#{addnotes,jdbcType=VARCHAR},
+		#{balance,jdbcType=VARCHAR},
+		#{phoneBalance,jdbcType=VARCHAR}
+		)
+	</insert>
+</mapper>

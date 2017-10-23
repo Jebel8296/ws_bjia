@@ -1,0 +1,1108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinamcom.framework.sport.dao.SportSummaryMapper" >
+  <resultMap id="BaseResultMap" type="com.chinamcom.framework.sport.model.SportSummary" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="imei" property="imei" jdbcType="VARCHAR" />
+    <result column="sport_type" property="sportType" jdbcType="INTEGER" />
+    <result column="step" property="step" jdbcType="INTEGER" />
+    <result column="time_dimension" property="timeDimension" jdbcType="INTEGER" />
+    <result column="val_diemension" property="valDiemension" jdbcType="INTEGER" />
+    <result column="distance" property="distance" jdbcType="INTEGER" />
+    <result column="calorie" property="calorie" jdbcType="INTEGER" />
+    <result column="count_time" property="countTime" jdbcType="TIMESTAMP" />
+    <result column="heart_rate" property="heartRate" jdbcType="INTEGER" />
+    <result column="hour" property="hour" jdbcType="INTEGER" />
+    <result column="week" property="week" jdbcType="INTEGER" />
+    <result column="month" property="month" jdbcType="INTEGER" />
+    <result column="xValue" property="xValue" jdbcType="VARCHAR" />
+    <result column="yValue" property="yValue" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="target" property="target" jdbcType="INTEGER" />
+    <result column="weeklySumStep" property="weeklySumStep" jdbcType="INTEGER" />
+    <result column="weeklyAvgStep" property="weeklyAvgStep" jdbcType="INTEGER" />
+    <result column="lastWeekSumStep" property="lastWeekSumStep" jdbcType="INTEGER" />
+    <result column="lastWeekAvgStep" property="lastWeekAvgStep" jdbcType="INTEGER" />
+    <result column="weeklySumCalorie" property="weeklySumCalorie" jdbcType="INTEGER" />
+    <result column="lastWeekSumCalorie" property="lastWeekSumCalorie" jdbcType="INTEGER" />
+    
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, imei, sport_type, time_dimension, val_diemension, step, distance, calorie, count_time 
+  </sql>
+  <!-- 
+  <select id="delaySportInfo" resultMap="BaseResultMap" parameterType="map" >
+  	select 
+    id, imei, sport_type, sum(step) as step, SUM(energy) as calorie, 
+    sum(distance) as distance, sum(use_time) as timeDimension  
+    from sport_info 
+    <where>
+     <trim prefixOverrides="and">
+      and DATE_FORMAT(`upload_time`,'%Y-%m-%d') = CURDATE()  
+      <if test="imei !=null">
+      and imei =#{imei,jdbcType=VARCHAR}
+      </if>  
+     </trim>
+    </where>
+    group by imei,sport_type
+  </select>
+   <select id="delaySportInfo" resultMap="BaseResultMap" parameterType="map" >
+    SELECT table_a.imei,table_a.sport_type,table_a.step, table_a.calorie,table_a.distance, 
+    table_a.time_dimension,table_b.`target` FROM (SELECT 
+    imei, sport_type, SUM(step) AS step, SUM(energy) AS calorie, 
+    SUM(distance) AS distance, SUM(use_time) AS time_dimension  
+    FROM sport_info 
+    WHERE DATE_FORMAT(`upload_time`,'%Y-%m-%d') = CURDATE() 
+    GROUP BY imei,sport_type)AS table_a 
+    LEFT JOIN (
+    SELECT table_m.*,usif.target,us.uid FROM (
+    SELECT 
+    imei, sport_type, SUM(step) AS step, SUM(energy) AS calorie, 
+    SUM(distance) AS distance, SUM(use_time) AS timeDimension  
+    FROM sport_info 
+    WHERE DATE_FORMAT(`upload_time`,'%Y-%m-%d') = CURDATE() 
+    AND sport_type=1
+    GROUP BY imei,sport_type) AS table_m 
+    LEFT JOIN app_user us ON table_m.imei = us.`IMEI`
+    LEFT JOIN app_userinfo usif ON us.`UID` = usif.`uid` )AS table_b ON table_a.imei = table_b.imei AND table_a.sport_type = table_b.sport_type
+   </select>
+   -->
+   <select id="delaySportInfo" resultMap="BaseResultMap" parameterType="map" >
+    SELECT dv.imei,CASE  WHEN sport_type IS NULL THEN 1 ELSE sport_type END AS sport_type, 
+	CASE sport_type WHEN 1 THEN target ELSE 
+	(SELECT target FROM app_userinfo WHERE uid = (SELECT uid FROM app_user WHERE imei =dv.imei)) END AS target,
+    CASE WHEN step IS NULL THEN 0 ELSE step END AS step,
+    CASE WHEN calorie IS NULL THEN 0 ELSE calorie END AS calorie,
+    CASE WHEN distance IS NULL THEN 0 ELSE distance END AS distance,
+    CASE WHEN time_dimension IS NULL THEN 0 ELSE time_dimension END AS time_dimension
+    FROM device_info dv LEFT JOIN (
+    SELECT 
+    imei, sport_type, SUM(step) AS step, SUM(energy) AS calorie, 
+    SUM(distance) AS distance, SUM(use_time) AS time_dimension  
+    FROM sport_info 
+    WHERE DATE_FORMAT(`upload_time`,'%Y-%m-%d') = CURDATE() 
+    GROUP BY imei,sport_type) AS table_m 
+    ON dv.`imei` = table_m.imei
+    LEFT JOIN app_user us ON dv.imei = us.`IMEI`
+    LEFT JOIN app_userinfo usif ON us.`UID` = usif.`uid` 
+    WHERE target IS NOT NULL
+    </select>
+  
+  <insert id="batchInsert" parameterType="java.util.List">
+  insert into sport_summary(imei,sport_type,time_dimension,val_diemension,step,distance,
+  calorie,count_time,heart_rate,target) values 
+  <foreach collection="list" item="item" index="index" separator=","> 
+  (
+  #{item.imei,jdbcType=VARCHAR},
+  #{item.sportType,jdbcType=INTEGER},
+  #{item.timeDimension,jdbcType=INTEGER},
+  #{item.valDiemension,jdbcType=INTEGER},
+  #{item.step,jdbcType=INTEGER},
+  #{item.distance,jdbcType=INTEGER},
+  #{item.calorie,jdbcType=INTEGER},
+  NOW(),
+  #{item.heartRate,jdbcType=INTEGER},
+  #{item.target,jdbcType=INTEGER}
+  ) 
+  </foreach>
+  </insert>
+
+  <!-- 
+  <select id="delaySportSummaryList" resultMap="BaseResultMap" parameterType="map">
+  select  
+   id, imei, sport_type, time_dimension, val_diemension, step, distance, calorie, count_time,HOUR(count_time) AS hour  
+  from sport_summary
+  <where>
+  <trim prefixOverrides="and">
+  <if test="dateStar != null">
+  <![CDATA[and count_time >=#{dateStar,jdbcType=VARCHAR}]]>
+  </if>
+  <if test="dateEnd !=null">
+  <![CDATA[and count_time <=#{dateEnd,jdbcType=VARCHAR}]]>
+  </if>  
+  <if test="imei !=null">
+  and imei =#{imei,jdbcType=VARCHAR}
+  </if>  
+  <if test="sportType !=null">
+  and sport_type =#{sportType,jdbcType=INTEGER}
+  </if>  
+  </trim>
+  </where>
+  </select>
+   
+  <select id="queryweeksportinfo" resultMap="BaseResultMap" parameterType="map">
+  select 
+  id, imei, sport_type, time_dimension, val_diemension, step, distance, calorie, count_time,WEEKDAY(count_time) AS week
+  from sport_summary
+  <where>
+  <trim prefixOverrides="and">
+  <if test="dateStar != null">
+  <![CDATA[and count_time >=#{dateStar,jdbcType=VARCHAR}]]>
+  </if>
+  <if test="dateEnd !=null">
+  <![CDATA[and count_time <=#{dateEnd,jdbcType=VARCHAR}]]>
+  </if>  
+  <if test="imei !=null">
+  and imei =#{imei,jdbcType=VARCHAR}
+  </if>  
+  <if test="sportType !=null">
+  and sport_type =#{sportType,jdbcType=INTEGER}
+  </if> 
+  </trim>
+  </where>
+  </select>
+
+  <select id="querymonthsportinfo" resultMap="BaseResultMap" parameterType="map">
+  select 
+  id, imei, sport_type, time_dimension, val_diemension, step, distance, calorie, count_time,MONTH(count_time) AS month
+  from sport_summary
+  <where>
+  <trim prefixOverrides="and">
+  <if test="dateStar != null">
+  <![CDATA[and count_time >=#{dateStar,jdbcType=VARCHAR}]]>
+  </if>
+  <if test="dateEnd !=null">
+  <![CDATA[and count_time <=#{dateEnd,jdbcType=VARCHAR}]]>
+  </if>  
+  <if test="imei !=null">
+  and imei =#{imei,jdbcType=VARCHAR}
+  </if>  
+  <if test="sportType !=null">
+  and sport_type =#{sportType,jdbcType=INTEGER}
+  </if> 
+  </trim>
+  </where>
+  </select>
+    -->
+  <select id="delayStepList" resultMap="BaseResultMap" parameterType="map" >
+  select 
+    imei, sport_type, HOUR(`upload_time`) AS xValue,SUM(step) AS step,SUM(step) AS yValue 
+    from sport_info 
+    <where>
+     <trim prefixOverrides="and">
+      <if test="dateStar !=null">
+      <![CDATA[and upload_time >=#{dateStar,jdbcType=VARCHAR}]]>
+      </if>
+      <if test="dateEnd !=null">
+      <![CDATA[and upload_time <=#{dateEnd,jdbcType=VARCHAR}]]>
+      </if>  
+      <if test="imei !=null">
+      and imei =#{imei,jdbcType=VARCHAR}
+      </if>  
+      <if test="sportType !=null">
+      and sport_type =#{sportType,jdbcType=INTEGER}
+      </if>  
+     </trim>
+    </where>
+    GROUP BY xValue,imei,sport_type
+  </select>
+  
+  <select id="countStep" resultType="java.lang.Integer" parameterType="map">
+  select 
+    Max(step) AS stepSum 
+    from sport_info_total 
+    <where>
+     <trim prefixOverrides="and">
+      <if test="dateStar !=null">
+      <![CDATA[and upload_time >=#{dateStar,jdbcType=VARCHAR}]]>
+      </if>
+      <if test="dateEnd !=null">
+      <![CDATA[and upload_time <=#{dateEnd,jdbcType=VARCHAR}]]>
+      </if>  
+      <if test="imei !=null">
+      and imei =#{imei,jdbcType=VARCHAR}
+      </if>  
+       <if test="sportType !=null">
+      and sport_type =#{sportType,jdbcType=INTEGER}
+      </if> 
+     </trim>
+    </where>
+    group by imei,sport_type
+  </select>
+  
+   <select id="queryTarget" resultType="java.lang.Integer" parameterType="map">
+  select 
+    target  
+    from app_userinfo 
+    <where>
+     <trim prefixOverrides="and">
+     and uid=(
+     SELECT uid FROM app_user WHERE imei=#{imei,jdbcType=VARCHAR}
+     )
+     </trim>
+    </where>
+  </select>
+  
+  <select id="delayUseTimeList" resultMap="BaseResultMap" parameterType="map" >
+  select 
+    imei, sport_type, HOUR(`upload_time`) AS xValue,SUM(use_time) AS timeDimension,
+    SUM(use_time) AS yValue   
+    from sport_info 
+    <where>
+     <trim prefixOverrides="and">
+      <if test="dateStar !=null">
+      <![CDATA[and upload_time >=#{dateStar,jdbcType=VARCHAR}]]>
+      </if>
+      <if test="dateEnd !=null">
+      <![CDATA[and upload_time <=#{dateEnd,jdbcType=VARCHAR}]]>
+      </if>  
+      <if test="imei !=null">
+      and imei =#{imei,jdbcType=VARCHAR}
+      </if>  
+       <if test="sportType !=null">
+      and sport_type =#{sportType,jdbcType=INTEGER}
+      </if> 
+     </trim>
+    </where>
+    GROUP BY xValue,imei,sport_type
+  </select>
+  
+  <select id="countUseTime" resultType="java.lang.Integer" parameterType="map">
+  select 
+    Max(use_time) AS useTimeSum 
+    from sport_info_total 
+    <where>
+     <trim prefixOverrides="and">
+      <if test="dateStar !=null">
+      <![CDATA[and upload_time >=#{dateStar,jdbcType=VARCHAR}]]>
+      </if>
+      <if test="dateEnd !=null">
+      <![CDATA[and upload_time <=#{dateEnd,jdbcType=VARCHAR}]]>
+      </if>  
+      <if test="imei !=null">
+      and imei =#{imei,jdbcType=VARCHAR}
+      </if>  
+      <if test="sportType !=null">
+      and sport_type =#{sportType,jdbcType=INTEGER}
+      </if> 
+     </trim>
+    </where>
+    group by imei,sport_type
+  </select>
+  
+  <select id="delayDistanceList" resultMap="BaseResultMap" parameterType="map" >
+  select 
+    imei, sport_type, HOUR(`upload_time`) AS xValue,SUM(distance) AS distance, 
+    SUM(distance) AS yValue    
+    from sport_info 
+    <where>
+     <trim prefixOverrides="and">
+      <if test="dateStar !=null">
+      <![CDATA[and upload_time >=#{dateStar,jdbcType=VARCHAR}]]>
+      </if>
+      <if test="dateEnd !=null">
+      <![CDATA[and upload_time <=#{dateEnd,jdbcType=VARCHAR}]]>
+      </if>  
+      <if test="imei !=null">
+      and imei =#{imei,jdbcType=VARCHAR}
+      </if>
+       <if test="sportType !=null">
+      and sport_type =#{sportType,jdbcType=INTEGER}
+      </if>   
+     </trim>
+    </where>
+    GROUP BY xValue,imei,sport_type
+  </select>
+  
+  <select id="countDistance" resultType="java.lang.Integer" parameterType="map">
+  select 
+    Max(distance) AS distanceSum 
+    from sport_info_total 
+    <where>
+     <trim prefixOverrides="and">
+      <if test="dateStar !=null">
+      <![CDATA[and upload_time >=#{dateStar,jdbcType=VARCHAR}]]>
+      </if>
+      <if test="dateEnd !=null">
+      <![CDATA[and upload_time <=#{dateEnd,jdbcType=VARCHAR}]]>
+      </if>  
+      <if test="imei !=null">
+      and imei =#{imei,jdbcType=VARCHAR}
+      </if> 
+       <if test="sportType !=null">
+      and sport_type =#{sportType,jdbcType=INTEGER}
+      </if>  
+     </trim>
+    </where>
+    group by imei,sport_type
+  </select>
+  
+  <select id="delayCalorieList" resultMap="BaseResultMap" parameterType="map" >
+  select 
+    imei, sport_type, HOUR(`upload_time`) AS xValue,SUM(energy) AS calorie, 
+    SUM(energy) AS yValue 
+    from sport_info 
+    <where>
+     <trim prefixOverrides="and">
+      <if test="dateStar !=null">
+      <![CDATA[and upload_time >=#{dateStar,jdbcType=VARCHAR}]]>
+      </if>
+      <if test="dateEnd !=null">
+      <![CDATA[and upload_time <=#{dateEnd,jdbcType=VARCHAR}]]>
+      </if>  
+      <if test="imei !=null">
+      and imei =#{imei,jdbcType=VARCHAR}
+      </if>
+       <if test="sportType !=null">
+      and sport_type =#{sportType,jdbcType=INTEGER}
+      </if>   
+     </trim>
+    </where>
+    GROUP BY xValue,imei,sport_type
+  </select>
+  
+  <select id="countCalorie" resultType="java.lang.Integer" parameterType="map">
+  select 
+    Max(energy) AS calorieSum 
+    from sport_info_total 
+    <where>
+     <trim prefixOverrides="and">
+      <if test="dateStar !=null">
+      <![CDATA[and upload_time >=#{dateStar,jdbcType=VARCHAR}]]>
+      </if>
+      <if test="dateEnd !=null">
+      <![CDATA[and upload_time <=#{dateEnd,jdbcType=VARCHAR}]]>
+      </if>  
+      <if test="imei !=null">
+      and imei =#{imei,jdbcType=VARCHAR}
+      </if>  
+       <if test="sportType !=null">
+      and sport_type =#{sportType,jdbcType=INTEGER}
+      </if> 
+     </trim>
+    </where>
+    group by imei,sport_type
+  </select>
+  
+  <select id="delayHeartRateList" resultMap="BaseResultMap" parameterType="map" >
+  SELECT `type` as sportType,imei,`time`,xValue,MAX(heart_rate+0) as heartRateMax,
+  MIN(heart_rate+0) as heartRateMin FROM (
+     SELECT `type`,imei,heart_rate,`time`, HOUR(`time`) AS xValue 
+     FROM `heart_rate_info` 
+     <where>  
+     <trim prefixOverrides="and">
+     <if test="imei !=null">
+      and imei =#{imei,jdbcType=VARCHAR}
+      </if> 
+      <if test="dateStar !=null">
+      <![CDATA[and time >=#{dateStar,jdbcType=VARCHAR}]]>
+      </if>
+      <if test="dateEnd !=null">
+      <![CDATA[and time <=#{dateEnd,jdbcType=VARCHAR}]]>
+      </if>
+      <if test="sportType !=null">
+      and `type` =#{sportType,jdbcType=VARCHAR}
+      </if>   
+      </trim>
+      </where>
+     ) AS b
+     GROUP BY xValue
+  </select>
+  <!-- 
+  <select id="weekStepList" resultMap="BaseResultMap" parameterType="map" >
+  select 
+    imei, sport_type, DATE_FORMAT(`upload_time`,'%m月%d日') AS xValue,
+    SUM(step) AS step, SUM(step) AS yValue ,`create_time`   
+    from sport_info 
+    <where>
+     <trim prefixOverrides="and">
+      <if test="weekStar !=null">
+      <![CDATA[and upload_time >=#{weekStar,jdbcType=VARCHAR}]]>
+      </if>
+      <if test="weekEnd !=null">
+      <![CDATA[and upload_time <=#{weekEnd,jdbcType=VARCHAR}]]>
+      </if>  
+      <if test="imei !=null">
+      and imei =#{imei,jdbcType=VARCHAR}
+      </if>
+       <if test="sportType !=null">
+      and sport_type =#{sportType,jdbcType=INTEGER}
+      </if>   
+     </trim>
+    </where>
+    GROUP BY xValue,imei,sport_type
+  </select>
+   -->
+  <select id="countWeekStep" resultType="java.lang.Integer" parameterType="map">
+  SELECT SUM(sumstep) AS stepSum FROM(
+  SELECT MAX(step) AS sumstep FROM (
+  SELECT 
+    *,DATE_FORMAT(upload_time,"%Y-%m-%d") AS formateTime 
+    FROM sport_info_total
+    <where>
+    <trim prefixOverrides="and">
+     <if test="weekStar !=null">
+      <![CDATA[and upload_time >=#{weekStar,jdbcType=VARCHAR}]]>
+      </if>
+      <if test="weekEnd !=null">
+      <![CDATA[and upload_time <=#{weekEnd,jdbcType=VARCHAR}]]>
+      </if>  
+      <if test="imei !=null">
+      and imei =#{imei,jdbcType=VARCHAR}
+      </if>
+      <if test="sportType !=null">
+      and sport_type =#{sportType,jdbcType=INTEGER}
+      </if>   
+     </trim>
+      ) a 
+    </where>
+     GROUP BY a.imei, a.formateTime,a.sport_type ) b
+  </select>
+  <!-- 
+  <select id="weekUseTimeList"  resultMap="BaseResultMap" parameterType="map">
+   select 
+    imei, sport_type, DATE_FORMAT(`upload_time`,'%m月%d日') AS xValue,
+    SUM(use_time) AS time_dimension, SUM(use_time) AS yValue ,`create_time`   
+    from sport_info 
+    <where>
+     <trim prefixOverrides="and">
+      <if test="weekStar !=null">
+      <![CDATA[and upload_time >=#{weekStar,jdbcType=VARCHAR}]]>
+      </if>
+      <if test="weekEnd !=null">
+      <![CDATA[and upload_time <=#{weekEnd,jdbcType=VARCHAR}]]>
+      </if>  
+      <if test="imei !=null">
+      and imei =#{imei,jdbcType=VARCHAR}
+      </if>  
+       <if test="sportType !=null">
+      and sport_type =#{sportType,jdbcType=INTEGER}
+      </if> 
+     </trim>
+    </where>
+    GROUP BY xValue,imei,sport_type
+  </select>
+   -->
+  <select id="countWeekUseTime" resultType="java.lang.Integer" parameterType="map">
+  
+  SELECT SUM(sumtime) AS useTimeSum FROM(
+  SELECT MAX(use_time) AS sumtime FROM (
+  SELECT 
+    *,DATE_FORMAT(upload_time,"%Y-%m-%d") AS formateTime 
+    FROM sport_info_total
+    <where>
+    <trim prefixOverrides="and">
+     <if test="weekStar !=null">
+      <![CDATA[and upload_time >=#{weekStar,jdbcType=VARCHAR}]]>
+      </if>
+      <if test="weekEnd !=null">
+      <![CDATA[and upload_time <=#{weekEnd,jdbcType=VARCHAR}]]>
+      </if>  
+      <if test="imei !=null">
+      and imei =#{imei,jdbcType=VARCHAR}
+      </if>
+      <if test="sportType !=null">
+      and sport_type =#{sportType,jdbcType=INTEGER}
+      </if>   
+     </trim>
+      ) a 
+    </where>
+     GROUP BY a.imei, a.formateTime,a.sport_type ) b
+  </select>
+  <!-- 
+  <select id="weekDistanceList"  resultMap="BaseResultMap" parameterType="map">
+   select 
+    imei, sport_type, DATE_FORMAT(`upload_time`,'%m月%d日') AS xValue,
+    SUM(distance) AS distance,SUM(distance) AS yValue,`create_time`   
+    from sport_info 
+    <where>
+     <trim prefixOverrides="and">
+      <if test="weekStar !=null">
+      <![CDATA[and upload_time >=#{weekStar,jdbcType=VARCHAR}]]>
+      </if>
+      <if test="weekEnd !=null">
+      <![CDATA[and upload_time <=#{weekEnd,jdbcType=VARCHAR}]]>
+      </if>  
+      <if test="imei !=null">
+      and imei =#{imei,jdbcType=VARCHAR}
+      </if>  
+       <if test="sportType !=null">
+      and sport_type =#{sportType,jdbcType=INTEGER}
+      </if> 
+     </trim>
+    </where>
+    GROUP BY xValue,imei,sport_type
+  </select>
+   -->
+  <select id="countWeekDistance" resultType="java.lang.Integer" parameterType="map">
+  
+  SELECT SUM(sumdistance) AS distanceSum FROM(
+  SELECT MAX(distance) AS sumdistance FROM (
+  SELECT 
+    *,DATE_FORMAT(upload_time,"%Y-%m-%d") AS formateTime 
+    FROM sport_info_total
+    <where>
+    <trim prefixOverrides="and">
+     <if test="weekStar !=null">
+      <![CDATA[and upload_time >=#{weekStar,jdbcType=VARCHAR}]]>
+      </if>
+      <if test="weekEnd !=null">
+      <![CDATA[and upload_time <=#{weekEnd,jdbcType=VARCHAR}]]>
+      </if>  
+      <if test="imei !=null">
+      and imei =#{imei,jdbcType=VARCHAR}
+      </if>
+      <if test="sportType !=null">
+      and sport_type =#{sportType,jdbcType=INTEGER}
+      </if>   
+     </trim>
+      ) a 
+    </where>
+     GROUP BY a.imei, a.formateTime,a.sport_type ) b
+  </select>
+  <!-- 
+  <select id="weekCalorieList"  resultMap="BaseResultMap" parameterType="map">
+   select 
+    imei, sport_type, DATE_FORMAT(`upload_time`,'%m月%d日') AS xValue,
+    SUM(energy) AS calorie ,SUM(energy) AS yValue,`create_time`   
+    from sport_info 
+    <where>
+     <trim prefixOverrides="and">
+      <if test="weekStar !=null">
+      <![CDATA[and upload_time >=#{weekStar,jdbcType=VARCHAR}]]>
+      </if>
+      <if test="weekEnd !=null">
+      <![CDATA[and upload_time <=#{weekEnd,jdbcType=VARCHAR}]]>
+      </if>  
+      <if test="imei !=null">
+      and imei =#{imei,jdbcType=VARCHAR}
+      </if>  
+       <if test="sportType !=null">
+      and sport_type =#{sportType,jdbcType=INTEGER}
+      </if> 
+     </trim>
+    </where>
+    GROUP BY xValue,imei,sport_type
+  </select>
+   -->
+  <select id="countWeekCalorie" resultType="java.lang.Integer" parameterType="map">
+  SELECT SUM(sumenergy) AS calorieSum FROM(
+  SELECT MAX(energy) AS sumenergy FROM (
+  SELECT 
+    *,DATE_FORMAT(upload_time,"%Y-%m-%d") AS formateTime 
+    FROM sport_info_total
+    <where>
+    <trim prefixOverrides="and">
+     <if test="weekStar !=null">
+      <![CDATA[and upload_time >=#{weekStar,jdbcType=VARCHAR}]]>
+      </if>
+      <if test="weekEnd !=null">
+      <![CDATA[and upload_time <=#{weekEnd,jdbcType=VARCHAR}]]>
+      </if>  
+      <if test="imei !=null">
+      and imei =#{imei,jdbcType=VARCHAR}
+      </if>
+      <if test="sportType !=null">
+      and sport_type =#{sportType,jdbcType=INTEGER}
+      </if>   
+     </trim>
+      ) a 
+    </where>
+     GROUP BY a.imei, a.formateTime,a.sport_type ) b
+  </select>
+  
+  <select id="weekHeartRateList" resultMap="BaseResultMap" parameterType="map" >
+  SELECT `type` as sportType,imei,`time` as create_time,xValue,MAX(heart_rate+0) as heartRateMax,
+  MIN(heart_rate+0) as heartRateMin FROM (
+     SELECT `type`,imei,heart_rate,`time`, DATE_FORMAT(`time`,'%m月%d日') AS xValue 
+     FROM `heart_rate_info` 
+     <where>  
+     <trim prefixOverrides="and">
+     <if test="imei !=null">
+      and imei =#{imei,jdbcType=VARCHAR}
+      </if> 
+      <if test="weekStar !=null">
+      <![CDATA[and time >=#{weekStar,jdbcType=VARCHAR}]]>
+      </if>
+      <if test="weekEnd !=null">
+      <![CDATA[and time <=#{weekEnd,jdbcType=VARCHAR}]]>
+      </if>
+      <if test="sportType !=null">
+      and `type` =#{sportType,jdbcType=VARCHAR}
+      </if>   
+      </trim>
+      </where>
+     ) AS b
+     GROUP BY xValue
+  </select>
+  <!-- 
+  <select id="monthHistorySportInfoList" resultMap="BaseResultMap" parameterType="map" >
+  select 
+    imei, sport_type, DATE_FORMAT(`upload_time`,'%m月%d日') AS xValue,
+    SUM(step) AS step,SUM(use_time) AS timeDimension,
+    SUM(distance) AS distance,SUM(energy) AS calorie,`create_time`   
+    from sport_info 
+    <where>
+     <trim prefixOverrides="and">
+      <if test="monthStar !=null">
+      <![CDATA[and upload_time >=#{monthStar,jdbcType=VARCHAR}]]>
+      </if>
+      <if test="monthEnd !=null">
+      <![CDATA[and upload_time <=#{monthEnd,jdbcType=VARCHAR}]]>
+      </if>  
+      <if test="imei !=null">
+      and imei =#{imei,jdbcType=VARCHAR}
+      </if>  
+       <if test="sportType !=null">
+      and sport_type =#{sportType,jdbcType=INTEGER}
+      </if> 
+     </trim>
+    </where>
+    GROUP BY xValue,imei,sport_type
+  </select>
+   
+  <select id="countMonthStep" resultType="java.lang.Integer" parameterType="map">
+  select 
+    SUM(step) AS stepSum   
+    from sport_info 
+    <where>
+     <trim prefixOverrides="and">
+      <if test="monthStar !=null">
+      <![CDATA[and upload_time >=#{monthStar,jdbcType=VARCHAR}]]>
+      </if>
+      <if test="monthEnd !=null">
+      <![CDATA[and upload_time <=#{monthEnd,jdbcType=VARCHAR}]]>
+      </if>  
+      <if test="imei !=null">
+      and imei =#{imei,jdbcType=VARCHAR}
+      </if>  
+       <if test="sportType !=null">
+      and sport_type =#{sportType,jdbcType=INTEGER}
+      </if> 
+     </trim>
+    </where>
+    group by imei,sport_type
+  </select>
+
+  <select id="countMonthUseTime" resultType="java.lang.Integer" parameterType="map">
+  select 
+    SUM(use_time) AS useTimeSum  
+    from sport_info 
+    <where>
+     <trim prefixOverrides="and">
+      <if test="monthStar !=null">
+      <![CDATA[and upload_time >=#{monthStar,jdbcType=VARCHAR}]]>
+      </if>
+      <if test="monthEnd !=null">
+      <![CDATA[and upload_time <=#{monthEnd,jdbcType=VARCHAR}]]>
+      </if>  
+      <if test="imei !=null">
+      and imei =#{imei,jdbcType=VARCHAR}
+      </if>  
+       <if test="sportType !=null">
+      and sport_type =#{sportType,jdbcType=INTEGER}
+      </if> 
+     </trim>
+    </where>
+    group by imei,sport_type
+  </select>
+
+  <select id="countMonthDistance" resultType="java.lang.Integer" parameterType="map">
+  select 
+    SUM(distance) AS distanceSum    
+    from sport_info 
+    <where>
+     <trim prefixOverrides="and">
+      <if test="monthStar !=null">
+      <![CDATA[and upload_time >=#{monthStar,jdbcType=VARCHAR}]]>
+      </if>
+      <if test="monthEnd !=null">
+      <![CDATA[and upload_time <=#{monthEnd,jdbcType=VARCHAR}]]>
+      </if>  
+      <if test="imei !=null">
+      and imei =#{imei,jdbcType=VARCHAR}
+      </if>  
+       <if test="sportType !=null">
+      and sport_type =#{sportType,jdbcType=INTEGER}
+      </if> 
+     </trim>
+    </where>
+    group by imei,sport_type
+  </select>
+  
+  <select id="countMonthCalorie" resultType="java.lang.Integer" parameterType="map">
+  select 
+    SUM(energy) AS calorieSum   
+    from sport_info 
+    <where>
+     <trim prefixOverrides="and">
+      <if test="monthStar !=null">
+      <![CDATA[and upload_time >=#{monthStar,jdbcType=VARCHAR}]]>
+      </if>
+      <if test="monthEnd !=null">
+      <![CDATA[and upload_time <=#{monthEnd,jdbcType=VARCHAR}]]>
+      </if>  
+      <if test="imei !=null">
+      and imei =#{imei,jdbcType=VARCHAR}
+      </if>  
+       <if test="sportType !=null">
+      and sport_type =#{sportType,jdbcType=INTEGER}
+      </if> 
+     </trim>
+    </where>
+    group by imei,sport_type
+  </select>
+     
+  <select id="monthHeartRateList" resultMap="BaseResultMap" parameterType="map" >
+  SELECT `type` as sportType,imei,`time` as create_time,xValue,MAX(heart_rate+0) as heartRateMax,
+  MIN(heart_rate+0) as heartRateMin FROM (
+     SELECT `type`,imei,heart_rate,`time`, DATE_FORMAT(`time`,'%m月%d日') AS xValue 
+     FROM `heart_rate_info` 
+     <where>  
+     <trim prefixOverrides="and">
+     <if test="monthStar !=null">
+      <![CDATA[and time >=#{monthStar,jdbcType=VARCHAR}]]>
+      </if>
+      <if test="monthEnd !=null">
+      <![CDATA[and time <=#{monthEnd,jdbcType=VARCHAR}]]>
+      </if>  
+      <if test="imei !=null">
+      and imei =#{imei,jdbcType=VARCHAR}
+      </if>  
+       <if test="sportType !=null">
+      and `type` =#{sportType,jdbcType=INTEGER}
+      </if>  
+      </trim>
+      </where>
+     ) AS b
+     GROUP BY xValue
+  </select>
+   -->
+  <select id="weekHistoryStepList" resultMap="BaseResultMap" parameterType="map">
+  select imei, sport_type, DATE_FORMAT(`count_time`,'%m月%d日') AS xValue, 
+  step,step as yValue,count_time as create_time,target from sport_summary
+  <where>
+     <trim prefixOverrides="and">
+      <if test="weekStar !=null">
+      <![CDATA[and count_time >=#{weekStar,jdbcType=VARCHAR}]]>
+      </if>
+      <if test="weekEnd !=null">
+      <![CDATA[and count_time <=#{weekEnd,jdbcType=VARCHAR}]]>
+      </if>  
+      <if test="imei !=null">
+      and imei =#{imei,jdbcType=VARCHAR}
+      </if>
+       <if test="sportType !=null">
+      and sport_type =#{sportType,jdbcType=INTEGER}
+      </if>   
+     </trim>
+    </where>
+    GROUP BY xValue,imei,sport_type
+  </select>
+  
+  <select id="dalyHistorySportInfo" resultMap="BaseResultMap" parameterType="map">
+  select imei, sport_type, DATE_FORMAT(`upload_time`,'%m月%d日') AS xValue, 
+   Max(step) AS step,Max(step) AS yValue , create_time  
+   from sport_info_total
+    <where>
+     <trim prefixOverrides="and">
+      and DATE_FORMAT(`upload_time`,'%Y-%m-%d') = CURDATE()
+      <if test="imei !=null">
+      and imei =#{imei,jdbcType=VARCHAR}
+      </if>  
+      <if test="sportType !=null">
+      and sport_type =#{sportType,jdbcType=INTEGER}
+      </if>  
+     </trim>
+    </where>
+    GROUP BY xValue,imei,sport_type
+  </select>
+  
+  <select id="weekHistoryUseTimeList" resultMap="BaseResultMap" parameterType="map">
+  select imei, sport_type, DATE_FORMAT(`count_time`,'%m月%d日') AS xValue,time_dimension, 
+  time_dimension as yValue,count_time as create_time from sport_summary
+  <where>
+     <trim prefixOverrides="and">
+      <if test="weekStar !=null">
+      <![CDATA[and count_time >=#{weekStar,jdbcType=VARCHAR}]]>
+      </if>
+      <if test="weekEnd !=null">
+      <![CDATA[and count_time <=#{weekEnd,jdbcType=VARCHAR}]]>
+      </if>  
+      <if test="imei !=null">
+      and imei =#{imei,jdbcType=VARCHAR}
+      </if>
+       <if test="sportType !=null">
+      and sport_type =#{sportType,jdbcType=INTEGER}
+      </if>   
+     </trim>
+    </where>
+    GROUP BY xValue,imei,sport_type
+  </select>
+  
+  <select id="dalyHistoryUseTimeInfo" resultMap="BaseResultMap" parameterType="map">
+  select imei, sport_type, DATE_FORMAT(`upload_time`,'%m月%d日') AS xValue, 
+   Max(use_time) AS time_dimension,Max(use_time) AS yValue , create_time  
+   from sport_info_total
+    <where>
+     <trim prefixOverrides="and">
+      and DATE_FORMAT(`upload_time`,'%Y-%m-%d') = CURDATE()
+      <if test="imei !=null">
+      and imei =#{imei,jdbcType=VARCHAR}
+      </if>  
+      <if test="sportType !=null">
+      and sport_type =#{sportType,jdbcType=INTEGER}
+      </if>  
+     </trim>
+    </where>
+    GROUP BY xValue,imei,sport_type
+  </select>
+
+<select id="weekHistoryDistanceList" resultMap="BaseResultMap" parameterType="map">
+  select imei, sport_type, DATE_FORMAT(`count_time`,'%m月%d日') AS xValue,distance, 
+  distance as yValue,count_time as create_time from sport_summary
+  <where>
+     <trim prefixOverrides="and">
+      <if test="weekStar !=null">
+      <![CDATA[and count_time >=#{weekStar,jdbcType=VARCHAR}]]>
+      </if>
+      <if test="weekEnd !=null">
+      <![CDATA[and count_time <=#{weekEnd,jdbcType=VARCHAR}]]>
+      </if>  
+      <if test="imei !=null">
+      and imei =#{imei,jdbcType=VARCHAR}
+      </if>
+       <if test="sportType !=null">
+      and sport_type =#{sportType,jdbcType=INTEGER}
+      </if>   
+     </trim>
+    </where>
+    GROUP BY xValue,imei,sport_type
+  </select>
+  
+  <select id="dalyHistorydistanceInfo" resultMap="BaseResultMap" parameterType="map">
+  select imei, sport_type, DATE_FORMAT(`upload_time`,'%m月%d日') AS xValue, 
+   Max(distance) AS distance,Max(distance) AS yValue , create_time  
+   from sport_info_total
+    <where>
+     <trim prefixOverrides="and">
+      and DATE_FORMAT(`upload_time`,'%Y-%m-%d') = CURDATE()
+      <if test="imei !=null">
+      and imei =#{imei,jdbcType=VARCHAR}
+      </if>  
+      <if test="sportType !=null">
+      and sport_type =#{sportType,jdbcType=INTEGER}
+      </if>  
+     </trim>
+    </where>
+    GROUP BY xValue,imei,sport_type
+  </select>
+	 
+<select id="weekHistoryCalorieList" resultMap="BaseResultMap" parameterType="map">
+  select imei, sport_type, DATE_FORMAT(`count_time`,'%m月%d日') AS xValue,calorie, 
+  calorie as yValue,count_time as create_time from sport_summary
+  <where>
+     <trim prefixOverrides="and">
+      <if test="weekStar !=null">
+      <![CDATA[and count_time >=#{weekStar,jdbcType=VARCHAR}]]>
+      </if>
+      <if test="weekEnd !=null">
+      <![CDATA[and count_time <=#{weekEnd,jdbcType=VARCHAR}]]>
+      </if>  
+      <if test="imei !=null">
+      and imei =#{imei,jdbcType=VARCHAR}
+      </if>
+       <if test="sportType !=null">
+      and sport_type =#{sportType,jdbcType=INTEGER}
+      </if>   
+     </trim>
+    </where>
+    GROUP BY xValue,imei,sport_type
+  </select>
+  
+  <select id="dalyHistoryCalorieInfo" resultMap="BaseResultMap" parameterType="map">
+  select imei, sport_type, DATE_FORMAT(`upload_time`,'%m月%d日') AS xValue, 
+   Max(energy) AS calorie,Max(energy) AS yValue, create_time  
+   from sport_info_total
+    <where>
+     <trim prefixOverrides="and">
+      and DATE_FORMAT(`upload_time`,'%Y-%m-%d') = CURDATE()
+      <if test="imei !=null">
+      and imei =#{imei,jdbcType=VARCHAR}
+      </if>  
+      <if test="sportType !=null">
+      and sport_type =#{sportType,jdbcType=INTEGER}
+      </if>  
+     </trim>
+    </where>
+    GROUP BY xValue,imei,sport_type
+  </select>
+  
+  <select id="lastHeartRate" resultType="java.lang.Integer" parameterType="map">
+	SELECT (heart_rate+0) FROM `heart_rate_info` 
+	<where>
+	<trim prefixOverrides="and">
+	<if test="imei !=null">
+	and imei=#{imei,jdbcType=VARCHAR}
+	</if>
+	<if test="sportType !=null">
+	and `type`=#{sportType,jdbcType=INTEGER}
+	</if>
+	and DATE_FORMAT(`time`,'%Y-%m-%d') = CURDATE() 
+	</trim>
+	</where>
+	ORDER BY TIME DESC
+	LIMIT 1
+  </select>
+  
+   <select id ="healthWeeklyList" resultMap="BaseResultMap" parameterType="map">
+SELECT yValue,create_time FROM  (
+SELECT imei,SUM(step) AS step,count_time as create_time, 
+DATE_FORMAT(`count_time`,'%m月%d日') AS xValue,SUM(step) AS yValue  
+FROM `sport_summary`  
+WHERE imei =#{imei,jdbcType=VARCHAR} 
+<!-- AND sport_type IN (1,2) --> 
+<if test="weekStar !=null">
+  <![CDATA[and count_time >=#{weekStar,jdbcType=VARCHAR}]]>
+</if>
+<if test="weekEnd !=null">
+  <![CDATA[and count_time <=#{weekEnd,jdbcType=VARCHAR}]]>
+</if>  
+GROUP BY xValue,imei ) AS table_a
+	</select>
+  <!--   去掉查询最大值最小值
+  <select id ="healthWeeklyList" resultMap="BaseResultMap" parameterType="map">
+SELECT table_c.yValue,table_d.maxStep,table_d.minStep,table_c.create_time FROM (
+SELECT imei, step,xValue,yValue,create_time FROM  (
+SELECT imei,SUM(step) AS step,count_time as create_time, 
+DATE_FORMAT(`count_time`,'%m月%d日') AS xValue,SUM(step) AS yValue  
+FROM `sport_summary`  
+WHERE imei =#{imei,jdbcType=VARCHAR} AND sport_type IN (1,2) 
+<if test="weekStar !=null">
+  <![CDATA[and count_time >=#{weekStar,jdbcType=VARCHAR}]]>
+</if>
+<if test="weekEnd !=null">
+  <![CDATA[and count_time <=#{weekEnd,jdbcType=VARCHAR}]]>
+</if>  
+GROUP BY xValue,imei ) AS table_a) AS table_c
+LEFT JOIN 
+(SELECT imei,MAX(step) AS maxStep,MIN(step)AS minStep FROM (
+SELECT imei,SUM(step) AS step,count_time as create_time, DATE_FORMAT(`count_time`,'%m月%d日') AS xValue,SUM(step) AS yValue  FROM `sport_summary`  
+WHERE imei =#{imei,jdbcType=VARCHAR} AND sport_type IN (1,2) 
+<if test="weekStar !=null">
+  <![CDATA[and count_time >=#{weekStar,jdbcType=VARCHAR}]]>
+</if>
+<if test="weekEnd !=null">
+  <![CDATA[and count_time <=#{weekEnd,jdbcType=VARCHAR}]]>
+</if>  
+GROUP BY xValue,imei
+) AS table_b)AS table_d
+ON table_c.imei = table_d.imei  
+	</select>
+  -->
+   <select id ="maxStepList" resultMap="BaseResultMap" parameterType="map">
+SELECT * FROM (SELECT imei,yValue,create_time FROM  (
+SELECT imei,SUM(step) AS step,count_time AS create_time, 
+DATE_FORMAT(`count_time`,'%m月%d日') AS xValue,SUM(step) AS yValue  
+FROM `sport_summary`  
+WHERE imei =#{imei,jdbcType=VARCHAR} <!-- AND sport_type IN (1,2) --> 
+<![CDATA[and count_time >=#{weekStar,jdbcType=VARCHAR}]]>
+<![CDATA[and count_time <=#{weekEnd,jdbcType=VARCHAR}]]>
+GROUP BY xValue,imei ) AS table_a) AS a WHERE yValue = (
+SELECT MAX(b.yValue) FROM (SELECT imei,yValue,create_time FROM  (
+SELECT imei,SUM(step) AS step,count_time AS create_time, 
+DATE_FORMAT(`count_time`,'%m月%d日') AS xValue,SUM(step) AS yValue  
+FROM `sport_summary`  
+WHERE imei =#{imei,jdbcType=VARCHAR} <!-- AND sport_type IN (1,2) --> 
+<![CDATA[and count_time >=#{weekStar,jdbcType=VARCHAR}]]>
+<![CDATA[and count_time <=#{weekEnd,jdbcType=VARCHAR}]]>
+GROUP BY xValue,imei ) AS table_a) AS b
+WHERE a.imei = b.imei
+)
+   </select>
+   
+    <select id ="minStepList" resultMap="BaseResultMap" parameterType="map">
+SELECT * FROM (SELECT imei,yValue,create_time FROM  (
+SELECT imei,SUM(step) AS step,count_time AS create_time, 
+DATE_FORMAT(`count_time`,'%m月%d日') AS xValue,SUM(step) AS yValue  
+FROM `sport_summary`  
+WHERE imei =#{imei,jdbcType=VARCHAR} <!-- AND sport_type IN (1,2) --> 
+<![CDATA[and count_time >=#{weekStar,jdbcType=VARCHAR}]]>
+<![CDATA[and count_time <=#{weekEnd,jdbcType=VARCHAR}]]>
+GROUP BY xValue,imei ) AS table_a) AS a WHERE yValue = (
+SELECT MIN(b.yValue) FROM (SELECT imei,yValue,create_time FROM  (
+SELECT imei,SUM(step) AS step,count_time AS create_time, 
+DATE_FORMAT(`count_time`,'%m月%d日') AS xValue,SUM(step) AS yValue  
+FROM `sport_summary`  
+WHERE imei =#{imei,jdbcType=VARCHAR} <!-- AND sport_type IN (1,2) --> 
+<![CDATA[and count_time >=#{weekStar,jdbcType=VARCHAR}]]>
+<![CDATA[and count_time <=#{weekEnd,jdbcType=VARCHAR}]]>
+GROUP BY xValue,imei ) AS table_a) AS b
+WHERE a.imei = b.imei
+)
+   </select>
+  
+  <select id="weeklyTotalStep" resultMap="BaseResultMap" parameterType="map">
+  select sum(step) as weeklySumStep, Round(sum(step)/7) as weeklyAvgStep,sum(calorie) as weeklySumCalorie from sport_summary 
+  <where>
+     <trim prefixOverrides="and">
+      <if test="weekStar !=null">
+      <![CDATA[and count_time >=#{weekStar,jdbcType=VARCHAR}]]>
+      </if>
+      <if test="weekEnd !=null">
+      <![CDATA[and count_time <=#{weekEnd,jdbcType=VARCHAR}]]>
+      </if>  
+      <if test="imei !=null">
+      and imei =#{imei,jdbcType=VARCHAR}
+      </if>
+      <!--  
+      AND sport_type IN (1,2) 
+     -->
+     </trim>
+    </where>
+  </select>
+  
+   <select id="lastWeekTotalStep" resultMap="BaseResultMap" parameterType="map">
+  select sum(step) as lastWeekSumStep, Round(sum(step)/7) as lastWeekAvgStep,sum(calorie) as lastWeekSumCalorie from sport_summary 
+  <where>
+     <trim prefixOverrides="and">
+      <if test="lastWeekStar !=null">
+      <![CDATA[and count_time >=#{lastWeekStar,jdbcType=VARCHAR}]]>
+      </if>
+      <if test="lastWeekEnd !=null">
+      <![CDATA[and count_time <=#{lastWeekEnd,jdbcType=VARCHAR}]]>
+      </if>  
+      <if test="imei !=null">
+      and imei =#{imei,jdbcType=VARCHAR}
+      </if>
+      <!--
+      AND sport_type IN (1,2) 
+      -->
+     </trim>
+    </where>
+  </select>
+  
+  <select id="goalDaysCount" resultType="java.lang.Integer" parameterType="map">
+  SELECT COUNT(imei) FROM (
+  SELECT imei, step,xValue FROM  (
+SELECT imei,SUM(step) AS step, DATE_FORMAT(`count_time`,'%m月%d日') AS xValue FROM `sport_summary`  
+WHERE imei =#{imei,jdbcType=VARCHAR}
+      <!-- AND sport_type IN (1,2) --> 
+	<if test="weekStar !=null">
+      <![CDATA[and count_time >=#{weekStar,jdbcType=VARCHAR}]]>
+      </if>
+      <if test="weekEnd !=null">
+      <![CDATA[and count_time <=#{weekEnd,jdbcType=VARCHAR}]]>
+      </if>  
+GROUP BY xValue,imei ) AS table_a)table_b WHERE table_b.step >=8000
+  </select>
+  
+  <select id="workDayStepCount" resultType="java.lang.Integer" parameterType="map">
+  select sum(step) from sport_summary 
+  <where>
+     <trim prefixOverrides="and">
+      <if test="lastWorkDayStar !=null">
+      <![CDATA[and count_time >=#{lastWorkDayStar,jdbcType=VARCHAR}]]>
+      </if>
+      <if test="lastWorkDayEnd !=null">
+      <![CDATA[and count_time <=#{lastWorkDayEnd,jdbcType=VARCHAR}]]>
+      </if>  
+      <if test="imei !=null">
+      and imei =#{imei,jdbcType=VARCHAR}
+      </if>
+      <!-- AND sport_type IN (1,2) --> 
+     </trim>
+    </where>
+  </select>
+</mapper>

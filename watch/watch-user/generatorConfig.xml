@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration >
+  <context id="context1" >
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://192.168.108.174:3306/watch?characterEncoding=utf-8" userId="ecom" password="ecom" />
+    <javaModelGenerator targetPackage="com\chinamcom\framework\user\dao\mysql\manager" targetProject="E:\work_watch\watch\watch-user\src\main\java" />
+    <sqlMapGenerator targetPackage="sqlMapper" targetProject="E:\work_watch\watch\watch-user\src\main\resources\" />
+    <javaClientGenerator targetPackage="com\chinamcom\framework\user\dao" targetProject="E:\work_watch\watch\watch-user\src\main\java\" type="XMLMAPPER" />
+    <table schema="watch" tableName="app_friendship" >
+      <columnOverride column="id" property="id" />
+    </table>
+  </context>
+</generatorConfiguration>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinamcom.framework.user.dao.mysql.manager.MessageSetMapper" >
+  <resultMap id="BaseResultMap" type="com.chinamcom.framework.user.dao.MessageSet" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="voice_status" property="voiceStatus" jdbcType="INTEGER" />
+    <result column="shock_status" property="shockStatus" jdbcType="INTEGER" />
+    <result column="aaronli" property="aaronli" jdbcType="INTEGER" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="did" property="did" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, voice_status, shock_status, aaronli, start_time, end_time, create_time, update_time, did 
+  </sql>
+  
+  <select id="messagesetlist" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from message_set
+   <where>
+   <trim prefixOverrides="and">
+  	<if test="did !=null">
+  	and did = #{did,jdbcType=VARCHAR}
+  	</if>
+  </trim>
+   </where>
+  </select>
+  
+  <update id="updateMessageSet" parameterType="com.chinamcom.framework.user.dao.MessageSet" keyProperty="id">
+  update message_set 
+  <set>
+  <if test="voiceStatus !=null">
+	voice_status = #{voiceStatus,jdbcType=INTEGER},
+  </if>
+  <if test="shockStatus !=null">
+	shock_status = #{shockStatus,jdbcType=INTEGER},
+  </if>
+   <if test="aaronli !=null">
+	aaronli = #{aaronli,jdbcType=INTEGER},
+  </if>
+  <if test="startTime !=null">
+	start_time = #{startTime,jdbcType=TIMESTAMP},
+  </if>
+  <if test="endTime !=null">
+	end_time = #{endTime,jdbcType=TIMESTAMP},
+  </if>
+	create_time = NOW(),
+	update_time = NOW() 
+  </set>
+  <where>
+  <trim prefixOverrides="and">
+  <if test="id !=null">
+  and id=#{id,jdbcType=INTEGER}
+  </if>
+  <if test="did !=null">
+  and did=#{did,jdbcType=INTEGER}
+  </if>
+  </trim>
+  </where>
+  </update>
+</mapper>

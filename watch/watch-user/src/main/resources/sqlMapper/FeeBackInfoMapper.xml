@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinamcom.framework.user.dao.mysql.manager.FeedBackInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.chinamcom.framework.user.dao.FeedBackInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="feedback_content" property="feedbackContent" jdbcType="VARCHAR" />
+    <result column="feedback_contact" property="feedbackContact" jdbcType="VARCHAR" />
+    <result column="feedback_time" property="feedbackTime" jdbcType="TIMESTAMP" />
+    <result column="feedback_status" property="feedbackStatus" jdbcType="VARCHAR" />
+    <result column="process_content" property="processContent" jdbcType="VARCHAR" />
+    <result column="process_time" property="processTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, feedback_content, feedback_contact, feedback_time, feedback_status, process_content, process_time 
+  </sql>
+  <select id="feedBackInfoList" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from feedback_info
+    <where>
+    <trim prefixOverrides="and">
+    <if test="userId!=null and userId!='' ">
+    and user_id = #{userId,jdbcType=VARCHAR}
+    </if>
+    </trim>
+    </where>
+    <if test="limitstar!=null and pageSize!=null ">
+    limit #{limitstar},#{pageSize}
+    </if>
+  </select>
+  
+  <insert id="addFeedBackInfo" parameterType="com.chinamcom.framework.user.dao.FeedBackInfo" useGeneratedKeys="true" keyProperty="id">
+  insert into feedback_info(user_id, feedback_content, feedback_contact, feedback_time, feedback_status, process_content, process_time)
+  values(
+  #{userId,jdbcType=VARCHAR},
+  #{feedbackContent,jdbcType=VARCHAR},
+  #{feedbackContact,jdbcType=VARCHAR},
+  NOW(),
+  #{feedbackStatus,jdbcType=VARCHAR},  
+  #{processContent,jdbcType=VARCHAR},
+  #{processTime,jdbcType=TIMESTAMP}
+  )
+  </insert>
+</mapper>

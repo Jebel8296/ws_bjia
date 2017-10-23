@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinamcom.framework.user.dao.mysql.manager.SosSettingMapper" >
+  <resultMap id="BaseResultMap" type="com.chinamcom.framework.user.dao.SosSetting" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="device_imei" property="deviceImei" jdbcType="VARCHAR" />
+    <result column="phone_no1" property="phoneNo1" jdbcType="VARCHAR" />
+    <result column="phone_no2" property="phoneNo2" jdbcType="VARCHAR" />
+    <result column="phone_no3" property="phoneNo3" jdbcType="VARCHAR" />
+    <result column="sms_content" property="smsContent" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, device_imei, phone_no1, phone_no2, phone_no3, sms_content,create_time  
+  </sql>
+  <select id="getSosSettingList" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from sos_setting
+    <where>
+    <trim prefixOverrides="and">
+		<if test="id != null">
+		and id = #{id,jdbcType=INTEGER}
+		</if>
+		<if test="userId != null">
+		and user_id = #{userId,jdbcType=INTEGER}
+		</if>
+		<if test="deviceImei != null">
+		and device_imei = #{deviceImei,jdbcType=VARCHAR}
+		</if>
+	</trim>
+    </where>
+    order by create_time desc
+  </select>
+  
+  <update id="updateSosSetting" parameterType="com.chinamcom.framework.user.dao.SosSetting" keyProperty="id">
+  update sos_setting 
+  <set>
+  <if test="userId !=null">
+	user_id = #{userId,jdbcType=INTEGER},
+  </if>
+   <if test="deviceImei !=null">
+	device_imei = #{deviceImei,jdbcType=VARCHAR},
+  </if>
+   <if test="phoneNo1 !=null">
+	phone_no1 = #{phoneNo1,jdbcType=VARCHAR},
+  </if>
+   <if test="phoneNo2 !=null">
+	phone_no2 = #{phoneNo2,jdbcType=VARCHAR},
+  </if>
+  <if test="phoneNo3 !=null">
+	phone_no3 = #{phoneNo3,jdbcType=VARCHAR},
+  </if>
+  <if test="smsContent !=null">
+	sms_content = #{smsContent,jdbcType=VARCHAR},
+  </if>
+  create_time = NOW()
+  </set>
+  <where>
+  <trim prefixOverrides="and">
+  <if test="id !=null">
+  and id=#{id,jdbcType=INTEGER}
+  </if>
+  <if test="userId !=null">
+  and user_id = #{userId,jdbcType=INTEGER}
+  </if>
+  </trim>
+  </where>
+  </update>
+  
+  <insert id="addSosSetting" parameterType="com.chinamcom.framework.user.dao.SosSetting" useGeneratedKeys="true" keyProperty="id" >
+  insert into sos_setting(user_id, device_imei, phone_no1, phone_no2, phone_no3, sms_content,create_time)
+  values
+  (
+  #{userId,jdbcType=INTEGER},
+  #{deviceImei,jdbcType=VARCHAR},
+  #{phoneNo1,jdbcType=VARCHAR},
+  #{phoneNo2,jdbcType=VARCHAR},
+  #{phoneNo3,jdbcType=VARCHAR},
+  #{smsContent,jdbcType=VARCHAR},
+  NOW()
+  )
+  </insert>
+  
+  <delete id="deleteSosSetting" parameterType="map" >
+  delete from sos_setting
+  <where>
+   <trim prefixOverrides="and">
+   <if test="id != null">
+   and id=#{id,jdbcType=INTEGER}
+   </if>
+   <if test="userId !=null">
+   and user_id= #{userId,jdbcType=INTEGER}
+   </if>
+   <if test="deviceImei !=null">
+   and device_imei= #{deviceImei,jdbcType=VARCHAR}
+   </if>
+   </trim>
+  </where>
+  </delete>
+  
+  <select id="queryPhone" parameterType="map" resultMap="BaseResultMap">
+ 	select phone_no1, phone_no2, phone_no3,sms_content 
+    from sos_setting
+    <where>
+   <trim prefixOverrides="and">
+   <if test="id != null">
+   and id=#{id,jdbcType=INTEGER}
+   </if>
+   <if test="userId !=null">
+   and user_id= #{userId,jdbcType=INTEGER}
+   </if>
+   <if test="deviceImei !=null">
+   and device_imei= #{deviceImei,jdbcType=VARCHAR}
+   </if>
+   </trim>
+  </where>
+  </select>
+</mapper>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinamcom.framework.wallet.dao.BusRechargeMapper" >
+  <resultMap id="BaseResultMap" type="com.chinamcom.framework.wallet.model.BusRecharge" >
+  	<id column="id" property="id" jdbcType="INTEGER" />
+    <result column="platform" property="platform" jdbcType="VARCHAR" />
+    <result column="cardno" property="cardno" jdbcType="VARCHAR" />
+	<result column="big_decimal" property="bigDecimal" jdbcType="INTEGER" />
+	<result column="recharge_time" property="rechargeTime" jdbcType="TIMESTAMP" />
+	<result column="recharge_result" property="rechargeResult" jdbcType="INTEGER" />
+	<result column="orderno" property="orderno" jdbcType="VARCHAR" />
+	<result column="recharge_channel" property="rechargeChannel" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	<result column="imei" property="imei" jdbcType="VARCHAR" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+  </resultMap>
+
+   <insert id="insert" parameterType="com.chinamcom.framework.wallet.model.BusRecharge" keyProperty="id">
+   insert into bus_recharge (`platform`,`cardno`,`big_decimal`,`recharge_time`,
+   `recharge_result`,`orderno`,`recharge_channel`,`create_time`,`imei`,`uid`)
+   values(
+   #{platform,jdbcType=VARCHAR},
+   #{cardno,jdbcType=VARCHAR},
+   #{bigDecimal,jdbcType=INTEGER},
+   #{rechargeTime,jdbcType=TIMESTAMP},
+   #{rechargeResult,jdbcType=INTEGER},
+   #{orderno,jdbcType=VARCHAR},
+   #{rechargeChannel,jdbcType=VARCHAR},
+   NOW(),
+   #{imei,jdbcType=VARCHAR},
+   #{uid,jdbcType=INTEGER}
+   )
+  </insert>
+</mapper>

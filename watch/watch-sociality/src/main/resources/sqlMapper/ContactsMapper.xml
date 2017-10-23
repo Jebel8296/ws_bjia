@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinamcom.framework.sociality.dao.ContacksMapper">
+	<resultMap id="ContactResultMap"
+		type="com.chinamcom.framework.sociality.model.Contact">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="uid" property="uid" jdbcType="INTEGER" />
+		<result column="head" property="head" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="watchstat" property="watchstat" jdbcType="INTEGER" />
+	</resultMap>
+	<resultMap id="ContactPhoneResultMap"
+		type="com.chinamcom.framework.sociality.model.ContactPhone">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="cid" property="cid" jdbcType="INTEGER" />
+		<result column="label" property="label" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="priority" property="priority" jdbcType="INTEGER" />
+	</resultMap>
+
+	<insert id="insertContactInfo" parameterType="com.chinamcom.framework.sociality.model.Contact"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into contacts_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="uid != null">
+				uid,
+			</if>
+			<if test="head != null">
+				head,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="address != null">
+				address,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="watchstat != null">
+				watchstat,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="uid != null">
+				#{uid},
+			</if>
+			<if test="head != null">
+				#{head},
+			</if>
+			<if test="name != null">
+				#{name},
+			</if>
+			<if test="address != null">
+				#{address},
+			</if>
+			<if test="remark != null">
+				#{remark},
+			</if>
+			<if test="watchstat != null">
+				#{watchstat},
+			</if>
+		</trim>
+	</insert>
+	<insert id="insertContactPhone" parameterType="java.util.List"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into contacts_phone(cid,label,phone,priority) values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.cid},#{item.label},#{item.phone},#{item.priority})
+		</foreach>
+	</insert>
+	<select id="selectContact" parameterType="com.chinamcom.framework.sociality.model.Contact"
+		resultMap="ContactResultMap">
+		select id,uid,name,head,address,remark,watchstat
+		from contacts_info
+		where 1=1
+		<if test="id != null">
+			and id=#{id}
+		</if>
+		<if test="uid != null">
+			and uid=#{uid}
+		</if>
+		<if test="name != null">
+			and name like CONCAT('%',#{name},'%')
+		</if>
+		<if test="watchstat != null">
+			and watchstat = #{watchstat}
+		</if>
+	</select>
+	<select id="selectContactPhone"
+		parameterType="com.chinamcom.framework.sociality.model.ContactPhone"
+		resultMap="ContactPhoneResultMap">
+		select id,cid,label,phone,priority
+		from contacts_phone
+		where 1=1
+		<if test="id != null">
+			and id=#{id}
+		</if>
+		<if test="cid != null">
+			and cid=#{cid}
+		</if>
+		<if test="phone != null">
+			and phone like '%'||#{phone}||'%'
+		</if>
+		<if test="priority != null">
+			and priority=#{priority}
+		</if>
+	</select>
+	<update id="updateContactInfo" parameterType="com.chinamcom.framework.sociality.model.Contact">
+		update contacts_info set name=#{name},head=#{head},address=#{address},watchstat=#{watchstat} where id=#{id}
+	</update>
+	<update id="updateContactPhone"
+		parameterType="com.chinamcom.framework.sociality.model.ContactPhone">
+		update contacts_phone set label=#{label},phone=#{phone} where id=#{id}
+	</update>
+	<update id="updateWatchstatByContact"
+		parameterType="com.chinamcom.framework.sociality.model.Contact">
+		update contacts_info set watchstat=#{watchstat} where id=#{id}
+	</update>
+	<update id="updateBatchContactPhone" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" open=""
+			close="" separator=";">
+			update contacts_phone set label=#{item.label},phone=#{item.phone} where id=#{item.id}
+		</foreach>
+	</update>
+	<delete id="deleteContactInfo" parameterType="com.chinamcom.framework.sociality.model.Contact">
+		delete from contacts_info where id=#{id}
+	</delete>
+	<delete id="deleteContactPhone"
+		parameterType="com.chinamcom.framework.sociality.model.ContactPhone">
+		delete from contacts_phone where cid=#{cid}
+	</delete>
+	<update id="deleteBatchContactPhone" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" open=""
+			close="" separator=";">
+			delete from contacts_phone where id=#{item.id}
+		</foreach>
+	</update>
+</mapper>

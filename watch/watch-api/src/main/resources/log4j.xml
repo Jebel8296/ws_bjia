@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <!-- Appenders -->
+    <appender name="MainConsole" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss SSS}] [%-5p] [%t] [%F:%L] [%c{1}] - %m%n"/>
+        </layout>
+    </appender>
+    <appender name="FileAppender" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="/ecommerce/logs/watch-api/watch-api.log"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                   value="[%d{yyyy-MM-dd HH:mm:ss SSS}] [%-5p] [%t] [%F:%L] [%c{1}] - %m%n"/>
+        </layout>
+    </appender>
+
+    <category name="org.apache">
+        <priority value="info"/>
+    </category>
+    <category name="com.chinamcom.framework">
+        <priority value="info"/>
+    </category>
+    <category name="org.springframework">
+        <priority value="info"/>
+    </category>
+    <category name="io.vertx">
+        <priority value="info"/>
+    </category>
+    <!-- Root Logger -->
+    <root>
+        <priority value="info"/>
+        <appender-ref ref="MainConsole"/>
+        <appender-ref ref="FileAppender"/>
+    </root>
+
+</log4j:configuration>

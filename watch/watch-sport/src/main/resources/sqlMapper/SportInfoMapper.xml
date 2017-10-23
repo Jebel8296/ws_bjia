@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinamcom.framework.sport.dao.SportInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.chinamcom.framework.sport.model.SportInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="imei" property="imei" jdbcType="VARCHAR" />
+    <result column="sport_type" property="sportType" jdbcType="INTEGER" />
+    <result column="step" property="step" jdbcType="INTEGER" />
+    <result column="energy" property="energy" jdbcType="INTEGER" />
+    <result column="heart_rate" property="heartRate" jdbcType="INTEGER" />
+    <result column="upload_time" property="uploadTime" jdbcType="TIMESTAMP" />
+    <result column="distance" property="distance" jdbcType="INTEGER" />
+    <result column="use_time" property="useTime" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="hour" property="hour" jdbcType="INTEGER" />
+    <result column="totalEnergy" property="totalEnergy" jdbcType="INTEGER" />
+    <result column="totalDistance" property="totalDistance" jdbcType="INTEGER" />
+    <result column="totalUseTime" property="totalUseTime" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, imei, sport_type, step, energy, heart_rate, upload_time, distance, use_time, 
+    create_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chinamcom.framework.sport.model.SportInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sport_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sport_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sport_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.chinamcom.framework.sport.model.SportInfo" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sport_info (imei, sport_type, step, 
+      energy, heart_rate, upload_time, 
+      distance, use_time, create_time
+      )
+    values (#{imei,jdbcType=VARCHAR}, #{sportType,jdbcType=INTEGER}, #{step,jdbcType=INTEGER}, 
+      #{energy,jdbcType=INTEGER}, #{heartRate,jdbcType=INTEGER}, #{uploadTime,jdbcType=TIMESTAMP}, 
+      #{distance,jdbcType=INTEGER}, #{useTime,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.chinamcom.framework.sport.model.SportInfo" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sport_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="imei != null" >
+        imei,
+      </if>
+      <if test="sportType != null" >
+        sport_type,
+      </if>
+      <if test="step != null" >
+        step,
+      </if>
+      <if test="energy != null" >
+        energy,
+      </if>
+      <if test="heartRate != null" >
+        heart_rate,
+      </if>
+      <if test="uploadTime != null" >
+        upload_time,
+      </if>
+      <if test="distance != null" >
+        distance,
+      </if>
+      <if test="useTime != null" >
+        use_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="imei != null" >
+        #{imei,jdbcType=VARCHAR},
+      </if>
+      <if test="sportType != null" >
+        #{sportType,jdbcType=INTEGER},
+      </if>
+      <if test="step != null" >
+        #{step,jdbcType=INTEGER},
+      </if>
+      <if test="energy != null" >
+        #{energy,jdbcType=INTEGER},
+      </if>
+      <if test="heartRate != null" >
+        #{heartRate,jdbcType=INTEGER},
+      </if>
+      <if test="uploadTime != null" >
+        #{uploadTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="distance != null" >
+        #{distance,jdbcType=INTEGER},
+      </if>
+      <if test="useTime != null" >
+        #{useTime,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <select id="queryTodaySportInfo" parameterType="map" resultMap="BaseResultMap">
+  SELECT HOUR(`upload_time`) AS HOUR, imei,sport_type,SUM(step) as step,SUM(energy) as energy,
+  SUM(distance) as distance, SUM(use_time) as useTime 
+  FROM sport_info 
+  <where>
+  <trim prefixOverrides="and" >
+  and DATE_FORMAT(`upload_time`,'%Y-%m-%d') = CURDATE()
+  <if test="imei !=null">
+  and imei = #{imei,jdbcType=VARCHAR}
+  </if>
+  <if test="sportType !=null">
+  and sport_type = #{sportType,jdbcType=INTEGER}
+  </if>
+  </trim>
+  </where>
+  GROUP BY HOUR,imei,sport_type
+  </select>
+  
+  <select id="countTotal" parameterType="map" resultMap="BaseResultMap">
+  select sport_type ,SUM(step) AS totalStep,SUM(energy) AS totalEnergy, 
+  SUM(distance) AS totalDistance,
+  SUM(use_time) AS totalUseTime 
+  FROM sport_info
+  <where>
+  <trim prefixOverrides="and" >
+  <if test="dateStar !=null">
+   <![CDATA[and upload_time >=#{dateStar,jdbcType=VARCHAR}]]>
+  </if>
+  <if test="dateEnd !=null">
+   <![CDATA[and upload_time <=#{dateEnd,jdbcType=VARCHAR}]]>
+  </if> 
+  <if test="imei !=null">
+  and imei = #{imei,jdbcType=VARCHAR}
+  </if>
+  <if test="sportType !=null">
+  and sport_type = #{sportType,jdbcType=INTEGER}
+  </if>
+  </trim>
+  </where>
+  </select>
+  
+  <select id="queryTargetStep" parameterType="map" resultType="java.lang.Integer">
+  select target from app_userinfo 
+  <where>
+  <trim prefixOverrides="and" >
+  <if test="uid !=null">
+  and uid = #{uid,jdbcType=INTEGER}
+  </if>
+  </trim>
+  </where>
+  limit 0,1
+  </select>
+  
+  <select id="sportInfoModel" parameterType="map" resultMap="BaseResultMap">
+  select sport_type ,SUM(step) as totalStep,SUM(energy) as totalEnergy, 
+  SUM(distance) as totalDistance,
+  SUM(use_time) as totalUseTime from sport_info
+  <where>
+  <trim prefixOverrides="and" >
+  <if test="dateStar !=null">
+   <![CDATA[and upload_time >=#{dateStar,jdbcType=VARCHAR}]]>
+  </if>
+  <if test="dateEnd !=null">
+   <![CDATA[and upload_time <=#{dateEnd,jdbcType=VARCHAR}]]>
+  </if> 
+  <if test="imei !=null">
+  and imei = #{imei,jdbcType=VARCHAR}
+  </if>
+  <if test="sportType !=null">
+  and sport_type = #{sportType,jdbcType=INTEGER}
+  </if>
+  </trim>
+  </where>
+  GROUP BY imei,sport_type 
+  ORDER BY sport_type ASC
+  </select>
+  
+  <select id="querySportRank" parameterType="map" resultType="java.lang.Integer">
+ SELECT rankTable.rownum AS rank FROM (SELECT obj.*, @rownum := @rownum + 1 AS rownum 
+FROM (
+  	SELECT * FROM ((SELECT
+		a.UID_1 uid,
+		CASE IFNULL(a.ALIAS_0,'') WHEN '' THEN c.nickname ELSE a.ALIAS_0 END AS nick_name,
+		b.imei,
+		c.headimage head_img,
+		IFNULL(SUM(d.step), 0) step,
+		IFNULL(f.likes_num, 0) likes_num,
+		IFNULL(g.status, 0) `status`
+	FROM
+		app_friendship a
+	LEFT JOIN app_user b ON b.UID = a.UID_1
+	LEFT JOIN app_userinfo c ON c.uid = a.UID_1
+	LEFT JOIN sport_info d ON d.imei = b.IMEI AND DATE_FORMAT(d.upload_time,'%Y-%m-%d') = CURDATE()
+	LEFT JOIN friend_likes f ON a.UID_1 = f.uid AND f.create_time = CURDATE()
+	LEFT JOIN friend_likes_record g ON g.from_uid = #{uid,jdbcType=INTEGER}  AND g.uid = a.UID_1 AND g.create_time = CURDATE() AND g.`status` = 1
+	WHERE
+		a.UID_0 = #{uid,jdbcType=INTEGER}
+	AND a.status = 1
+	GROUP BY
+		imei
+	)
+	UNION 
+	(SELECT 
+	  a.uid,
+	  a.nickname nick_name,
+	  b.IMEI,
+	  a.headimage head_img,
+	  IFNULL(SUM(c.step), 0) step,
+		IFNULL(d.likes_num, 0) likes_num,
+		IFNULL(g.status, 0) `status` 
+	FROM app_userinfo a
+	LEFT JOIN app_user b ON a.uid =  b.UID
+	LEFT JOIN sport_info c ON b.IMEI = c.imei AND DATE_FORMAT(c.upload_time,'%Y-%m-%d') = CURDATE()
+	LEFT JOIN friend_likes d ON a.uid = d.uid AND d.create_time = CURDATE()
+	LEFT JOIN friend_likes_record g ON g.from_uid = #{uid,jdbcType=INTEGER}  AND g.uid = a.uid AND g.create_time = CURDATE() AND g.`status` = 1
+	WHERE 
+		a.uid = #{uid,jdbcType=INTEGER}
+	 ) )a
+	ORDER BY a.step DESC) obj,(SELECT @rownum := 0 ) r ) rankTable
+	where uid = #{uid,jdbcType=INTEGER}
+  </select>
+  
+  <select id="queryTotalInfo" parameterType="map" resultMap="BaseResultMap">
+  select sport_type ,SUM(energy) as totalEnergy, 
+  SUM(distance) as totalDistance,
+  SUM(use_time) as totalUseTime from sport_info
+  <where>
+  <trim prefixOverrides="and" >
+  <if test="dateStar !=null">
+   <![CDATA[and upload_time >=#{dateStar,jdbcType=VARCHAR}]]>
+  </if>
+  <if test="dateEnd !=null">
+   <![CDATA[and upload_time <=#{dateEnd,jdbcType=VARCHAR}]]>
+  </if> 
+  <if test="imei !=null">
+  and imei = #{imei,jdbcType=VARCHAR}
+  </if>
+  <if test="sportType !=null">
+  and sport_type = #{sportType,jdbcType=INTEGER}
+  </if>
+  </trim>
+  </where>
+  GROUP BY imei,sport_type 
+  </select>
+</mapper>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinamcom.framework.user.dao.mysql.manager.AppUserMapper" >
+  <resultMap id="BaseResultMap" type="com.chinamcom.framework.user.dao.AppUser" >
+    <id column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="alias" property="alias" jdbcType="VARCHAR" />
+    <result column="pass" property="pass" jdbcType="VARCHAR" />
+    <result column="imei" property="imei" jdbcType="VARCHAR" />
+    <result column="weibo_id" property="weiboId" jdbcType="VARCHAR" />
+    <result column="weixin_id" property="weixinId" jdbcType="VARCHAR" />
+    <result column="qq_id" property="qqId" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="create_time" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="login_model" property="loginModel" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    uid, alias, pass, imei, weibo_id, weixin_id, qq_id, status, create_time,
+    update_time, login_model 
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from app_user
+    where uid = #{uid,jdbcType=INTEGER}
+  </select>
+  
+  <insert id="addUser" parameterType="com.chinamcom.framework.user.dao.AppUser" >
+   <selectKey resultType="java.lang.Integer" keyProperty="uid" order="AFTER" >
+      SELECT LAST_INSERT_ID() AS value
+    </selectKey>
+  insert into app_user( alias, pass, imei, weibo_id, weixin_id, qq_id, status, create_time,
+    update_time,login_model)
+    values(
+  	 #{alias,jdbcType=VARCHAR},
+ 	 #{pass,jdbcType=VARCHAR},
+ 	 #{imei,jdbcType=VARCHAR},  
+ 	 #{weiboId,jdbcType=VARCHAR},
+ 	 #{weixinId,jdbcType=VARCHAR},
+ 	 #{qqId,jdbcType=VARCHAR},
+ 	 #{status,jdbcType=INTEGER},
+ 	 NOW(),
+ 	 NOW(),
+ 	 #{loginModel,jdbcType=TIMESTAMP}
+    )
+  </insert>
+  
+  <select id="getUserByMap" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from app_user
+    <where>
+    <trim prefixOverrides="and">
+    <if test="imei !=null and imei != '' ">
+    and imei = #{imei,jdbcType=VARCHAR}
+    </if>
+    <if test="imei == null or imei == '' ">
+    and imei is null
+    </if>
+    <if test="weiboId !=null and weiboId !='' ">
+    and weibo_id = #{weiboId,jdbcType=VARCHAR}
+    </if>
+    <if test="weiboId ==null or weiboId =='' ">
+    and weibo_id is null
+    </if>
+    <if test="weixinId !=null and weixinId !='' ">
+    and weixin_id = #{weixinId,jdbcType=VARCHAR}
+    </if>
+     <if test="weixinId ==null or weixinId=='' ">
+    and weixin_id is null
+    </if>
+    <if test="qqId !=null and qqId!='' ">
+    and qq_id = #{qqId,jdbcType=VARCHAR}
+    </if>
+    <if test="qqId ==null or qqId=='' ">
+    and qq_id is null
+    </if>
+    </trim>
+    </where>
+  </select>
+  
+  <select id="queryByMap" resultMap="BaseResultMap" parameterType="map">
+  	select 
+    <include refid="Base_Column_List" />
+    from app_user 
+    <where>
+    <trim prefixOverrides="and">
+    <if test="imei !=null ">
+    and imei = #{imei,jdbcType=VARCHAR}
+    </if>
+    <if test="weiboId !=null ">
+    and weibo_id = #{weiboId,jdbcType=VARCHAR}
+    </if>
+    <if test="weixinId !=null ">
+    and weixin_id = #{weixinId,jdbcType=VARCHAR}
+    </if>
+    <if test="qqId !=null ">
+    and qq_id = #{qqId,jdbcType=VARCHAR}
+    </if>
+    </trim>
+    </where>
+  </select>
+  
+  <update id="binding" parameterType="map" keyProperty="uid">
+  update app_user
+  <set>
+  <if test="imei != null">
+	imei = #{imei,jdbcType=VARCHAR},
+  </if>
+  update_time = NOW(),
+  </set>
+  <where>
+		<trim prefixOverrides="and">
+		<if test="uid != null">
+		and	uid = #{uid,jdbcType=INTEGER}
+		</if>
+		</trim>
+	</where>
+  </update>
+  
+  <update id="unbundling" parameterType="map" keyProperty="uid">
+  update app_user
+  <set>
+  imei = null ,
+  update_time = NOW(),
+  </set>
+  <where>
+		<trim prefixOverrides="and">
+		<if test="uid != null">
+		and	uid = #{uid,jdbcType=INTEGER}
+		</if>
+		</trim>
+	</where>
+  </update>
+</mapper>

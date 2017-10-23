@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinamcom.framework.user.dao.mysql.manager.BaseTagsMapper" >
+  <resultMap id="BaseResultMap" type="com.chinamcom.framework.user.dao.BaseTags" >
+    <id column="tag_id" property="tagId" jdbcType="INTEGER" />
+    <result column="tag_name" property="tagName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    tag_id, tag_name 
+  </sql>
+  <select id="basetagslist" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+	from base_tags
+    <where>
+     <trim prefixOverrides="and">
+     <if test="tag_id !=null ">
+ 	 and tag_id = #{tag_id,jdbcType=INTEGER}
+  	</if>
+     </trim>
+    </where>
+  </select>
+  
+</mapper>
