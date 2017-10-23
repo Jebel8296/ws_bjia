@@ -1,0 +1,24 @@
+<!-- 内容部分 -->
+<div class="main-content" ng-controller="orderPayCtrl">
+    <div class="mContent wbg" style="min-height: 300px;">
+        <div class="pCollect" ng-show="order">
+            <h1>收银台：</h1>
+            <div class="pcollectMsg">
+                <p>订单已提交成功，请您尽快付款!</p>
+                <h3>实付金额：{{pricetotal | number:2}}</h3>
+                <span>您的订单编号：{{orderCode}} <a href="#" class="color3">订单详情</a></span><br/>
+                请您在24小时内完成支付，否则订单会被自动取消（以订单详情页为准）
+            </div>
+            <div class="btn_pd"><input type="button" value="确认支付" class="btn btn_og" ng-click="toPayA()"/></div>
+        </div>
+        <div class="pCollect" ng-hide="afterI">
+            <h1>收银台：</h1>
+            <div class="pcollectMsg">
+                <p>您的申请已成功!</p>
+                <span>您的售后编号：{{afterId}}</span>
+            </div>
+            <div class="btn_pd"><input type="button" value="返回售后列表" class="btn btn_og" ng-click="toServiceL()"/></div>
+        </div>
+    </div>
+</div>
+<!-- 内容部分 end -->

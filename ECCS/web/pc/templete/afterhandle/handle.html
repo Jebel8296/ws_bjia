@@ -1,0 +1,73 @@
+<!-- 内容部分 -->
+<div class="mainContent" ng-controller="AfterSaleHandleCtrl">
+    <div class="mContent wbg pdd">
+        <h1>查看售后详情</h1>
+        <div class="container">
+            <div class="row" >
+                <div class="col-xs-6 col-md-offset-3">
+                    <p>售后编号:{{waitHandleData.aftercode}}</p>
+                </div>
+            </div>
+            <div class="row" >
+                <div class="col-xs-6 col-md-offset-3">
+                    <p>售后类型:{{waitHandleData.aftertype}}</p>
+                </div>
+            </div>
+            <div class="row" >
+                <div class="col-xs-6 col-md-offset-3">
+                    <p>状态:{{waitHandleData.status}}</p>
+                </div>
+            </div>
+
+            <div class="btn_pd text-center" ng-show="waitHandleData.status=='待受理'">
+                <button type="button" class="btn btn_og" ng-click="acceptHandle()">受理</button>
+                <button type="button" class="btn btn_og" ng-click="refuseHandle()">取消</button>
+            </div>
+        </div>
+
+        <h3>商品信息</h3>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>商品信息</th>
+                <th>商品数量</th>
+                <th>订单状态</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <ul>
+                        <li style="width:42%">
+                            <div class="picMsg" >
+                                <img src="images/watch02.png" /><p>{{waitHandleData.prodname}}</p><p>编号：{{waitHandleData.prodcode}}</p>
+                            </div>
+                        </li>
+                    </ul>
+                </td>
+                <td>{{waitHandleData.total}}</td>
+                <td>订单完成</td>
+            </tr>
+            </tbody>
+        </table>
+        <h3>照片信息</h3>
+        <div class="choice-list">
+            <ul class="font-20 clearfix">
+                <li ng-repeat="imageurl in waitHandleData.images">
+                    <div><img ng-src="{{imageurl}}"/></div>
+                </li>
+            </ul>
+        </div>
+        <h3>反馈信息</h3>
+        <div class="f_msg">
+            <div class="f_tarea">
+                <textarea class="textarea" data-height="300" style="height: 140px;" ng-model="reply"></textarea>
+            </div>
+            <span>您可以输入300字</span>
+        </div>
+        <div class="btn_pd text-center" ng-show="waitHandleData.status=='已受理'">
+            <button type="button" class="btn btn_og" ng-click="submitAfterReply()">提交反馈</button>
+        </div>
+    </div>
+</div>
+<!-- 内容部分 end -->

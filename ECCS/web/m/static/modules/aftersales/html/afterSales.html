@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>发起售后</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=yes">
+    <link rel="stylesheet" href="/modules/public/css/all.css">
+    <link rel="stylesheet" href="/modules/aftersales/css/sales.css">
+
+
+  </head>
+  <body>
+  <!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
+  <div class="page-group">
+    <div class="page page-current">
+      <!-- 主体html代码 -->
+      <header class="bar bar-nav">
+      	<a class="button button-link button-nav pull-left" href="javascript:window.history.go(-1)">
+		      <span class="icon icon-left"></span>
+		    </a>
+      	<h1 class="title">发起售后</h1>
+      </header>
+   
+      <div class="content">
+      <!-- 页面内容区 -->	
+    	  <div class="order_msg">
+          <a href="afterSales_app.html" class="btn_wt">通过设备编号发起售后</a>			
+		    </div>
+
+		    <div class="page_item">				
+    			<div id="afterSaleList" class="order_msg m_right">   
+              <!-- 发起售后 -->
+    			</div>
+
+  	  </div>
+  		
+  		<!-- 页面内容区 end -->
+      </div>
+
+  	<!-- 主体html代码 -->
+    </div>
+  </div>
+ 
+
+  <script type='text/javascript' src='/libs/seajs/seajs-3.0.0.js'></script>
+  <script type='text/javascript' src='/libs/zepto/zepto.min.js'></script>
+  <script type='text/javascript' src='/libs/zepto/zepto.cookie.min.js'></script>
+  <script> 
+    // 加载入口模块
+    seajs.use("aftersales/js/afterSales");
+  </script> 
+    
+  </body>
+</html>

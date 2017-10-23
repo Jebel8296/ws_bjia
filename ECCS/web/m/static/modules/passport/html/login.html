@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>登录</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=yes">
+    <link rel="stylesheet" href="/libs/sui/css/sm.min.css">
+    <link rel="stylesheet" href="/libs/sui/css/sm-extend.min.css">
+    <link rel="stylesheet" href="/modules/public/css/all.css">
+    <link rel="stylesheet" href="/modules/public/css/menu.css">
+    <link rel="stylesheet" href="/modules/passport/css/login.css">
+    <link rel="stylesheet" href="/modules/public/css/header.css">
+  </head>
+  <body>
+  <div id="loginCont" class="page-group">
+      <!-- 主体html代码 -->
+      <div class="page page-current">
+      	
+      <header class="bar bar-nav">
+	    	<a class="icon icon-menu pull-left  open-panel"></a>
+	      <h1 class="title"><img src="../../public/img/logo.png" /></h1>
+	    </header>
+
+      <div class="content-cover" style="position: absolute; width:100%; z-index:999">
+        <!-- 页面内容区 -->
+      	<div id="" class="content-block pd_top">
+              <div class="input-Item"> 
+                <span>手机号码：</span>
+                <input type="text" id='phone' data-name='phone' value=""  autocomplete="off" placeholder='手机号' class="txtbox w70"/>
+                <p class="color2"></p>
+              </div>
+
+              <div class="input-Item"> 
+                <span>密码：</span>
+                <input type="password" id='pwd'  data-name='pwd' value=""  autocomplete="off" placeholder='8-32位字符' class="txtbox w70"/>
+                <p class="color2"></p>
+                <div id="remNub" class="pleft pd">
+
+					        <label for="remPhone" class="sel-this"><input type="checkbox" value="" id="remPhone" name="cart-pro" class="regular-checkbox"><em></em>记住手机号码</label>
+                 
+                </div>
+              </div>
+              <div><a href="#" id="login-btn" class="button btn_org">登 录</a></div>
+        </div>
+
+        <div class="item_login" style="position: static; z-index:0">
+        	<ul class="forget">
+						<li><a href="register.html" class="color3">注册新账号</a></li>
+						<li><a href="forgetpwd.html" class="color1">忘记密码?</a></li>
+					</ul>
+
+	        <div class="otherLogin">
+						<a href="#" id="weichart"></a>
+						<a href="#" id="qq"></a>
+						<a href="javascript:;"></a>
+					</div>
+        </div>
+
+      <!-- 页面内容区 end -->
+      </div>
+    </div>
+      <!-- 主体html代码 -->
+  </div>
+
+  <script type='text/javascript' src='/libs/seajs/seajs-3.0.0.js'></script>
+  <script type='text/javascript' src='/libs/zepto/zepto.min.js'></script>
+  <script type='text/javascript' src='/libs/zepto/zepto.cookie.min.js'></script>
+  <script type='text/javascript' src='/libs/mds/md5.min.js'></script>
+  <script type='text/javascript' src='/libs/mds/sha1.js'></script>
+  <script> 
+      // 加载入口模块
+   seajs.use("/modules/passport/js/login");
+      //seajs.use("center/js/personal");
+  </script> 
+ 
+  </body>
+</html>

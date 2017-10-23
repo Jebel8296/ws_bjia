@@ -1,0 +1,67 @@
+<!-- 内容部分 -->
+<div class="mainContent" ng-controller="ProductListCtrl">
+    <div class="mContent wbg pdd">
+        <h1>智能产品维护</h1>
+        <form class="form-inline" role="form">
+            <div class="form-group">
+                <label for="devicecode">设备编号：</label>
+                <input type="text" ng-model="devicecode" class="form-control" id="devicecode" placeholder="请输入编号">
+            </div>&nbsp;
+            <div class="form-group">
+                <label for="prodcode">产品编号：</label>
+                <input type="text" ng-model="prodcode" class="form-control" id="prodcode" placeholder="请输入编号">
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-default" ng-click="submitQuery();">查询</button>
+                </div>
+            </div>
+        </form>
+        <h4></h4>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>产品ID</th>
+                <th>产品编号</th>
+                <th>产品名称</th>
+                <th>设备编号</th>
+                <th>设备类型</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in waitHandleList">
+                <td>{{item.id}}</td>
+                <td>{{item.prodid}}</td>
+                <td>{{item.prodcode}}</td>
+                <td>{{item.prodname}}</td>
+                <td>{{item.devicecode}}</td>
+                <td>{{item.devicetype}}</td>
+                <td><a href="javascript:;" class="color0" ng-click="toHandle(item)">详情</a></td>
+            </tr>
+            </tbody>
+        </table>
+        <!-- paging -->
+        <div class="pagingContext" ng-if="waitHandleList.length">
+            <ul class="pagination">
+                <li ng-class="{true:'disabled'}[p_current==1]">
+                    <a href="javascript:;" ng-click="Previous()">
+                        <span>上一页</span>
+                    </a>
+                </li>
+                <li ng-repeat="page in pageList" ng-class="{active: isActivePage(page)}">
+                    <a href="javascript:;" ng-click="selectPage(page)" >{{ page }}</a>
+                </li>
+                <li >
+                    <a href="javascript:;" ng-click="Next()">
+                        <span>下一页</span>
+                    </a>
+                </li>
+                <span style="line-height: 35px;margin-left: 15px;">  共：{{datatotal}} 条  </span>
+            </ul>
+        </div>
+    </div>
+
+</div>
+<!-- 内容部分 end -->

@@ -1,0 +1,263 @@
+<!-- 内容部分 -->
+<div class="mainContent" ng-controller="ServiceCtrl">
+	<div class="mContent wbg pdd">
+		<h1 class="page-header" style="margin: 5px auto">申请售后服务</h1>
+		<div class="subReq clearfix">
+			<label>
+				<em class="type_class_1" ng-class="{type_class:thUnused}">
+					<input class="input_radio" type="radio" name="aftertype" value="1" ng-model="aftertype" ng-change="hideDiv(aftertype)"/>
+					<span >退货/退款</span>
+				</em>
+			</label>
+			<label>
+				<em class="type_class_2" ng-class="{type_class:hhUnused}">
+					<input class="input_radio" type="radio" name="aftertype" value="2" ng-model="aftertype" ng-change="hideDiv(aftertype)"/>
+					<span>换货</span>
+				</em>
+			</label>
+			<label>
+				<em class="type_class_3">
+					<input class="input_radio" type="radio" name="aftertype" value="3" ng-model="aftertype" ng-change="hideDiv(aftertype)"/>
+					<span>维修</span>
+				</em>
+			</label>
+		</div>
+		<h2 class="page-header" style="margin: 5px auto">商品信息</h2>
+		<div class="tablearea tablewd">
+			<table width="100%" border="0" cellspacing="0">
+				<tr>
+					<th style="width: 40%">商品名称</th>
+					<th>单价</th>
+					<th>数量</th>
+					<th>总金额（元）</th>
+					<th>关联订单编号</th>
+				</tr>
+				<tr>
+					<td>
+						<div class="pro-img">
+							<img src="images/watch02.png" style="border:1px #ccc solid">
+							<p>{{newServDeital.prods[0].productName}}</p>
+							<p class="pr-msg">
+								<span>商品名称：{{newServDeital.prods[0].name}}</span>
+								<br/>
+								<span>商品编号：{{newServDeital.prods[0].code}}</span>
+								<span style="display: none">签收日期：2016-09-08</span>
+							</p>
+							<p class="pr-msg">
+								<span style="display: none">设备编号：{{servDetail.serialNumber}}</span>
+								<span style="display: none">手机号码：{{addrS.phone}}</span>
+							</p>
+						</div>
+					</td>
+					<td>{{newServDeital.prods[0].price}}</td>
+					<td>
+						<button type="button" ng-click="minusCount(newServDeital.prods[0])" class="btn">-</button> {{afterSaleCount}}
+						<button type="button" ng-click="addCount(newServDeital.prods[0])" class="btn">+</button>
+					</td>
+					<td>{{newServDeital.prods[0].price*newServDeital.prods[0].total}}</td>
+					<td>{{newServDeital.code}}</td>
+				</tr>
+			</table>
+			<p ng-show="!isShow"><span>退款金额：<span style="color: red">{{fee}}（元）</span></span> <a>退款金额说明</a></p>
+		</div>
+		<div ng-if="isShow">
+			<h2 class="page-header" style="margin: 5px auto">收货人信息</h2>
+			<div class="infoMsg clearfix">
+				<div class="lf infoMsg-new" style="position: relative">
+					<dl ng-show="isShow">
+						<dt style="display: none">{{addrIe.eid}}</dt>
+						<dt>姓 名：{{addrIe.name}}</dt>
+						<dd>联系电话：{{addrIe.phone}}</dd>
+						<dd>地 址：{{addrIe.provname + addrIe.cityname + addrIe.areaname + addrIe.address}}</dd>
+						<dd>邮 编：{{addrIe.zipcode}}</dd>
+						<dd style="margin-top:10px; display: none">
+							<button type="button" class="btn btn-og" ng-click="openAddrLayer(dataBy.express[0])" data-toggle="modal" data-target="#address">修 改</button>
+							<button type="button" class="btn btn-gray" ng-click="deladdr(dataBy.express[0].eid)">删除</button>
+						</dd>
+					</dl>
+				</div>
+				<div class="infoMsg-new rt">
+					<a class="ad" href="javascript:;" data-toggle="modal" data-target="#address">使用新地址</a>
+					<dl style="display: none">
+						<dt>姓 名：{{$scope.addrlist[-1].name}}</dt>
+						<dd>联系电话：{{$scope.addrlist.phone}}</dd>
+						<dd>地 址：北京市朝阳区XXXXXXXXXXXX</dd>
+						<dd>邮 编：{{$scope.addrlist.zipcode}}</dd>
+						<dd><button type="button" class="btn btn-og" ng-click="openAddrLayer('new')">修 改</button>
+							<button type="button" class="btn btn-gray" ng-click="delre(item.id)">删除</button>
+						</dd>
+					</dl>
+				</div>
+				<!-- 内容部分 end -->
+				<!-- Modal -->
+				<div class="modal fade bs-example-modal-lg" id="address" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog" style="width: 800px; margin: 30px auto;">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+								<h4 class="modal-title" id="myModalLabel">新增地址</h4>
+							</div>
+							<div class="modal-body">
+								<div class="newadd_msg">
+									<form name="addressForm" novalidate="novalidate" class="addressForm" ng-submit="addAddress(addressitem)">
+										<ul>
+											<li><label>收件人姓名：</label><input type="text" class="txtbox1 txt_w280" ng-model="addressitem.name" name="name" minlength="2"
+												 maxlength="20" ng-focus ng-pattern="/^[a-zA-Z0-9\u0391-\uFFE5]{2,20}$/ " required/>
+												<div class="form-error" ng-if="(addressForm.name.$invalid && addressForm.name.$dirty && !addressForm.name) || (addressForm.name.$invalid && submitted )">
+													<span ng-show="addressForm.name.$error.required" class="color0">收件人姓名不能为空</span>
+													<span ng-show="addressForm.name.$error.pattern" class="color0">2-20个字符，可由中文、字母和数字组成</span>
+												</div>
+
+											</li>
+											<li class="add_areaList"><label>所在地区：</label><select required class="txtbox1 txt_w196" name="provname" ng-model="addressitem.provname"
+												 ng-options="key as key for (key,value) in division" ng-change="addressitem.cityname='';addressitem.areaname='';">
+											<option value="">请选择省</option>
+										</select>
+												<select class="txtbox1 txt_w196" ng-model="addressitem.cityname" name="cityname" ng-options="key as key for (key,value) in division[addressitem.provname]"
+												 ng-change="district='';" required>
+												<option value="">请选择市</option>
+											</select>
+												<select class="txtbox1 txt_w196" name="areaname" ng-model="addressitem.areaname" ng-options="value as value for value in division[addressitem.provname][addressitem.cityname]"
+												 required>
+												<option value="">请选择区</option>
+											</select>
+												<div class="form-error" ng-show="(addressForm.province.$invalid && addressForm.province.$dirty) || (addressForm.province.$invalid && submitted )">
+													<span ng-show="addressForm.province.$error.required" class="color0">所在地区不能为空</span>
+												</div>
+
+											</li>
+											<li><label>详细地址：</label><input type="text" class="txtbox1 txt_w740" style="width:600px;" ng-model="addressitem.address"
+												 name="address" required />
+												<div class="form-error js_address1" ng-show="(addressForm.address.$invalid && addressForm.address.$dirty && !addressForm.address.$focused) || (addressForm.address.$invalid && submitted)">
+													<span ng-show="addressForm.address.$error.required" class="color0">详细地址不能为空</span>
+												</div>
+
+											</li>
+											<li><label>手机号码：</label><input type="text" class="txtbox1 txt_w280" ng-model="addressitem.phone" name="phone" maxlength="11"
+												 ng-pattern="/^(((13[0-9]{1})|159|153)+\d{8})$/" required/>
+												<div class="form-error js_phone" ng-show="(addressForm.phone.$invalid && addressForm.phone.$dirty && !addressForm.phone.$focused) || (addressForm.phone.$invalid && submitted )">
+													<span ng-show="addressForm.phone.$error.required" class="color0">手机号不能为空</span>
+													<span ng-show="addressForm.phone.$error.pattern" class="color0">请输入正确的手机号码</span>
+												</div>
+											</li>
+											<li><label>邮政编码：</label><input type="text" class="txtbox1 txt_w280 " maxlength="6" ng-model="addressitem.zipcode"
+												 name="zipcode" ng-pattern="/^[\d]{6}$/" required/>
+												<div class="form-error js_zipcode" ng-show="(addressForm.zipcode.$invalid && addressForm.zipcode.$dirty && !addressForm.zipcode.$focused) || (addressForm.zipcode.$invalid && submitted )">
+													<span ng-show="addressForm.zipcode.$error.required" class="color0">邮政编码不能为空</span>
+													<span ng-show="addressForm.zipcode.$error.pattern" class="color0">请输入邮政编码</span>
+												</div>
+											</li>
+											<li style="padding-left:100px">
+												<label class="pay_list_c1" ng-class="{active:addressitem.status==1}" style="width:auto">
+												<input type="checkbox" ng-model="addressitem.status"  class="checkboxclass" name="status" />  设为默认地址
+											</label>
+											</li>
+										</ul>
+
+										<div class="jsaddrName"></div>
+										<div class="text-center margin-top-2x">
+											<button type="submit" class="btn btn-og margin-right-2x">保存</button>
+											<button type="button" class="btn btn-gray" ng-click="cancel()">取消</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<h2 class="page-header" style="margin: 5px auto">上传照片</h2>
+		<div class="choice-list">
+			<ul class="font-20 clearfix">
+				<li ng-hide="pic0">
+					<label>点击上传照片
+						<input type="file" accept="image/jpeg,image/jpg,image/png,image/x-png,image/gif" multiple="multiple" file-model="images"
+							   onchange="angular.element(this).scope().img_upload(this.files);angular.element(this).scope().hidenOne(1);"/>
+					</label>
+				</li>
+				<li ng-hide="!pic0">
+					<span ng-if="thumb[0].imgSrc" ng-click="img_del(0);hidenOne(0);">{{thumb[0].length}}</span>
+					<div><img ng-src="{{thumb[0].imgSrc}}" /></div>
+				</li>
+				<li ng-hide="pic1">
+					<label>点击上传照片
+						<input type="file" accept="image/jpeg,image/jpg,image/png,image/x-png,image/gif" multiple="multiple" file-model="images" 
+						       onchange="angular.element(this).scope().img_upload(this.files);angular.element(this).scope().hidenTwo(1);"/>
+					</label>
+				</li>
+				<li ng-hide="!pic1">
+					<span ng-if="thumb[1].imgSrc" ng-click="img_del(1);hidenTwo(0);">{{thumb[1].length}}</span>
+					<div><img ng-src="{{thumb[1].imgSrc}}" /></div>
+				</li>
+				<li ng-hide="pic2">
+					<label>点击上传照片
+						<input type="file" accept="image/jpeg,image/jpg,image/png,image/x-png,image/gif" multiple="multiple" file-model="images" 
+							onchange="angular.element(this).scope().img_upload(this.files);angular.element(this).scope().hidenThree(1);"/>
+					</label>
+				</li>
+				<li ng-hide="!pic2">
+					<span ng-if="thumb[2].imgSrc" ng-click="img_del(2);hidenThree(0);">{{thumb[2].length}}</span>
+					<div><img ng-src="{{thumb[2].imgSrc}}" /></div>
+				</li>
+			</ul>
+			<div>
+				<p style="color:#ff0000;">说明：最多上传3张照片，支持jpg、gif、png、bmp格式，每张大小不超过2M</p>
+			</div>
+		</div>
+		<h2 class="page-header" style="margin: 5px auto">其他信息</h2>
+		<div class="pageItem">
+			<div ng-show="!isShow" class="form-group">
+				<label>请选择退货原因：</label>
+				<select ng-model="refundreason" class="form-control formControl">
+			  		<option value="0">请选择退货原因</option>
+			  		<option value="1">七天无理由退货</option>
+			  		<option value="2">商品错发/漏发</option>
+			  		<option value="3">商品质量问题</option>
+				</select>
+			</div>
+			<div ng-if="!isShow2" class="selects">请选择售后产品：
+				<label>
+					<input  type="checkbox" name="productType" ng-true-value="1" ng-false-value="0" ng-model="productType.v1"/>
+					<span>智能手表</span>  
+				</label>
+				<label>
+					<input type="checkbox" name="productType" ng-true-value="1" ng-false-value="0" ng-model="productType.v2"/>
+					<span>耳机</span>  
+				</label>
+				<label>
+					<input type="checkbox" name="productType" ng-true-value="1" ng-false-value="0" ng-model="productType.v3"/>
+					<span>数据线</span>  
+				</label>
+				<label>
+					<input type="checkbox" name="productType" ng-true-value="1" ng-false-value="0" ng-model="productType.v4"/>
+					<span>充电器</span>
+				</label>
+				<label>
+					<input  type="checkbox" name="productType" ng-true-value="1" ng-false-value="0" ng-model="productType.v5"/>
+					<span>配件</span>
+				</label>
+			</div>
+			<div>
+				<div>请填写售后原因：</div>
+				<div>
+					<textarea class="textarea" id="baidu_translate_input" data-height="140" style="height: 140px;" ng-model="remark" ng-change="checkText()"></textarea>
+				</div>
+				<span style="color: #ff0000;">您还可以输入{{textLen}}字</span>
+			</div>
+		</div>
+		<h2 class="page-header" style="margin: 5px auto">退换/维修客户邮寄信息</h2>
+		<div style="margin-left: 50px;">
+			<div>
+				<span>提交售后服务单后，请您保持手机畅通并在客服与您电话确认后，再将需进行售后服务的产品邮寄至售后服务中心.</span>
+				<br/>
+				<span> 地址如下：XXXXXXXXXXXXXXXXXXXXXXXX</span>
+				<p>邮编：100022</p>
+				<p>联系电话：489q9289082520</p>
+			</div>
+			<div>了解售后细则</div>
+		</div>
+		<br/>
+		<div class="text-center"><button type="button" class="btn btn-og" ng-click="submitRes()">提交服务单</button></div>
+	</div>
+</div>

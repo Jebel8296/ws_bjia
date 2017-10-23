@@ -1,0 +1,44 @@
+<!-- 内容部分 -->
+<div class="main-content" ng-controller="PaySuccessCtrl">
+    <div class="mContent wbg" style="min-height: 300px;">
+        <div class="pCollect">
+            <div class="pcollectMsg" ng-show="haveorder">
+                <p>{{paymsg}}</p>
+                <h3>订单金额： ¥ {{prodpay | number:2}}元</h3>
+                <span style="display: inline; position: relative">您的订单编号：{{payorder}} <a href="javascript:;" class="color3 showDetail">订单详情</a></span>
+                <!-- 订单详情 -->
+                <div class="showBox">
+                    <div class="showD tablearea" >
+                        <h6 style="font-size:14px; font-weight: 700">商品清单:</h6>
+                        <table width="100%" class="table">
+                            <tr>
+                                <th>商品信息</th>
+                                <th>单价（元）</th>
+                                <th>数量</th>
+                            </tr>
+                            <tr ng-repeat="item in payprods" >
+                                <td>{{item.name}}</td>
+                                <td>{{item.price | number: 2}}</td>
+                                <td>{{item.total}}</td>
+                            </tr>
+                        </table>
+                        <h6 style="font-size:14px; font-weight: 700">收货人信息:</h6>
+                        <div class="msg" >
+                            <!-- 收货人信息 -->
+                            <dl class="mr">
+                                <dd>姓      名：{{payexpress.name}}</dd>
+                                <dd>联系电话：{{payexpress.phone}}</dd>
+                                <dd>地      址：{{payexpress.provname+ payexpress.cityname + payexpress.areaname+ payexpress.address + ""}}</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pcollectMsg" ng-hide="haveorder">
+                <p>您的账户，不存在此订单编号：{{payorder}}</p>
+            </div>
+            <div class="btn_pd"><input type="button" value="返回订单列表" class="btn btn_og" ng-click="toOrderList()"/></div>
+        </div>
+    </div>
+</div>
+<!-- 内容部分 end -->

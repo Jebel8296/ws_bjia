@@ -1,0 +1,66 @@
+<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3">设备编号与产品对应关系维护</h1>
+</div>
+<div class="wrapper-md" ng-controller="DevicesServiceCtrl">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <form class="form-inline" role="form">
+                <div class="form-group">
+                    <label for="devicecode">设备编号：</label>
+                    <input type="text" ng-model="devicecode" class="form-control" id="devicecode" placeholder="请输入编号">
+                </div>
+                <div class="form-group">
+                    <label for="prodcode">产品编号：</label>
+                    <input type="text" ng-model="prodcode" class="form-control" id="prodcode" placeholder="请输入编号">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-info" ng-click="submitDevicesQuery();">查询</button>
+                    <button type="button" class="btn btn-info" ng-click="toAddHandle();">新增</button>
+                </div>
+                <div class="form-group">
+                    <p class="text-danger">{{warningmess}}</p>
+                </div>
+            </form>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>设备编号</th>
+                    <th>产品编号</th>
+                    <th>设备类型</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in waitDevicesHandleList | orderBy:ID">
+                    <td>{{item.devicescode}}</td>
+                    <td>{{item.prodcode}}</td>
+                    <td ng-if="item.prodtype==41">运动耳机</td>
+                    <td ng-if="item.prodtype==40">智能手表</td>
+                    <td><a href="javascript:;" class="btn btn-info" ng-click="toDeleteHandle(item)">删除</a></td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- paging -->
+            <div class="pagingContext" ng-if="waitDevicesHandleList.length">
+                <ul class="pagination">
+                    <li ng-class="{true:'disabled'}[p_current==1]">
+                        <a href="javascript:;" ng-click="Previous()">
+                            <span>上一页</span>
+                        </a>
+                    </li>
+                    <li ng-repeat="page in pageList" ng-class="{active: isActivePage(page)}">
+                        <a href="javascript:;" ng-click="selectPage(page)">{{ page }}</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;" ng-click="Next()">
+                            <span>下一页</span>
+                        </a>
+                    </li>
+                    <span style="line-height: 35px;margin-left: 15px;">  共：{{datatotal}} 条  </span>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,67 @@
+.t_banner img{ width: 100%; display: block;}
+
+/*价格样式设置*/
+.pNum{  padding: 0; margin-bottom: .5rem;margin: 0;;}
+.pNum:before{
+	content: "￥";
+    width: 5px;
+    height: 5px;
+    color: #ff0000;
+    font-size: .65rem;
+}
+/*模块*/
+.pro_item{
+	padding: .3rem 1rem;
+	font-size: .85rem;
+}
+.pro_item h1{
+	margin: 0;;
+}
+
+.sel a{
+	border: 1px solid #ddd;
+     padding: 0; 
+    font-size: .75rem;
+    width: 32%;
+    height: 1.8rem;
+    line-height: 1.8rem;
+    text-align: center;
+    margin: .3rem .15rem .3rem 0;
+    display: inline-block;
+    position: relative;
+}
+.cur{
+    color: #ff8a00;
+}
+.cur:after{
+	background: url(../img/icon1.png);
+    background-size: 100%;
+    background-position: 0 -15.5rem;
+    content: "";
+    width: 1.2rem;
+    height: 1rem;
+    position: absolute;
+    right: 0;
+    bottom: 0px;
+}
+.standard dt {
+    background: #ddd;
+    font-weight: bold;
+    height: 22px;
+    text-indent: 22px;
+    line-height: 22px;
+}
+.standard dd {
+    padding-left: 0px;
+    line-height: 22px;
+    border-bottom: 1px solid #ccc;
+    background: url(../img/standard_line.png) repeat-y 110px 0;
+    word-break: break-all;
+    font-size:.65rem
+}
+.standard label {
+    padding-left: 0px;
+    width: 6rem;
+    float: left;
+    color:#000
+}

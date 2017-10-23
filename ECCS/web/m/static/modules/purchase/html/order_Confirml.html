@@ -1,0 +1,171 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>确认订单</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=yes">
+      <link rel="stylesheet" href="/modules/public/css/all.css">
+      <link rel="stylesheet" href="/modules/public/css/menu.css">
+      <link rel="stylesheet" href="/modules/purchase/css/order.css">
+      <link rel="stylesheet" href="/modules/purchase/css/orderOther.css">
+  </head>
+  <body>
+  <div class="page-group orderCont">
+      <!-- 主体html代码 -->
+    <div class="page">
+      	
+      <header class="bar bar-nav">
+	      <a class="button button-link button-nav pull-left" href="javascript:window.history.go(-1)">
+			    <span class="icon icon-left"></span>
+			  </a>
+	      <h1 class="title">确认订单</h1>
+    	</header>
+
+      <div class="content">
+      <!-- 页面内容区 -->
+
+        <!-- 无收获信息时显示 -->
+	      <div id="noAddr" data-addr="0" class="order_msg content-block" >
+	 					<h3>收货信息</h3>
+            <div class="input-Item"> 
+                <span>收货人：</span>
+                <input type="text" id='' placeholder='姓名' class="txtbox w70 orderAddr_Name"/>
+                <p class="color0 df">不能为空</p>
+            </div>
+              
+            <div class="input-Item"> 
+                <span>所在地区：</span>
+                <input type="text" id='city-picker' placeholder='所在地区' class="txtbox w70 orderAddr_area"/>
+                <p class="color2 df">所在地区</p>
+            </div>
+                
+            <div class="input-Item"> 
+                <span>详细地址：</span>
+                <input type="text" id='' placeholder='不需要重复填写省市区' class="txtbox w70 orderAddr_Msg"/>
+                <p class="color2 df">详细地址</p>
+            </div>
+                
+            <div class="input-Item"> 
+                <span>手机号码：</span>
+                <input type="text" id='' placeholder='手机号码' class="txtbox w70 orderAddr_Tel"/>
+                <p class="color2 df">手机号码</p>
+            </div>
+                 
+            <div class="input-Item"> 
+                <span>邮政编码：</span>
+                <input type="text" id='' placeholder='邮政编码' class="txtbox w70 orderAddr_Code"/>
+                <p class="color2 df">邮政编码</p>
+                <a href="jvascript:;" class="button btn_org w30 m_tp save_addr">保 存</a> 
+            </div>
+        </div>
+        
+        <!-- 有收获信息时显示 -->
+        <div id="yAddr" data-addr="1" class="list-block media-list order_msg">
+          <h3>收货信息</h3>
+          <a href="address_select.html" class="item-link item-content">
+            <div class="item-inner">
+              <div class="item-title-row">
+                 
+                  <!-- 默认地址 -->
+                 
+              </div>
+            </div>
+          </a>
+        </div>
+
+          <div class="order_msg">
+              <dl>
+                  <dt>发票信息</dt>
+                  <dd>
+                      <input type="checkbox" value="" id="fap" name="cart-pro" class="regular-checkbox" data-sel="false">
+                      <label for="fap" class="sel-this1"><em class=""></em>要发票：</label>
+                      <input type="text" id='receiptName' class="txtbox w70" placeholder="发票抬头不超过30个字符"/></dd>
+                  <dd class="f-12 color0 plf hide_content" id="invoice">发票抬头在提交订单后不可变更，请谨慎填写</dd>
+                  <dd class="f-12  plf">发票：明细</dd>
+
+              </dl>
+          </div>
+			
+			  <!--<div class="order_msg">-->
+					<!--<dl>-->
+						<!--<dt>配送方式及时间</dt>-->
+						<!--<dd class="pd">物流公司：<input type="text" id='picker' class="txtbox" value="宅急送免费"/></dd>-->
+						<!--<dd>送货时间：<input type="text" id='dataID'  class="txtbox" value="随时"/></dd>-->
+					<!--</dl>-->
+			  <!--</div> -->
+          <div class="order_msg">
+          <dl>
+          <dt>配送方式及时间</dt>
+          <!--<dd class="pd">物流公司：<input type="text" id='picker' class="txtbox" value="EMS免费"/></dd>-->
+                  <!--<dd>送货时间：<input type="text" id='dataID'  class="txtbox" value="随时"/></dd>-->
+                  <a href="logistic.html">
+                  <dd id="logistics">物流公司：<span id="logistics_box"></span></dd>
+                  <div class="list-block" style="display: inline-block">
+                  <a href="logistic.html" class="item-link">
+                  <dd  class="item-inner" id="delivery">送货时间：<span id="delivery_box"></span></dd>
+                  </a>
+          </div>
+
+          </a>
+
+          </dl>
+          </div>
+
+        <div class="page_item list-block">      
+          <div class="order_msg">
+              <h3>商品清单<span class="Items-total">共计<span class="Items-total-num">1</span>件商品</span></h3>
+            <div class="list-block media-list commodityList">
+              <ul>
+                   <!-- commodityList -->
+              </ul>
+            </div>    
+          </div>
+            <div class="order_sum">
+                <div>商品总金额 <span class="color0 right sumPrice">0.00</span></div>
+                <div>运费 <span class="color0 right freight">0.00</span></div>
+            </div>
+        </div>    
+             
+      </div>
+   		<!-- 页面内容区 end -->
+
+
+
+
+        <div class="bar bar-footer bar-footer-other">
+            <div class="row">
+                <div class="col-40">
+                    合计：<span class="color0">¥<span class="allTotal">0</span></span>
+                    <!--<i class="jsEm">运费金额：<span class="color0">¥<span class="freight">0</span></span></i>-->
+
+                </div>
+                <div class="col-60">
+                    <label  for="fap" class="sel-this-ohther"><em></em>阅读并同意《***协议》</label>
+                </div>
+                <div class="col-100"><a href="#" class="button btn_org orderSubmit">提交订单</a></div>
+            </div>
+        </div>
+      
+    </div>
+    <!-- 主体html代码 -->
+  </div>
+	
+   
+  <script type='text/javascript' src='/libs/seajs/seajs-3.0.0.js'></script>
+  <script type='text/javascript' src='/libs/zepto/zepto.min.js'></script>
+  <script type='text/javascript' src='/libs/zepto/zepto.cookie.min.js'></script>
+
+  <script type='text/javascript' src='/libs/sui/js/sm.min.js'></script>
+  <script type='text/javascript' src='/libs/sui/js/sm-extend.min.js'></script>
+  <script type='text/javascript' src='/libs/sui/js/sm-city-picker.min.js'></script>
+  <script> 
+    // 加载入口模块
+    seajs.use("purchase/js/oConfirml");
+  </script> 
+  
+  <!-- menu侧导航 --> 
+  </body>
+</html>

@@ -1,0 +1,29 @@
+<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3">日志监控</h1>
+</div>
+<div class="wrapper-md" ng-controller="MonitorLogCtrl">
+    <div class="panel panel-default">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Host</th>
+                    <th>Type</th>
+                    <th>Flag</th>
+                    <th>Mess</th>
+                    <th>Time</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="l in logs">
+                    <td>{{l.host}}</td>
+                    <td>{{l.type}}</td>
+                    <td>{{l.flag}}</td>
+                    <td>{{l.message}}</td>
+                    <td>{{l.time|date:"yyyy-MM-dd HH:mm:ss"}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

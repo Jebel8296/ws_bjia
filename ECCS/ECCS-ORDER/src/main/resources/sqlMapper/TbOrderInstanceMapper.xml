@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinamcom.framework.order.mapper.TbOrderInstanceMapper">
+  <resultMap id="BaseResultMap" type="com.chinamcom.framework.order.model.TbOrderInstance">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-18 17:07:00.
+    -->
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="ORDER_ID" jdbcType="INTEGER" property="orderId" />
+    <result column="PRODUCT_ID" jdbcType="INTEGER" property="productId" />
+    <result column="PRODUCT_CODE" jdbcType="VARCHAR" property="productCode" />
+    <result column="SKU_ID" jdbcType="INTEGER" property="skuId" />
+    <result column="PRODUCT_NAME" jdbcType="VARCHAR" property="productName" />
+    <result column="PRODUCT_PRICE" jdbcType="DECIMAL" property="productPrice" />
+    <result column="PRODUCT_TOTAL" jdbcType="INTEGER" property="productTotal" />
+    <result column="PAY_FEE" jdbcType="DECIMAL" property="payFee" />
+    <result column="REDUCE_FEE" jdbcType="DECIMAL" property="reduceFee" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="USER_ID" jdbcType="INTEGER" property="userId" />
+    <result column="STATUS" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-18 17:07:00.
+    -->
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-18 17:07:00.
+    -->
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-18 17:07:00.
+    -->
+    ID, ORDER_ID, PRODUCT_ID, PRODUCT_CODE, SKU_ID, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_TOTAL, 
+    PAY_FEE, REDUCE_FEE, CREATE_TIME, UPDATE_TIME, USER_ID, STATUS
+  </sql>
+  <select id="selectByExample" parameterType="com.chinamcom.framework.order.model.TbOrderInstanceExample" resultMap="BaseResultMap">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-18 17:07:00.
+    -->
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tb_order_instance
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-18 17:07:00.
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from tb_order_instance
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-18 17:07:00.
+    -->
+    delete from tb_order_instance
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chinamcom.framework.order.model.TbOrderInstanceExample">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-18 17:07:00.
+    -->
+    delete from tb_order_instance
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chinamcom.framework.order.model.TbOrderInstance">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-18 17:07:00.
+    -->
+    insert into tb_order_instance (ID, ORDER_ID, PRODUCT_ID, 
+      PRODUCT_CODE, SKU_ID, PRODUCT_NAME, 
+      PRODUCT_PRICE, PRODUCT_TOTAL, PAY_FEE, 
+      REDUCE_FEE, CREATE_TIME, UPDATE_TIME, 
+      USER_ID, STATUS)
+    values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, 
+      #{productCode,jdbcType=VARCHAR}, #{skuId,jdbcType=INTEGER}, #{productName,jdbcType=VARCHAR}, 
+      #{productPrice,jdbcType=DECIMAL}, #{productTotal,jdbcType=INTEGER}, #{payFee,jdbcType=DECIMAL}, 
+      #{reduceFee,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{userId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chinamcom.framework.order.model.TbOrderInstance">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-18 17:07:00.
+    -->
+    insert into tb_order_instance
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="orderId != null">
+        ORDER_ID,
+      </if>
+      <if test="productId != null">
+        PRODUCT_ID,
+      </if>
+      <if test="productCode != null">
+        PRODUCT_CODE,
+      </if>
+      <if test="skuId != null">
+        SKU_ID,
+      </if>
+      <if test="productName != null">
+        PRODUCT_NAME,
+      </if>
+      <if test="productPrice != null">
+        PRODUCT_PRICE,
+      </if>
+      <if test="productTotal != null">
+        PRODUCT_TOTAL,
+      </if>
+      <if test="payFee != null">
+        PAY_FEE,
+      </if>
+      <if test="reduceFee != null">
+        REDUCE_FEE,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="productCode != null">
+        #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="skuId != null">
+        #{skuId,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null">
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productPrice != null">
+        #{productPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="productTotal != null">
+        #{productTotal,jdbcType=INTEGER},
+      </if>
+      <if test="payFee != null">
+        #{payFee,jdbcType=DECIMAL},
+      </if>
+      <if test="reduceFee != null">
+        #{reduceFee,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chinamcom.framework.order.model.TbOrderInstanceExample" resultType="java.lang.Integer">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-18 17:07:00.
+    -->
+    select count(*) from tb_order_instance
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-18 17:07:00.
+    -->
+    update tb_order_instance
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderId != null">
+        ORDER_ID = #{record.orderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.productId != null">
+        PRODUCT_ID = #{record.productId,jdbcType=INTEGER},
+      </if>
+      <if test="record.productCode != null">
+        PRODUCT_CODE = #{record.productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.skuId != null">
+        SKU_ID = #{record.skuId,jdbcType=INTEGER},
+      </if>
+      <if test="record.productName != null">
+        PRODUCT_NAME = #{record.productName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productPrice != null">
+        PRODUCT_PRICE = #{record.productPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.productTotal != null">
+        PRODUCT_TOTAL = #{record.productTotal,jdbcType=INTEGER},
+      </if>
+      <if test="record.payFee != null">
+        PAY_FEE = #{record.payFee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.reduceFee != null">
+        REDUCE_FEE = #{record.reduceFee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.createTime != null">
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userId != null">
+        USER_ID = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        STATUS = #{record.status,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-18 17:07:00.
+    -->
+    update tb_order_instance
+    set ID = #{record.id,jdbcType=INTEGER},
+      ORDER_ID = #{record.orderId,jdbcType=INTEGER},
+      PRODUCT_ID = #{record.productId,jdbcType=INTEGER},
+      PRODUCT_CODE = #{record.productCode,jdbcType=VARCHAR},
+      SKU_ID = #{record.skuId,jdbcType=INTEGER},
+      PRODUCT_NAME = #{record.productName,jdbcType=VARCHAR},
+      PRODUCT_PRICE = #{record.productPrice,jdbcType=DECIMAL},
+      PRODUCT_TOTAL = #{record.productTotal,jdbcType=INTEGER},
+      PAY_FEE = #{record.payFee,jdbcType=DECIMAL},
+      REDUCE_FEE = #{record.reduceFee,jdbcType=DECIMAL},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      USER_ID = #{record.userId,jdbcType=INTEGER},
+      STATUS = #{record.status,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chinamcom.framework.order.model.TbOrderInstance">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-18 17:07:00.
+    -->
+    update tb_order_instance
+    <set>
+      <if test="orderId != null">
+        ORDER_ID = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null">
+        PRODUCT_ID = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="productCode != null">
+        PRODUCT_CODE = #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="skuId != null">
+        SKU_ID = #{skuId,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null">
+        PRODUCT_NAME = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productPrice != null">
+        PRODUCT_PRICE = #{productPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="productTotal != null">
+        PRODUCT_TOTAL = #{productTotal,jdbcType=INTEGER},
+      </if>
+      <if test="payFee != null">
+        PAY_FEE = #{payFee,jdbcType=DECIMAL},
+      </if>
+      <if test="reduceFee != null">
+        REDUCE_FEE = #{reduceFee,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        USER_ID = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chinamcom.framework.order.model.TbOrderInstance">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-18 17:07:00.
+    -->
+    update tb_order_instance
+    set ORDER_ID = #{orderId,jdbcType=INTEGER},
+      PRODUCT_ID = #{productId,jdbcType=INTEGER},
+      PRODUCT_CODE = #{productCode,jdbcType=VARCHAR},
+      SKU_ID = #{skuId,jdbcType=INTEGER},
+      PRODUCT_NAME = #{productName,jdbcType=VARCHAR},
+      PRODUCT_PRICE = #{productPrice,jdbcType=DECIMAL},
+      PRODUCT_TOTAL = #{productTotal,jdbcType=INTEGER},
+      PAY_FEE = #{payFee,jdbcType=DECIMAL},
+      REDUCE_FEE = #{reduceFee,jdbcType=DECIMAL},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      USER_ID = #{userId,jdbcType=INTEGER},
+      STATUS = #{status,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,24 @@
+= Cheatsheets
+
+[[BackstageUser]]
+== BackstageUser
+
+++++
+ [STRATO MyBatis Generator] Table: backstage_user
+++++
+'''
+
+[cols=">25%,^25%,50%"]
+[frame="topbot"]
+|===
+^|Name | Type ^| Description
+|[[email]]`email`|`String`|-
+|[[headPortrait]]`headPortrait`|`String`|-
+|[[id]]`id`|`Number (Integer)`|-
+|[[nickname]]`nickname`|`String`|-
+|[[password]]`password`|`String`|-
+|[[phone]]`phone`|`String`|-
+|[[status]]`status`|`Number (Integer)`|-
+|[[username]]`username`|`String`|-
+|===
+

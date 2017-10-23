@@ -1,0 +1,100 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>选择收货地址</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=yes">
+
+    <link rel="stylesheet" href="/modules/public/css/all.css">
+    <link rel="stylesheet" href="/modules/public/css/menu.css">
+    <link rel="stylesheet" href="/modules/purchase/css/order.css">
+  </head>
+  <body>
+  <!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
+  <div class="page-group">
+    <div class="page page-current">
+    <!-- 主体html代码 -->
+    <header class="bar bar-nav">
+      <a class="button button-link button-nav pull-left" href="javascript:window.history.go(-1)">
+		    <span class="icon icon-left"></span>
+		  </a>
+  
+      <h1 class="title">选择收货地址</h1>
+    </header>
+   
+    <div class="content">
+    <!-- 页面内容区 -->	
+    
+    <div class="list-block order_addr">
+ 				<h3>收货地址<a id="addrManage" href="javascript:;" class="edit_or color1">管理地址</a></h3>
+        <!--<div class="sel_addr">-->
+            <!--<input type="radio" value="" id="1" name="cart-pro" class="regular-radio">-->
+					  <!--<label for="1" class="sel-this"><em></em>-->
+					   			<!--<p>-->
+					   				<!--收货人：张晓明 &nbsp;&nbsp;联系电话：17093721919 <br/>-->
+					   				<!--地　址：北京市朝阳区建外大街12号12层-->
+					   			<!--</p>-->
+					  <!--</label>-->
+					  <!--<span>默认地址</span>           	-->
+        <!--</div>-->
+        <!-- -->
+        <!--<div class="sel_addr">-->
+            <!--<input type="radio" value="" id="2" name="cart-pro" class="regular-radio">-->
+					  <!--<label for="2" class="sel-this"><em></em>-->
+					   			<!--<p>-->
+					   				<!--收货人：张晓明 &nbsp;&nbsp;联系电话：17093721919 <br/>-->
+					   				<!--地　址：北京市朝阳区建外大街12号12层  -->
+					   			<!--</p>-->
+					  <!--</label>		  -->
+        <!--</div>-->
+        
+  	</div>
+  	
+  	<!--<div class="bar bar-footer">-->
+				<!--<a href="#" class="button btn_org">提交订单</a>-->
+		<!--</div>-->
+		<!--&lt;!&ndash; 页面内容区 end &ndash;&gt;-->
+    <!--</div>-->
+
+
+	<!-- 主体html代码 -->
+  </div>
+</div>
+
+ <!-- popup, panel 等放在这里 -->
+    <div class="panel-overlay"></div>
+    <!-- Left Panel with Reveal effect -->
+    <div class="panel panel-left panel-reveal">
+        <div class="content-block">
+        	
+            <div class="list_menu">
+                        <ul>
+					        <li><a href="home.html">首页</a></li>
+					        <li><a href="proPage.html">电话手表</a></li>
+					        <li><a href="proPage2.html">智能耳机</a></li>
+					        <li><a href="#">论坛</a></li>
+					        <li><a href="download.html">应用下载</a></li>
+					     </ul>
+					     <p><a href="#" class="close-panel">关闭</a></p>
+					  </div>
+    
+        </div>
+    </div>
+   
+  <script type='text/javascript' src='/libs/seajs/seajs-3.0.0.js'></script>
+  <script type='text/javascript' src='/libs/zepto/zepto.min.js'></script>
+  <script type='text/javascript' src='/libs/zepto/zepto.cookie.min.js'></script>
+  <script type='text/javascript' src='/libs/sui/js/sm.min.js'></script>
+  <script type='text/javascript' src='/libs/sui/js/sm-extend.min.js'></script>
+  <script type='text/javascript' src='/libs/sui/js/sm-city-picker.min.js'></script>
+  <script> 
+    // 加载入口模块
+    seajs.use("purchase/js/addr");
+  </script> 
+  
+  <!-- menu侧导航 --> 
+  </body>
+</html>

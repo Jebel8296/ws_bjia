@@ -1,0 +1,112 @@
+<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3">客服受理售后请求列表</h1>
+</div>
+<div class="wrapper-md" ng-controller="AfterSaleCtrl">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <form class="form-inline" role="form">
+                <div class="form-group">
+                    <label>申请时间：</label>
+                    <div class="input-group input-medium input-daterange">
+                        <input name="dtBegin" ng-model="beginDate" class="form-control" style="font-size: 13px;" type="date" value="1990-01-01">
+                        <span class="input-group-addon">-</span>
+                        <input name="dtEnd" ng-model="endDate" class="form-control" style="font-size: 13px;" type="date" value="1990-01-01">
+                    </div>
+                </div>
+                &nbsp;
+                <div class="form-group">
+                    <label>受理状态：</label>
+                    <select ng-model="status" class="form-control">
+                        <option value="9">全部</option>
+                        <option value="0">待受理</option>
+                        <option value="1">待邮寄</option>
+                        <option value="2">处理中</option>
+                        <option value="3">完成</option>
+                        <option value="4">关闭</option>
+                        <option value="5">待补充</option>
+                    </select>
+                </div>
+                &nbsp;
+                <div class="form-group">
+                    <label>售后类型：</label>
+                    <select ng-model="type" class="form-control">
+                        <option value="9">所有</option>
+                        <option value="1">退货</option>
+                        <option value="2">换货</option>
+                        <option value="3">维修</option>
+                    </select>
+                </div>
+                &nbsp;
+                <div class="form-group">
+                    <label for="code">售后编号：</label>
+                    <input type="text" ng-model="code" class="form-control" id="code" placeholder="请输入编号">
+                </div>
+                &nbsp;
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn m-b-xs w-xs btn-info" ng-click="submitQuery();">查询</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>申请时间</th>
+                        <th>商品名称</th>
+                        <th>数量</th>
+                        <th>售后类型</th>
+                        <th>联系电话</th>
+                        <th>处理进度</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in waitHandleList">
+                        <td>{{item.aftercode}}</td>
+                        <td>{{item.applytime|date:"yyyy-MM-dd HH:mm:ss"}}</td>
+                        <td>{{item.prodname}}</td>
+                        <td>{{item.total}}</td>
+                        <td>{{item.aftertype}}</td>
+                        <td>
+                            <div>
+                                <!--<p>姓名：{{item.customer.name}}</p>-->
+                                <p>{{item.customer.phone}}</p>
+                                <!--<p>地址：{{item.customer.address}}</p>-->
+                            </div>
+                        </td>
+                        <td>
+                            <span ng-show="item.status==0">待受理</span>
+                            <span ng-show="item.status==1">待邮寄</span>
+                            <span ng-show="item.status==2">处理中</span>
+                            <span ng-show="item.status==3">售后完成</span>
+                            <span ng-show="item.status==4">关闭</span>
+                            <span ng-show="item.status==5">待补充</span>
+                        </td>
+                        <td><a href="javascript:;" class="btn btn-info" ng-click="toHandle(item)">查看详情并受理</a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- paging -->
+            <div class="pagingContext" ng-if="waitHandleList.length">
+                <ul class="pagination">
+                    <li ng-class="{true:'disabled'}[p_current==1]">
+                        <a href="javascript:;" ng-click="Previous()">
+                            <span>上一页</span>
+                        </a>
+                    </li>
+                    <li ng-repeat="page in pageList" ng-class="{active: isActivePage(page)}"><a href="javascript:;" ng-click="selectPage(page)">{{ page }}</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;" ng-click="Next()">
+                            <span>下一页</span>
+                        </a>
+                    </li>
+                    <span style="line-height: 35px;margin-left: 15px;">  共：{{datatotal}} 条  </span>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

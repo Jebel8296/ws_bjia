@@ -1,0 +1,36 @@
+<!--子菜单-->
+<div ng-controller="ProductCtrl">
+       <!-- 内容部分 -->
+    <div class="main-content">
+        <div class="mContent wbg">
+            <!--产品价格-->
+            <ul class="contMain">
+                <li class="leftInfo leftIimgA" ng-repeat="item in headsetModel" style="width:100%" ng-click="toproduct(item)">
+                    <div class="title">
+                        <h5>{{item.name}}</h5>
+                        <p>高品质无损 为音乐发烧而生</p>
+                    </div>
+                    <span class="idx_price">299</span>
+                    <a href="javascript:;" title="{{item.prodname}}" class="link" ></a>
+                </li>
+            </ul>
+            <div style="padding:0 20px; border-top:1px #ccc solid">
+                <div ng-include="currentTab"></div>
+            </div>
+            <!--产品价格 end-->
+            <!--产品说明-->
+            <div style="display: none">
+                <ul class="tabList" style="border:1px #ccc solid; overflow: auto">
+                    <li ng-repeat="tab in tabs" ng-class="{active:isActiveTab(tab.url)}" ng-click="onClickTab(tab)">{{tab.title}}</li>
+                </ul>
+                <div class="clearF"></div>
+                <div id="mainView" style="padding:50px">
+                    <div ng-include="currentTab"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 内容部分 end -->
+
+</div>
+

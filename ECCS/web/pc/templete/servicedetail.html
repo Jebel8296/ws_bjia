@@ -1,0 +1,165 @@
+<div class="mainContent" ng-controller="ServiceDetail">
+    <div class="mContent">
+        <div ng-include="'templete/common/ordermenu.html'"></div>
+        <div class="contRight wbg">
+            <h1>查看售后详情</h1>
+            <div class="panel panel-default">
+                <div class="detailNum margin-top-4x" style="text-align: left">
+                    <label>售后服务编号：</label>
+                    <span>{{sdetaildata.aftercode}}</span>
+                    <span></span>
+                    <label>售后类型：</label>
+                    <span ng-show="sdetaildata.aftertype==1">退货</span>
+                    <span ng-show="sdetaildata.aftertype==2">换货</span>
+                    <span ng-show="sdetaildata.aftertype==3">维修</span>
+                    <span></span>
+                    <label>处理状态：</label>
+                    <span ng-show="sdetaildata.status==0">待受理</span>
+                    <span ng-show="sdetaildata.status==1">待邮寄</span>
+                    <span ng-show="sdetaildata.status==2">处理中</span>
+                    <span ng-show="sdetaildata.status==3">售后完成</span>
+                    <span ng-show="sdetaildata.status==4">关闭</span>
+                    <span ng-show="sdetaildata.status==5">待补充</span>
+                    <span></span>
+                    <label>账号：</label>
+                    <span>{{username}}</span>
+                </div>
+                <span></span>
+                <div class="detailBarMsg">
+                    <ul>
+                        <li>
+                            <span class="color0">待受理</span>
+                            <p>{{sdetaildata.applytime | date:'yyyy-MM-dd' }}<br/>{{sdetaildata.applytime | date:'HH:mm:ss'}}</p>
+                        </li>
+                        <li ng-repeat="d in sdetaildata.replyResult | orderBy:'createTime'">
+                            <span class="color0" ng-show="d.to==0">待受理</span>
+                            <span class="color0" ng-show="d.to==1">待邮寄</span>
+                            <span class="color0" ng-show="d.to==2">处理中</span>
+                            <span class="color0" ng-show="d.to==3">售后完成</span>
+                            <span class="color0" ng-show="d.to==4">关闭</span>
+                            <span class="color0" ng-show="d.to==5">待补充</span>
+                            <p>{{d.createTime | date:'yyyy-MM-dd' }}<br/>{{d.createTime | date:'HH:mm:ss'}}</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tablearea">
+                <h5>商品信息</h5>
+                <table width="100%" border="1" cellspacing="0">
+                    <tr>
+                        <th>商品名称</th>
+                        <th>单价（元）</th>
+                        <th>数量</th>
+                        <th>总金额（元）</th>
+                        <th>订单编号</th>
+                    </tr>
+                    <tr>
+                        <td class="pro-img">
+                            <div>
+                                <img src="images/3/3C40A100010001.png">
+                                <p class="pr-msg">
+                                    <span>{{sdetaildata.prodname}}</span><br/>
+                                    <span>型号：{{sdetaildata.prodcode |prodType}}</span>
+                                    <span>颜色：{{sdetaildata.prodcode |prodColor}}</span>
+                                </p>
+                                <p class="pr-msg">
+                                    <span ng-if="sdetaildata.signtime">签收日期：{{sdetaildata.signtime|date:"yyyy-MM-dd HH:mm:ss"}}</span><br/>
+                                    <span ng-if="sdetaildata.devicecode">设备编号：{{sdetaildata.devicecode}}</span>
+                                </p>
+                            </div>
+                        </td>
+                        <td>{{sdetaildata.prodprice |number:2}}</td>
+                        <td>{{sdetaildata.total}}</td>
+                        <td ng-if="sdetaildata.prodprice">{{sdetaildata.total*sdetaildata.prodprice |number:2}}</td>
+                        <td ng-if="!sdetaildata.prodprice">{{sdetaildata.prodprice |number:2}}</td>
+                        <td>{{sdetaildata.ordercode}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div ng-if="sdetaildata.aftertype!=1">
+                <h2>收货信息</h2>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <label>收货人：</label>
+                        <span>{{sdetaildata.logistics.name}}</span><br/>
+                        <label>手机号码：</label>
+                        <span>{{sdetaildata.logistics.phone}}</span><br/>
+                        <label>收货地址:</label>
+                        <span>{{sdetaildata.logistics.provname}}{{sdetaildata.logistics.cityname}}{{sdetaildata.logistics.areaname}}{{sdetaildata.logistics.address}}</span><br/>
+                        <label>邮政编码：</label>
+                        <span>{{sdetaildata.logistics.zipcode}}</span>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="sdetaildata.images">
+                <h2>照片信息</h2>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="choice-list">
+                            <ul class="font-20 clearfix">
+                                <li ng-repeat="item in sdetaildata.images track by $index">
+                                    <div><img ng-src="{{item}}"></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h2>其他信息</h2>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <span ng-if="sdetaildata.aftertype==1">
+                            <label>退货原因：</label>
+                            <span>{{sdetaildata.reason}}</span>
+                        </span>
+                        <br>
+                        <span ng-show="producttype.v1==1 || producttype.v2==1 || producttype.v2==1 || producttype.v3==1 || producttype.v4==1">
+                            <label>售后产品：</label>
+                            <span ng-show="producttype.v1==1"> <span>智能手表</span></span>
+                        <span ng-show="producttype.v2==1"> <span>耳机</span></span>
+                        <span ng-show="producttype.v3==1"> <span> 数据线</span></span>
+                        <span ng-show="producttype.v4==1"> <span> 充电器</span></span>
+                        </span>
+                        <br>
+                        <span>
+                            <label>售后原因：</label>
+                            <span style="white-space: normal;word-wrap:break-word;">{{sdetaildata.remark}}</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="sdetaildata.logistics.logisticsName">
+                <h2>退换/维修客户邮寄信息</h2>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <span>
+                            <label>物流公司：</label>
+                            <span>{{sdetaildata.logistics.logisticsName}}</span>
+                        </span>
+                        <p></p>
+                        <span>
+                            <label>货运单号：</label>
+                            <span>{{sdetaildata.logistics.logisticsCode}}</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="sdetaildata.replyResult">
+                <h2>客服反馈</h2>
+                <div class="panel panel-default">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <tr ng-repeat="r in sdetaildata.replyResult">
+                                <td>
+                                    <label>售后结果反馈（{{r.createTime|date:"yyyy-MM-dd HH:mm:ss"}}）：</label>
+                                    <p style="margin-left: 100px;">{{r.reply}}</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

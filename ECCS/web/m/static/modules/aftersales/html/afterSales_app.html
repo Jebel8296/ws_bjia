@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>发起售后</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=yes">
+    <link rel="stylesheet" href="/modules/public/css/all.css">
+    <link rel="stylesheet" href="/modules/aftersales/css/sales.css">
+    <style>
+      .input-Item input, .input-Item p{margin:0}
+      .sales_app .w1001{margin:0}
+    </style>
+  </head>
+  <body>
+  <!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
+  <div class="page-group">
+    <div class="page page-current">
+    <!-- 主体html代码 -->
+    <header class="bar bar-nav">
+      	<a class="button button-link button-nav pull-left" href="javascript:window.history.go(-1)">
+		    <span class="icon icon-left"></span>
+		</a>
+  
+      	<h1 class="title">发起售后</h1>
+    </header>
+   
+    <div class="content">
+    <!-- 页面内容区 -->	
+		<div class="page_item white-bg">	
+				<div class="sales_app"> 
+							<h1>通过设备编号发起售后</h1>	
+              <div class="input-Item">
+                    <div style="padding-bottom:10px">
+                      <input id="deviceId" type="text" value="" placeholder="请输入设备编号"  class="txtbox w100 w1001"/>
+                      <p class="deviceId color2"></p>
+                    </div>
+                    <input type="text" id='datetime-picker'  placeholder="购买日期" class="dataTime txtbox w100"/>
+              </div>
+
+							<div class="input-Item"> 
+											<img src=""  class="yzm"/>
+			                <input type="text" id='yzmCode' placeholder='验证码' class="txtbox w55"/>
+                              <p class="yzmCode color2"></p>
+			         </div>
+			         
+							<dl>
+								<dt>如何找到设备编号？</dt>
+								<dd>1. 在关于本机-本机状态信息可查看；</dd>
+								<dd>2. 在手机上拨打  可查询</dd>
+								<dd>3. 在包装盒</dd>
+								
+								<dt>如何填写购买日期？</dt>
+								<dd>1.线下购买的填写发票日期</dd>
+								<dd>2.线上购买的填写快递签收日期</dd>
+							</dl>
+									
+							<p><a href="javascript:;" id="subBtn" class="button btn_org">确认提交</a></p>
+							
+          </div>
+				
+	  </div>
+		
+		<!-- 页面内容区 end -->
+    </div>
+
+	<!-- 主体html代码 -->
+  </div>
+</div>
+   
+
+  <script type='text/javascript' src='/libs/seajs/seajs-3.0.0.js'></script>
+  <script type='text/javascript' src='/libs/zepto/zepto.min.js'></script>
+  <script type='text/javascript' src='/libs/zepto/zepto.cookie.min.js'></script>
+  <script> 
+    // 加载入口模块
+    seajs.use("aftersales/js/afterSalesApp");
+  </script> 
+  
+  <!-- menu侧导航 --> 
+  </body>
+</html>

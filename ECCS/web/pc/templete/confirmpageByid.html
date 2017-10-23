@@ -1,0 +1,120 @@
+<!-- 内容部分 -->
+<div class="main-content" ng-controller="ConfirmByIdCtrl">
+	<div class="mContent wbg pro_cont">
+		<h1>收货信息</h1>
+		<div class="addr">
+			<div ng-repeat="aItem in addrlist">
+				<label style="font-size: 16px;">
+					<input type="radio" ng-value="aItem.eid" ng-model="addrId" name="EID" ng-change="getAddr(aItem)">
+					<span>收件人：{{aItem.name}}</span><span>&nbsp;&nbsp;</span>
+					<span style="white-space: normal;word-wrap:break-word;">地址：{{aItem.provname + aItem.cityname + aItem.areaname + aItem.address}}</span><span>&nbsp;&nbsp;</span>
+					<span>联系电话：{{aItem.phone}}</span><span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					<span><a href="javascript:;" data-toggle="modal" data-target="#address" style="color:aquamarine" ng-click="openAddrLayer(aItem,'modify')">修改</a></span><span>&nbsp;&nbsp;</span>
+					<span ng-show="aItem.status==1" class="color1 default">默认地址</span>
+				</label>
+			</div>
+			<div>
+				<button data-toggle="modal" data-target="#address" ng-click="openAddrLayer(addrlist,'add')" style="background: none;font-weight: bold;">+增加新地址</button>
+			</div>
+			<div class="modal fade bs-example-modal-lg" id="address" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog" style="width: 800px; margin: 30px auto;">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+							<h4 class="modal-title" id="myMo dalLabel">{{title}}</h4>
+						</div>
+						<div class="modal-body">
+							<div ng-include="'templete/common/newAddress.html'"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<form name="confirmForm" novalidate>
+			<h3>配送方式及时间：</h3>
+			<div class="pmsg">
+				<span>物流公司：</span>
+				<select class="form-control formControl" style="height:auto" ng-model="company" ng-change="changeCompany(company)" required>
+				<option value ="YZXB">EMS（免费）</option>
+				<option value ="SF">顺丰速运（18元）</option>
+			</select>
+				<span class="padding-left-3x">送货时间：</span>
+				<select class="formControl form-control" ng-model="sendtime" ng-change="sendtime" required>
+			    <option value ="allday">周一至周日</option>
+				<option value ="workday">工作日</option>
+				<option value ="holiday">节假日</option>
+			</select>
+				<dl style="color:#FF0000;margin-top: 10px;" ng-show="company=='SF'">
+					<dd>1、若您选择顺丰速运，需要支付18元运费，且暂不提供发票，请您谨慎选择。
+					</dd>
+					<dd>2、以下情况，本订单快递运费不予退还：
+					</dd>
+					<dd>1)客户填写的收货地址超出顺丰速运服务端地域范围。此情况顺丰速运会在目的地就近合理地点转交第三方快递公司进行派送，服务时效以第三方快递公司的官方承诺为准。
+					</dd>
+					<dd>2)客户拒收本订单快递。
+					</dd>
+					<dd>3)客户支付运费后，申请更换其他物流公司。
+					</dd>
+				</dl>
+			</div>
+			<h3>发票信息：</h3>
+			<div class="pmsg" style="margin: 0 50px 20px 50px;">
+				<label class="pay_list_c1" ng-class="{active:fax==true}">
+					<input type="checkbox" value="" ng-model="fax" class="checkboxclass">
+					<span>要发票</span>
+				</label>
+				<span>发票抬头：</span> <input type="text" class="txtbox1 txt_w740" ng-model="invoce" id="invoce" placeholder="不超过30个汉字" />
+				<span style="color: red;">  发票抬头在提交订单后不可变更，请谨慎填写</span>
+				<br>
+				<span>发票内容：明细</span>
+				<p class="faxTest color0" style="padding-left:185px"></p>
+			</div>
+			<h3 class="orgline">商品清单：</h3>
+			<!-- 表格 -->
+			<div class="pro_table" style="margin-left:0">
+				<table width="100%" border="0" cellspacing="0">
+					<tr>
+						<th class="text-center">商品名称 </th>
+						<th class="text-center">单价（元）</th>
+						<th class="text-center">数量</th>
+						<th class="text-center">总金额（元）</th>
+					</tr>
+					<tr>
+						<td>
+							<div>
+								<img src="images/3/3C40A100010001.png" style="margin: 1px 0 -4px -266px;">
+								<p style="margin: -71px 0 0 47px">
+									<span>{{productL.respData[0].prodname}}</span><br/>
+									<span style="margin:0 0 0 -50px;">型号：{{productL.respData[0].prodcode |prodType}}</span><br/>
+									<span style="margin:0 0 0 -47px;">颜色：{{productL.respData[0].prodcode |prodColor}}</span>
+								</p>
+							</div>
+						</td>
+						<td>{{productL.respData[0].prodprice | number: 2}}</td>
+						<td>{{comfirmTotal}}</td>
+						<td>{{productL.respData[0].prodprice * comfirmTotal | number: 2}}</td>
+					</tr>
+				</table>
+			</div>
+
+			<div class="consented">
+				<div class="agree">
+					<label>
+					<input type="checkbox" value="" ng-model="agree" class=""/>阅读并同意入网服务协议
+				</label>
+					<br>
+					<span class="color0 agreeT"></span>
+				</div>
+				<dl>
+					<dd>商品总金额：￥{{priceTotal| number:2}}</dd>
+					<dd>运 费：￥{{companyPrice | number:2}}</dd>
+					<dd class="fontcss">实付金额：<span class="color0">￥{{totalOfCom | number:2}}</span></dd>
+				</dl>
+				<div class="btn_pd"><input type="submit" value="提交订单" class="btn btn-og" ng-click="confirmtBy()" /></div>
+			</div>
+		</form>
+	</div>
+
+
+</div>
+<!-- 内容部分 end -->

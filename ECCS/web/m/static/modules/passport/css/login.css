@@ -1,0 +1,134 @@
+
+/* 登录注册 */
+.input-Item{
+  padding-bottom: .5rem;
+}
+.input-Item p{ 
+	margin: 0;
+    padding-left: 27%;
+    font-size: .6rem;
+}
+.input-Item span{
+  display: inline-block;
+  width: 25%;
+  text-align: right;
+  font-size: .6rem;
+  font-weight: bold;
+}
+.input-Item span:before{
+  content: "*";
+  width: 5px;
+  height: 5px;
+  color: #ff0000;
+  position: relative;
+  top: .2rem;
+  padding-right: .2rem;
+}
+.input-Item span.cl:before{
+	content: "";
+	padding: 0;
+}
+.input-Item .pleft{ padding-left: 25%;}
+.input-Item .pleft label{ 
+		position: relative;
+    top: 1px;
+    font-size: .65rem;
+}
+
+
+.cter_msg{
+	text-align: center;
+	margin: 1.5rem 0;
+}
+.item_login{
+	  width: 100%;
+    margin: 0 auto;
+    position: fixed;
+    bottom: 0;
+    padding: 1rem;
+    font-size: .65rem; overflow: scroll;
+}
+.forget {
+    height: 1.6rem;
+    margin: 0;
+    padding: .3rem;
+}
+.forget li{
+    display: block;
+    width: 50%;
+    float: left;
+}
+.forget li:last-child {
+    text-align: right;
+}
+.otherLogin {
+    background: url(../img/login.png) no-repeat;
+    height: 3rem;
+    background-size: 100%;
+    padding: 1rem 0 0 2rem;
+}
+
+.otherLogin a {
+    display: block;
+    width: 30%;
+    height: 100%;
+    float: left;
+}
+.otherLogin a:last-child{
+	margin-right: 0;
+    margin-left: .5rem;
+}
+/*注册*/
+.vCode{ width: 70%; display:inline-block;    position: relative;    top: .4rem; }
+
+.download{
+	margin: .8rem 0;
+}
+@media screen and (max-width: 360px) {
+ .sel_addr {
+       font-size: .55rem !important;
+  }
+}
+
+.up_pic input {
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 9;
+}
+
+.nobder{
+  border: none;
+  color: #666;
+  background: none;
+}
+
+.sel-this em.checked{
+    border: 1px solid #ff8a00;
+    background: #ff8a00;
+    font-size: 0.8rem;
+    color: #fff;
+
+}
+
+.sel-this em{
+    -webkit-appearance: none;
+    border: 1px solid #bbb;
+    padding: .4rem;
+    border-radius: .4rem;
+    display: inline-block;
+    position: relative;
+    top: 4px;
+    margin-right: .2rem;
+}
+.sel-this em.checked:after{
+    content: '\2714';
+    font-size: .8rem;
+    position: absolute;
+    top: -.15rem;
+    left: .08rem;
+    color: #fff;
+}

@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>应用下载</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=yes">
+    <link rel="stylesheet" href="/modules/public/css/all.css">
+    <link rel="stylesheet" href="/modules/public/css/menu.css">
+    <link rel="stylesheet" href="/modules/purchase/css/order.css">
+    <link rel="stylesheet" href="/modules/download/css/down.css">
+  </head>
+  <body>
+  <!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
+  <div class="page-group">
+    <div class="page page-current">
+    <!-- 主体html代码 -->
+    <header class="bar bar-nav">
+      <a class="icon icon-menu pull-left  open-panel"></a>
+      <div class="icon icon-refresh pull-right">
+          <a id="psonID" href="javascript:;" class="icon-pson"></a>
+          <a href="/modules/purchase/html/myCart.html" class="icon-cart">(<span class="color1">0</span>)</a>
+      </div>
+      <h1 class="title">应用下载</h1>
+    </header>
+   
+    <div class="content white-bg">
+    <!-- 页面内容区 -->
+ 
+	  <div class="content-block">
+	     <div class="row pd">
+	      <div class="col-50"><img src=""  width="100%" height="100%"/></div>
+	      <div class="col-50">
+	      		<ul class="download">
+	      			<li>电话手表APP主要功能</li>
+	      			<li>电话手表APP主要功能</li>
+	      			<li>电话手表APP主要功能</li>
+	      			<li>电话手表APP主要功能</li>
+	      		</ul>
+	      		<a href="https://fir.im/id10020" class="button btn_org">马上下载</a>
+	      </div>
+	    </div>
+	  </div>	
+
+    <!-- 列表内容结束   -->
+
+   
+	<!-- 页面内容区 end -->
+    </div>
+ 
+    <footer>    
+        <div class="row f-12">
+          <a href="/modules/aboutus/html/aboutUs.html" class="col-33">关于公司</a>
+          <a href="/modules/aboutus/html/contact.html" class="col-33">联系我们</a>
+          <a href="/modules/aboutus/html/services.html" class="col-33">服务支持</a>
+        </div>
+        <div class="pd">Copyright © 2016-2017 中麦通信网络技术有限公司<br/>京ICP备 12345678号</div>
+     </footer>
+ 
+	<!-- 主体html代码 -->
+  </div>
+</div>
+
+ 
+
+  <script type='text/javascript' src='/libs/seajs/seajs-3.0.0.js'></script>
+  <script type='text/javascript' src='/libs/zepto/zepto.min.js'></script>
+  <script> 
+    // 加载入口模块
+    seajs.use("download/js/down");
+  </script>   
+  </body>
+</html>

@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinamcom.framework.products.mapper.TbProductInfoMapper">
+  <resultMap id="BaseResultMap" type="com.chinamcom.framework.products.model.TbProductInfo">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-31 15:59:58.
+    -->
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="PRODCODE" jdbcType="VARCHAR" property="prodcode" />
+    <result column="PRODNAME" jdbcType="VARCHAR" property="prodname" />
+    <result column="SECONDNAME" jdbcType="VARCHAR" property="secondname" />
+    <result column="PRODDESC" jdbcType="VARCHAR" property="proddesc" />
+    <result column="PRODPRICE" jdbcType="DECIMAL" property="prodprice" />
+    <result column="PRODTYPE" jdbcType="INTEGER" property="prodtype" />
+    <result column="PARENTTYPE" jdbcType="INTEGER" property="parenttype" />
+    <result column="STATUS" jdbcType="INTEGER" property="status" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="ACTIVITY" jdbcType="INTEGER" property="activity" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-31 15:59:58.
+    -->
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-31 15:59:58.
+    -->
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-31 15:59:58.
+    -->
+    ID, PRODCODE, PRODNAME, SECONDNAME, PRODDESC, PRODPRICE, PRODTYPE, PARENTTYPE, STATUS, 
+    CREATE_TIME, ACTIVITY
+  </sql>
+  <select id="selectByExample" parameterType="com.chinamcom.framework.products.model.TbProductInfoExample" resultMap="BaseResultMap">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-31 15:59:58.
+    -->
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tb_product_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-31 15:59:58.
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from tb_product_info
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-31 15:59:58.
+    -->
+    delete from tb_product_info
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chinamcom.framework.products.model.TbProductInfoExample">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-31 15:59:58.
+    -->
+    delete from tb_product_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chinamcom.framework.products.model.TbProductInfo">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-31 15:59:58.
+    -->
+    insert into tb_product_info (ID, PRODCODE, PRODNAME, 
+      SECONDNAME, PRODDESC, PRODPRICE, 
+      PRODTYPE, PARENTTYPE, STATUS, 
+      CREATE_TIME, ACTIVITY)
+    values (#{id,jdbcType=INTEGER}, #{prodcode,jdbcType=VARCHAR}, #{prodname,jdbcType=VARCHAR}, 
+      #{secondname,jdbcType=VARCHAR}, #{proddesc,jdbcType=VARCHAR}, #{prodprice,jdbcType=DECIMAL}, 
+      #{prodtype,jdbcType=INTEGER}, #{parenttype,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{activity,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chinamcom.framework.products.model.TbProductInfo">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-31 15:59:58.
+    -->
+    insert into tb_product_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="prodcode != null">
+        PRODCODE,
+      </if>
+      <if test="prodname != null">
+        PRODNAME,
+      </if>
+      <if test="secondname != null">
+        SECONDNAME,
+      </if>
+      <if test="proddesc != null">
+        PRODDESC,
+      </if>
+      <if test="prodprice != null">
+        PRODPRICE,
+      </if>
+      <if test="prodtype != null">
+        PRODTYPE,
+      </if>
+      <if test="parenttype != null">
+        PARENTTYPE,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="activity != null">
+        ACTIVITY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="prodcode != null">
+        #{prodcode,jdbcType=VARCHAR},
+      </if>
+      <if test="prodname != null">
+        #{prodname,jdbcType=VARCHAR},
+      </if>
+      <if test="secondname != null">
+        #{secondname,jdbcType=VARCHAR},
+      </if>
+      <if test="proddesc != null">
+        #{proddesc,jdbcType=VARCHAR},
+      </if>
+      <if test="prodprice != null">
+        #{prodprice,jdbcType=DECIMAL},
+      </if>
+      <if test="prodtype != null">
+        #{prodtype,jdbcType=INTEGER},
+      </if>
+      <if test="parenttype != null">
+        #{parenttype,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activity != null">
+        #{activity,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chinamcom.framework.products.model.TbProductInfoExample" resultType="java.lang.Integer">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-31 15:59:58.
+    -->
+    select count(*) from tb_product_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-31 15:59:58.
+    -->
+    update tb_product_info
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.prodcode != null">
+        PRODCODE = #{record.prodcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prodname != null">
+        PRODNAME = #{record.prodname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.secondname != null">
+        SECONDNAME = #{record.secondname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proddesc != null">
+        PRODDESC = #{record.proddesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prodprice != null">
+        PRODPRICE = #{record.prodprice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.prodtype != null">
+        PRODTYPE = #{record.prodtype,jdbcType=INTEGER},
+      </if>
+      <if test="record.parenttype != null">
+        PARENTTYPE = #{record.parenttype,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        STATUS = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.activity != null">
+        ACTIVITY = #{record.activity,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-31 15:59:58.
+    -->
+    update tb_product_info
+    set ID = #{record.id,jdbcType=INTEGER},
+      PRODCODE = #{record.prodcode,jdbcType=VARCHAR},
+      PRODNAME = #{record.prodname,jdbcType=VARCHAR},
+      SECONDNAME = #{record.secondname,jdbcType=VARCHAR},
+      PRODDESC = #{record.proddesc,jdbcType=VARCHAR},
+      PRODPRICE = #{record.prodprice,jdbcType=DECIMAL},
+      PRODTYPE = #{record.prodtype,jdbcType=INTEGER},
+      PARENTTYPE = #{record.parenttype,jdbcType=INTEGER},
+      STATUS = #{record.status,jdbcType=INTEGER},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      ACTIVITY = #{record.activity,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chinamcom.framework.products.model.TbProductInfo">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-31 15:59:58.
+    -->
+    update tb_product_info
+    <set>
+      <if test="prodcode != null">
+        PRODCODE = #{prodcode,jdbcType=VARCHAR},
+      </if>
+      <if test="prodname != null">
+        PRODNAME = #{prodname,jdbcType=VARCHAR},
+      </if>
+      <if test="secondname != null">
+        SECONDNAME = #{secondname,jdbcType=VARCHAR},
+      </if>
+      <if test="proddesc != null">
+        PRODDESC = #{proddesc,jdbcType=VARCHAR},
+      </if>
+      <if test="prodprice != null">
+        PRODPRICE = #{prodprice,jdbcType=DECIMAL},
+      </if>
+      <if test="prodtype != null">
+        PRODTYPE = #{prodtype,jdbcType=INTEGER},
+      </if>
+      <if test="parenttype != null">
+        PARENTTYPE = #{parenttype,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activity != null">
+        ACTIVITY = #{activity,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chinamcom.framework.products.model.TbProductInfo">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-31 15:59:58.
+    -->
+    update tb_product_info
+    set PRODCODE = #{prodcode,jdbcType=VARCHAR},
+      PRODNAME = #{prodname,jdbcType=VARCHAR},
+      SECONDNAME = #{secondname,jdbcType=VARCHAR},
+      PRODDESC = #{proddesc,jdbcType=VARCHAR},
+      PRODPRICE = #{prodprice,jdbcType=DECIMAL},
+      PRODTYPE = #{prodtype,jdbcType=INTEGER},
+      PARENTTYPE = #{parenttype,jdbcType=INTEGER},
+      STATUS = #{status,jdbcType=INTEGER},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      ACTIVITY = #{activity,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$/css/bootstrap/bootstrap-datetimepicker.min.css" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/css/bootstrap/bootstrap.min.css" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/css/bootstrap/fonts" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/css/bootstrap/fonts/glyphicons-halflings-regular.eot" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/css/bootstrap/fonts/glyphicons-halflings-regular.eot" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/css/bootstrap/fonts/glyphicons-halflings-regular.svg" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/css/bootstrap/fonts/glyphicons-halflings-regular.svg" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/css/bootstrap/fonts/glyphicons-halflings-regular.ttf" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/css/bootstrap/fonts/glyphicons-halflings-regular.ttf" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/css/bootstrap/fonts/glyphicons-halflings-regular.woff" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/css/bootstrap/fonts/glyphicons-halflings-regular.woff" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js/app.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js/controller/LoginCtrl.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js/controller/ServiceCtrl.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js/controller/orderPay.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js/lib/bootstrap-datetimepicker.js" charset="UTF-16" />
+    <file url="file://$PROJECT_DIR$/js/lib/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js/lib/ngstorage" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/js/lib/sha1.js" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/js/lib/ui-bootstrap-tpls-2.2.0.min.js" charset="GBK" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>

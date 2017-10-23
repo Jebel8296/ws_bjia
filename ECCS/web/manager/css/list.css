@@ -1,0 +1,131 @@
+
+
+/*--------------------------------*/
+
+/*订单详情页*/
+.detailBar{ padding-top:30px;}
+.detailBar .flowPic{ background: url(../images/flow.png) 0 top no-repeat; height: 60px; width: 711px; margin: 0 auto;}
+.detailBar .flowPic_on{ background: url(../images/flow.png) 0 -74px no-repeat; height: 60px; width: 60%;}
+
+.detailBar .flowPic2{ background: url(../images/flow2.png) 0 top no-repeat; height: 60px; width: 650px; margin: 0 auto;}
+.detailBar .flowPic_on2{ background: url(../images/flow2.png) 0 -74px no-repeat; height: 60px; width: 65%;}
+
+
+.detailBarMsg{ padding: 15px 0 30px 0;}
+.detailBarMsg2{ padding: 15px 0 30px 20px;}
+.detailBarMsg li{ float: left; display: inline-block; margin-right: 50px;margin-right: 127px; text-align: center;line-height: 22px;}
+.detailBarMsg li.last{ margin: 0;}
+.detailBarMsg2 li{ float: left; display: inline-block; margin-right: 50px;margin-right: 220px; text-align: center;line-height: 22px;}
+
+.detailNum{ font-weight: 700; }
+.detailNum span{padding-right: 15px;}
+
+
+
+/*表格样式*/
+.tablearea h5{ font-size: 20px; margin-bottom: 20px;}
+.tablearea table th{ background: #f0f0f0;}
+.tablearea table th,.tablearea table td{ border: 1px solid #ddd; padding: 10px 5px; text-align: center; max-width: 130px;overflow: hidden;  white-space: nowrap;  text-overflow: ellipsis;}
+.tablearea table td{ border-top:0}
+.tablearea table td{ line-height: 23px;}
+.tablearea table td a{ font-weight: 700;}
+
+.tablearea table td .pro-img{ position: relative;}
+.tablearea table td .pro-img img{ width: 70px; height: 70px; position: absolute; left:15px; top:0;}
+.tablearea table td .pro-img p{  text-align: left;padding-left: 100px; padding-bottom:9px}
+
+.tablearea table td .pr-msg span{ width: 200px; display: inline-block;}
+
+/*订单金额*/
+.orderM{ margin: 20px 0; text-align: right;}
+.orderM span:first-child{ padding-right: 150px;}
+.orderM span.orderNum{ font-size: 22px; color: #ff1f1f}
+.orderM span.orderNum:before{content: '¥'; font-size: 16px; color:#333; width: 10px; height: 10px;}
+
+/*收货人信息*/
+.tablearea .msg dl{ display:inline-block;  *display:inline;  *zoom:1;  vertical-align: top;  line-height: 25px;  }
+.tablearea .msg dl dt{ font-size: 20px; margin:30px 0 15px 0; font-weight: 700;  }
+.tablearea .msg dl.mr{  margin-right: 250px;  }
+
+/*app down*/
+.appbox{}
+.appdown{padding:0 50px}
+.appdown dl{display:inline-block;  *display:inline;  *zoom:1;  vertical-align: top; }
+.appdown dl dd{text-align:center; padding:7px 0  }
+
+ /*购物车*/
+ .cartmsg{ margin: 30px 0; font-weight: 700;}
+ .cartmsg input{ margin-left: 20px;}
+
+ .dtlMsg{width: 30%; _width:35%; margin: 20px auto;}
+ .dtlMsg dl{ padding-left: 75px; line-height:35px; font-weight: 700; font-size: 16px;}
+
+ /*客服售后详情页面  照片信息  横版三列 img */
+.colPicmsg{ overflow: hidden;}
+.colPicmsg li{ float: left; margin: 20px; width:295px; height:185px; text-align: center; position: relative; margin-left: 33px; border: 1px solid #e0e0e0; overflow: hidden}
+.colPicmsg li img{ width: 100%;}
+.colPicmsg li p{padding:5px 0; font-size: 16px; color: #fff; position: absolute; bottom: 0; left:0; width: 100%; background:rgba(0,0,0,0.4);background: transparent\9;zoom:1\8; /* required for the filters */-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)"; /* IE8 */filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);}
+
+/*其他项目需求*/
+.choice-list {overflow: hidden;  width: 100%;}
+.choice-list ul{padding:10px 0 0 0}
+.choice-list li img{ width: 99%;}
+.choice-list li {position: relative; text-align: center; margin:20px; cursor: pointer;  float: left;   width: 295px;  height: 185px; margin-left: 33px; margin-right: 15px;  border: 1px solid #E1E1E1;  vertical-align: middle;  text-align: center;  }
+.choice-list li div{overflow: hidden; width:100%; height:100%}
+.choice-list li .shut {display:none; cursor: pointer;  position: absolute;  right: -15px;  top: -10px;  width: 30px;  height: 30px;border:1px red solid; z-index:999 }
+.choice-list p { padding-left: 33px; margin-bottom: 30px; }
+.choice-list label{background: url(../images/icon.png) 0 -100px no-repeat;  padding-left: 30px;  position: absolute;  top: 70px;  left: 33%;  height: 30px;  line-height: 30px;}
+.choice-list input[type=file]{opacity: 0;  width: 100%;  height: 100%;  position: absolute;  left: 0;  top: 0;  z-index: 9;}
+.choice-list li span { cursor: pointer;  position: absolute;  right: -15px;  top: -10px;  width: 30px;  height: 30px; background:url("../images/db_ico1.png") no-repeat; z-index:999 }
+/*上传照片*/
+.up_pic ul li{  display: inline-block;  width: 32%;  height: 4rem;  position: relative;  box-sizing: border-box;  font-size: .7rem;
+ padding: 1.5rem 0 0 .8rem;
+}
+.up_pic ul{  display: inline-block;
+}
+.up_pic ul li img{  margin:0;  padding: 0;  width: 99%;  top: 0;  left: 0;  position: absolute;  }
+.imgUpload{  display: inline-block;  border: 1px solid #bbb !important;
+ /* padding: 1rem; */  width: 33.2%;  height: 4.2rem;  position: relative;  float: left;
+ /*margin: 1%;*/  box-sizing: border-box;
+ /* text-align: right; */  font-size: .7rem;  padding: 1.5rem 0 0 .8rem;
+}
+.imgUpload a:after{
+ content: "+";
+ font-size: 1rem;
+ color: #bbb;
+ position: absolute;
+ left: .2rem;
+ top: 1.2rem;
+}
+.imgUpload input {
+ opacity: 0;
+ width: 100%;
+ height: 100%;
+ position: absolute;
+ left: 0;
+ top: 0;
+ z-index: 9;
+}
+
+
+
+
+
+
+
+
+.f_tarea{ position: relative;}
+.textarea{ border: 1px solid #e0e0e0; width: 980px; padding: 5px; margin: 20px 0; padding-bottom: 25px; outline: none;resize: none;}
+.f_tarea span{ position: absolute;bottom: 33px;right: 10px;color: #a1a1a1;}
+.f_msg{ width: 990px; margin: 0 auto;}
+.f_msg .btn_pd {margin: 30px auto;  text-align: center;  }
+
+/**/
+#rightDisplay{
+    position: fixed;top: 0;left: 0;z-index: 10; width: 100%;height: 100%; background:rgba(0,0,0,0.6);background: transparent\9;zoom:1\8; /* required for the filters */-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)"; /* IE8 */filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000); /* IE5.5-7 */
+}
+#rightDisplay img{position: absolute;top: 30%;left: 46%;z-index: 10;display: block;margin-top: 18px;margin-left: -165px;height: auto;width: auto; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);  }
+
+.infoMsg-new dd{line-height:28px}
+
+.jscode img{width:80px}

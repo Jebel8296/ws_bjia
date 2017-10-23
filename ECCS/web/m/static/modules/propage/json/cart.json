@@ -1,0 +1,10 @@
+{
+    "code": 0,
+    "message":"添加成功",
+    "data":{
+        "proTitle":"proTitle",
+		"proPrice":"proPrice",
+		"modelNum":"modelNum",
+		"selColor":"selColor"
+    }
+}

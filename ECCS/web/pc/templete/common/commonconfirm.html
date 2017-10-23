@@ -1,0 +1,57 @@
+<!-- 内容部分 -->
+<div class="main-content" ng-controller="orderPayCtrl">
+    <div class="mContent wbg" style="min-height: 300px;">
+        <div class="pCollect" ng-show="order">
+            <div class="pcollectMsg">
+                <p>订单已提交成功，请您尽快付款!</p>
+                <h3>应付金额： ¥ {{pricetotal | number:2}}元</h3>
+                <span style="display: inline; position: relative">您的订单编号：{{orderCode}} <a href="javascript:;" class="color3 showDetail">订单详情</a></span>
+                <div class="showBox">
+                    <div class="showD tablearea">
+                        <h6 style="font-size:14px; font-weight: 700">商品清单:</h6>
+                        <table width="100%" class="table">
+                            <tr>
+                                <th style="width: 60%">商品信息</th>
+                                <th>数量</th>
+                                <th>单价（元）</th>
+                                <th>金额（元）</th>
+                            </tr>
+                            <tr ng-repeat="item in detailOrder.prods">
+                                <td>
+                                    {{item.name}}
+                                    <br>
+                                    <span>
+                                        型号：{{item.model}} &nbsp;&nbsp;颜色：{{item.color}}
+                                    </span>
+                                </td>
+                                <td>{{item.total}}</td>
+                                <td>{{item.price | number: 2}}</td>
+                                <td>{{item.total*item.price}}</td>
+                            </tr>
+                        </table>
+                        <div>(另付运费：{{detailOrder.express_pay}}元)</div>
+                        <h6 style="font-size:14px; font-weight: 700">收货信息:</h6>
+                        <div class="msg">
+                            <dl>
+                                <dd>{{detailOrder.express.provname+ detailOrder.express.cityname + detailOrder.express.areaname+
+                                    detailOrder.express.address + "("+detailOrder.express.zipcode+")"}} &nbsp;&nbsp;{{detailOrder.express.name}}&nbsp;&nbsp;{{detailOrder.express.phone}}</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+                <div style="color: red;margin-right: 180px;">请您在24小时内完成支付，否则订单会自动取消.</div>
+            </div>
+
+            <div class="btn_pd"><input type="button" value="确认支付" class="btn btn_og" ng-click="toPayA()" /></div>
+        </div>
+
+        <div class="pCollect" ng-hide="afterI">
+            <div class="pcollectMsg">
+                <p>您的售后服务单已提交成功!</p>
+                <span>您的售后编号：{{aftercode}}</span>
+            </div>
+            <div class="btn_pd"><input type="button" value="返回售后列表" class="btn btn_og" ng-click="toServiceL()" /></div>
+        </div>
+    </div>
+</div>
+<!-- 内容部分 end -->

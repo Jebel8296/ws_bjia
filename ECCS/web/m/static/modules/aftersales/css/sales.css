@@ -1,0 +1,520 @@
+/*有间距的通用列表*/
+.order_msg{
+	padding: .6rem .5rem;
+	background: #fff;
+    border-bottom: .5rem solid #eee;
+}
+.order_msg:last-child{
+    border: none;
+}
+.order_msg dl{
+	margin: 0;
+	padding: 0;
+}
+.order_msg dt,.order_msg h3{
+	font-size: .85rem;
+	margin: 0;
+	font-weight: normal;
+    padding-bottom: .5rem;
+    border-bottom: 1px solid #bbb;
+    margin-bottom: .5rem;
+}
+.order_msg h2{
+	font-size: .85rem;
+	margin: 0;
+	font-weight: normal;
+    padding-bottom: .2rem;
+}
+.order_msg dd{
+	margin: 0;
+	line-height: 1.3rem;
+}
+/*订单详情*/
+.order_msg .btn_wt{
+	border: 1px solid #bbb;
+    padding: .2rem .5rem;
+    font-size: .75rem;
+    width: 62%;
+    text-align: center;
+    margin: 1rem auto;
+    display: block;
+}
+.order_msg .d_num {
+	position: relative;
+	font-size: .7rem;
+	padding: .3rem 0;   
+}
+.order_msg ul li{
+    border: none;
+}
+#exPro li {
+    margin-bottom: 1.6rem;
+}
+.topLine{
+    border-top: 1px solid #ddd; 
+}
+.line_b{
+	border-bottom: 1px solid #bbb;
+}
+.order_msg .d_num span{
+	color: #868686;
+	position: absolute;
+	right:0;
+	top: .56rem;
+	font-size: .6rem;
+}
+.order_msg .d_num  .color0{
+    display: inline-block;
+    text-align: right;
+    padding: 0 0 3px 15px;
+}
+.page_item .item-media{
+    height:3.5rem
+}
+.item-media img {
+   height:auto;
+    width: 100%;
+    max-width: 6rem;
+    min-width: 5rem;
+    background: #f3e2e2;
+}
+
+/*yellow*/
+.smbtn0 {
+    background: #fdb02a;
+    height: auto;
+    text-align: center;
+    display: block;
+    color: #fff !important;
+    cursor: pointer;
+    font-size: 0.65rem;
+    padding: .3rem;
+}
+/*通过设备发起售后*/
+.page_item .input-Item {
+    position: relative;
+}
+.sales_app{
+    padding: .5rem 2rem;
+}
+.sales_app h1{
+    color: #333;
+    font-size: .85rem;
+    font-weight: 600;
+}
+.sales_app dt{
+    margin-top:1rem ;
+}
+.sales_app dd{
+    margin: 0;
+    padding: 0;
+    color: #999;
+    font-size: .7rem;
+    line-height: 1.2rem;
+}
+.sales_app .w100{
+    width: 100%;
+    margin-bottom: .5rem;
+}
+
+.yzm{
+    position: absolute;
+    right: 0;
+    top:0;
+    width: 37%;
+    height: 1.8rem;
+}
+
+.page_item .iradio_minimal{
+    padding: .3rem 0;
+    color: #bbb;
+    font-size: .6rem;
+}
+.page_item .bigImgList .item-subtitle{
+    max-height: initial;
+}
+.page_item .bigImgList li img{
+    height: auto;
+}
+
+/*发起售后*/
+
+.sel h5{
+    margin: 0;
+    padding: 0;
+    margin-top: 1rem;
+}
+.sel>button{
+    border: 1px solid #ddd;
+    background: #fff;
+     padding: 0; 
+    font-size: .75rem;
+    width: 32%;
+    height: 1.8rem;
+    line-height: 1.8rem;
+    text-align: center;
+    margin: .3rem 0;
+    display: inline-block;
+    position: relative;
+}
+
+.cur{
+    color: #ff8a00 !important;
+}
+.cur:after{
+    background: url(/modules/public/img/icon1.png);
+    background-size: 100%;
+    background-position: 0 -15.5rem;
+    content: "";
+    width: 1.2rem;
+    height: 1rem;
+    position: absolute;
+    right: 0;
+    bottom: 0px;
+}
+
+/*商品清单*/
+.add-box{
+    position: relative;
+    /*height: 1.3rem;*/
+    width: 3.5rem;
+    top: 5px;
+    border: 1px solid #cacbcb;
+    display: inline-block;
+}
+.add-box a{
+    display:inline-block;
+    width: 1rem;
+    text-align: center;
+    color: #fff;
+    box-sizing: border-box;
+    position: relative;
+    height: 1.2rem;
+    line-height: 1.2rem;
+    background: #bbb;
+}
+.add-box a:first-child{
+    float: left;
+    border-right: 1px solid #cacbcb;
+}
+.add-box a:last-child{
+    float: right;
+    border-left: 1px solid #cacbcb;
+}
+.list-block input[type=number],.add-box .itxt{
+  width: 1.5rem;
+  margin: 0 auto;
+  position: absolute;
+  left: 1rem;
+  padding: 0 4px;
+  height:100% !important;
+  border:none;
+  font-size: .7rem;
+  text-align: center;
+  box-sizing: border-box;
+}
+.sel-this{
+    display: inline-block;
+    width: 44%;
+
+}
+/*上传照片*/
+ .up_ing{
+    position: absolute;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.7;
+    background: #000;
+    color: #fff;
+    line-height: 4rem;
+    text-align: center;
+  }
+.up_pic ul li{
+    display: inline-block;
+    width: 32%;
+    height: 4rem;
+    position: relative;
+    float: left;
+    margin: .1rem;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    font-size: .7rem;
+    padding: 1.2rem 0 0 .8rem;
+}
+.up_pic ul{
+    display: inline-block;
+    width: 100%;
+    box-sizing: border-box;
+    height: 4.2rem;
+    overflow: hidden;
+}
+.up_pic ul li img{
+    margin:0;
+    padding: 0;
+    width: 99%;
+    top: 0;
+    left: 0;
+    position: absolute;
+}
+.up_pic ul li .removeLi{
+    top: -0.2rem;
+    right: -0.2rem;
+    position: absolute;background: #000;
+    width: 1rem;
+    height: 1rem;    border-radius: 50%; text-align: center;
+}
+.up_pic ul li em{
+    font-size: 1rem;
+    display: inline-block;
+    position: relative;
+    top: .1rem;
+}
+.imgUpload{
+    display: inline-block;
+    border: 1px solid #bbb !important;
+    /* padding: 1rem; */
+    width: 33.2%;
+    height: 4.2rem;
+    position: relative;
+    float: left;
+    /*margin: 1%;*/
+    box-sizing: border-box;
+    /* text-align: right; */
+    font-size: .7rem;
+    padding: 1.5rem 0 0 .8rem;
+}
+.imgUpload a:after{
+    content: "+";
+    font-size: 1rem;
+    color: #bbb;
+    position: absolute;
+    left: .2rem;
+    top: 1.2rem;
+}
+.imgUpload input {
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 9;
+}
+/*多行文本框*/
+.area_box{
+    position: relative;
+    border: 1px solid #bbb;
+    padding-bottom: 1rem;
+}
+.txtarea{
+    outline: none;
+    padding: 5px;
+    resize: none;
+    width: 100%;
+    box-sizing: border-box; 
+    border: none;
+}
+.area_box span{
+    bottom: .1rem;
+    right: .2rem;
+    display: block;
+    position: absolute;
+}
+.orderMsg_radio{
+    overflow: hidden;
+    width: 12rem;
+    position: relative;
+    top: -1.4rem;
+    left: 6rem;
+}
+ 
+.orderMsg_radio li{
+    float: left;
+    width: 5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.sel_addr {
+    position: relative;
+    width: 100%;
+    font-size: .65rem;
+    overflow: hidden;
+    margin: .8rem 0;
+    border-bottom: 1px solid #bbb;
+    padding-bottom: .8rem;
+}
+.sel_addr:last-child{
+    border: 0;
+}
+.sel_addr input,.sel_addr em,.sel_addr p{
+    float: left;
+    margin: 0;
+}
+.sel_addr span{
+    position: absolute;
+    right:0;
+    top: .5rem;
+    color: #bbb;
+}
+/*进度条*/
+  .detailBarMsg{
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+  .detailBarMsg ul{
+    padding: 1rem;
+  }
+ .detailBarMsg li{
+    border-top: .5rem solid #cdcdcd !important;
+    position: relative;
+    float: left;
+    width: 33%;
+    padding-top: 1rem;
+    color: #868686;
+ }
+  .detailBarMsg li:before{
+    content: ".";
+    font-size: 30rem;
+    position: absolute;
+    top: -.9rem;
+    left: -.2rem;
+    background: #cdcdcd;
+    width: 1.3rem;
+    height: 1.3rem;
+    border-radius: 1.3rem;
+  }
+ .detailBarMsg li:nth-child(2){
+    text-align: center;
+ }
+.detailBarMsg li:nth-child(2):before{
+    left:37%;
+}
+.detailBarMsg li:last-child{
+    text-align: right;
+}
+.detailBarMsg li:last-child:before{
+         left:inherit;
+         right: -2px;
+    }
+
+ .detailBarMsg li.dtl_on{
+    border-color:#ff8101 !important ;
+    color: #ff0a0a;
+ }
+  .detailBarMsg li.dtl_on:before{
+    background: #ff8101;
+  }
+.paycs{
+    margin: 1rem auto;
+    width: 90%;
+}
+.paycs .col-50{
+    margin: 0;
+    width: 48%;
+}
+.paycs .col-50 em{
+    position: relative;
+    top: -.6rem;
+}
+.paycs .col-50 img{
+    height: 2rem;
+}
+.paycs .col-50:last-child{
+    float: right;
+    text-align: right;
+}
+
+.payover_content {
+    font-size: 0.75rem;
+    padding: 0.3rem 3rem;
+}       
+.contact dl {
+     width: 100%;
+    line-height: 1.5rem;
+    text-align: left;
+    overflow: hidden;
+}
+.contact dl dt {
+    float: left;
+    display: inline-block;
+}
+.contact dl dd {
+    float: left;
+    display: inline-block;
+    margin: 0;
+}
+
+.list-block ul:after,.list-block ul:before{
+    height: 0;
+}
+.order_msg .text-center {
+    text-align: center;
+    height: 2rem;
+    line-height: 1.3rem;
+}
+.jssh{display: none}
+#btn_box{
+    position: absolute;
+    top: 10px;
+    right: 0;
+
+}
+
+
+.refund_box .refund{
+    float: right;
+    margin-right: 10%;
+    line-height: 27px;
+
+    text-decoration: underline;
+}
+.refund_box .refund a{
+    color:#0000FF;
+}
+.text-center>div{
+    text-align: left;
+}
+.text-center>div .account{
+    float: right;
+}
+.salesType{
+    float: right;
+}
+orderMsg_radio label{
+    width: 50%;
+}
+#show_select{
+    display: none;
+}
+.afterSre_btn{
+    display: none;
+}
+.afterSre_btn dd{
+    text-align: center;
+    margin-top: 15px;
+}
+.afterSre_btn dd input{
+    padding: 10px 15px 10px;
+    background:#FDB02A;
+    color:#fff
+}
+.checkbox_background{
+    content: ' ';
+    width: 12px;
+    height: 12px;
+    border-radius: 50px;
+    position: absolute;
+    top: .1rem;
+    background: #ff8a00;
+    left: .12rem;
+    font-size: 32px;
+}
+.logistics_name,.logistics_code{
+    border: 1px solid #dddddd;
+    padding: 2.5px;
+}

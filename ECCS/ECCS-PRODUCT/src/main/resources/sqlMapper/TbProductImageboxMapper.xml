@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinamcom.framework.products.mapper.TbProductImageboxMapper">
+  <resultMap id="BaseResultMap" type="com.chinamcom.framework.products.model.TbProductImagebox">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-21 13:43:06.
+    -->
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="PRODID" jdbcType="INTEGER" property="prodid" />
+    <result column="PRODCODE" jdbcType="VARCHAR" property="prodcode" />
+    <result column="URI" jdbcType="VARCHAR" property="uri" />
+    <result column="TYPE" jdbcType="INTEGER" property="type" />
+    <result column="TYPENUM" jdbcType="INTEGER" property="typenum" />
+    <result column="STATUS" jdbcType="INTEGER" property="status" />
+    <result column="LOCATION" jdbcType="VARCHAR" property="location" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-21 13:43:06.
+    -->
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-21 13:43:06.
+    -->
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-21 13:43:06.
+    -->
+    ID, PRODID, PRODCODE, URI, TYPE, TYPENUM, STATUS, LOCATION, CREATE_TIME
+  </sql>
+  <select id="selectByExample" parameterType="com.chinamcom.framework.products.model.TbProductImageboxExample" resultMap="BaseResultMap">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-21 13:43:06.
+    -->
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tb_product_imagebox
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-21 13:43:06.
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from tb_product_imagebox
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-21 13:43:06.
+    -->
+    delete from tb_product_imagebox
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chinamcom.framework.products.model.TbProductImageboxExample">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-21 13:43:06.
+    -->
+    delete from tb_product_imagebox
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chinamcom.framework.products.model.TbProductImagebox">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-21 13:43:06.
+    -->
+    insert into tb_product_imagebox (ID, PRODID, PRODCODE, 
+      URI, TYPE, TYPENUM, 
+      STATUS, LOCATION, CREATE_TIME
+      )
+    values (#{id,jdbcType=INTEGER}, #{prodid,jdbcType=INTEGER}, #{prodcode,jdbcType=VARCHAR}, 
+      #{uri,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{typenum,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{location,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.chinamcom.framework.products.model.TbProductImagebox">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-21 13:43:06.
+    -->
+    insert into tb_product_imagebox
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="prodid != null">
+        PRODID,
+      </if>
+      <if test="prodcode != null">
+        PRODCODE,
+      </if>
+      <if test="uri != null">
+        URI,
+      </if>
+      <if test="type != null">
+        TYPE,
+      </if>
+      <if test="typenum != null">
+        TYPENUM,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="location != null">
+        LOCATION,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="prodid != null">
+        #{prodid,jdbcType=INTEGER},
+      </if>
+      <if test="prodcode != null">
+        #{prodcode,jdbcType=VARCHAR},
+      </if>
+      <if test="uri != null">
+        #{uri,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="typenum != null">
+        #{typenum,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chinamcom.framework.products.model.TbProductImageboxExample" resultType="java.lang.Integer">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-21 13:43:06.
+    -->
+    select count(*) from tb_product_imagebox
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-21 13:43:06.
+    -->
+    update tb_product_imagebox
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.prodid != null">
+        PRODID = #{record.prodid,jdbcType=INTEGER},
+      </if>
+      <if test="record.prodcode != null">
+        PRODCODE = #{record.prodcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uri != null">
+        URI = #{record.uri,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        TYPE = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.typenum != null">
+        TYPENUM = #{record.typenum,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        STATUS = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.location != null">
+        LOCATION = #{record.location,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-21 13:43:06.
+    -->
+    update tb_product_imagebox
+    set ID = #{record.id,jdbcType=INTEGER},
+      PRODID = #{record.prodid,jdbcType=INTEGER},
+      PRODCODE = #{record.prodcode,jdbcType=VARCHAR},
+      URI = #{record.uri,jdbcType=VARCHAR},
+      TYPE = #{record.type,jdbcType=INTEGER},
+      TYPENUM = #{record.typenum,jdbcType=INTEGER},
+      STATUS = #{record.status,jdbcType=INTEGER},
+      LOCATION = #{record.location,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chinamcom.framework.products.model.TbProductImagebox">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-21 13:43:06.
+    -->
+    update tb_product_imagebox
+    <set>
+      <if test="prodid != null">
+        PRODID = #{prodid,jdbcType=INTEGER},
+      </if>
+      <if test="prodcode != null">
+        PRODCODE = #{prodcode,jdbcType=VARCHAR},
+      </if>
+      <if test="uri != null">
+        URI = #{uri,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        TYPE = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="typenum != null">
+        TYPENUM = #{typenum,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="location != null">
+        LOCATION = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chinamcom.framework.products.model.TbProductImagebox">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-10-21 13:43:06.
+    -->
+    update tb_product_imagebox
+    set PRODID = #{prodid,jdbcType=INTEGER},
+      PRODCODE = #{prodcode,jdbcType=VARCHAR},
+      URI = #{uri,jdbcType=VARCHAR},
+      TYPE = #{type,jdbcType=INTEGER},
+      TYPENUM = #{typenum,jdbcType=INTEGER},
+      STATUS = #{status,jdbcType=INTEGER},
+      LOCATION = #{location,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

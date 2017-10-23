@@ -1,0 +1,60 @@
+<div class="newadd_msg">
+    <form name="addressForm" novalidate="novalidate"  class="addressForm"  ng-submit="addOrUpdAddress(addressitem)" >
+        <ul>
+            <li><label>收件人姓名：</label><input type="text" class="txtbox1 txt_w280" ng-model="addressitem.name" name="name" minlength="2" maxlength="10" ng-focus ng-pattern="/^[a-zA-Z0-9\u0391-\uFFE5]{2,20}$/ " required/>
+                <div class="form-error" ng-if="(addressForm.name.$invalid && addressForm.name.$dirty && !addressForm.name) || (addressForm.name.$invalid && submitted )">
+                    <span ng-show="addressForm.name.$error.required" class="color0">收件人姓名不能为空</span>
+                    <span ng-show="addressForm.name.$error.pattern" class="color0">2-10个字符，可由中文、字母和数字组成</span>
+                </div>
+
+            </li>
+            <li class="add_areaList"><label>所在地区：</label><select required  class="txtbox1 txt_w196" name="provname" ng-model="addressitem.provname" ng-options="key as key for (key,value) in division" ng-change="addressitem.cityname='';addressitem.areaname='';">
+                <option value="">请选择省</option>
+            </select>
+                <select class="txtbox1 txt_w196" ng-model="addressitem.cityname" name="cityname" ng-options="key as key for (key,value) in division[addressitem.provname]"
+                        ng-change="district='';" required>
+                    <option value="">请选择市</option>
+                </select>
+                <select class="txtbox1 txt_w196" name="areaname" ng-model="addressitem.areaname" ng-options="value as value for value in division[addressitem.provname][addressitem.cityname]" required>
+                    <option value="">请选择区</option>
+                </select>
+                <div class="form-error"
+                     ng-show="(addressForm.province.$invalid && addressForm.province.$dirty) || (addressForm.province.$invalid && submitted )">
+                    <span ng-show="addressForm.province.$error.required" class="color0">所在地区不能为空</span>
+                </div>
+
+            </li>
+            <li><label>详细地址：</label><input type="text" class="txtbox1 txt_w740" style="width:600px;" ng-model="addressitem.address" name="address" maxlength="20" required />
+                <div class="form-error js_address1"
+                     ng-show="(addressForm.address.$invalid && addressForm.address.$dirty && !addressForm.address.$focused) || (addressForm.address.$invalid && submitted)">
+                    <span ng-show="addressForm.address.$error.required" class="color0">详细地址不能为空</span>
+                </div>
+
+            </li>
+            <li><label>手机号码：</label><input type="text" class="txtbox1 txt_w280" ng-model="addressitem.phone"  name="phone" maxlength="11"  ng-pattern="/^(((13[0-9]{1})|159|153)+\d{8})$/" required/>
+                <div class="form-error js_phone" ng-show="(addressForm.phone.$invalid && addressForm.phone.$dirty && !addressForm.phone.$focused) || (addressForm.phone.$invalid && submitted )">
+                    <span ng-show="addressForm.phone.$error.required" class="color0">手机号不能为空</span>
+                    <span ng-show="addressForm.phone.$error.pattern" class="color0">请输入正确的手机号码</span>
+                </div>
+            </li>
+            <li><label>邮政编码：</label><input type="text" class="txtbox1 txt_w280 "maxlength="6" ng-model="addressitem.zipcode" name="zipcode" ng-pattern="/^[\d]{6}$/" required/>
+                <div class="form-error js_zipcode"
+                     ng-show="(addressForm.zipcode.$invalid && addressForm.zipcode.$dirty && !addressForm.zipcode.$focused) || (addressForm.zipcode.$invalid && submitted )">
+                    <span ng-show="addressForm.zipcode.$error.required" class="color0">邮政编码不能为空</span>
+                    <span ng-show="addressForm.zipcode.$error.pattern" class="color0">请输入邮政编码</span>
+                </div>
+            </li>
+            <li style="padding-left:100px">
+                <label class="pay_list_c1" ng-class="{active:addressitem.status==1}" style="width:auto">
+                    <input type="checkbox" ng-model="addressitem.status"  class="checkboxclass" name="status" />  设为默认地址
+                </label>
+            </li>
+        </ul>
+
+        <div class="jsaddrName"></div>
+        <div class="text-center margin-top-2x">
+            <button type="submit" class="btn btn-og margin-right-2x">保存</button>
+            <button type="button" class="btn btn-gray" ng-click="cancel()">取消</button>
+        </div>
+    </form>
+</div>

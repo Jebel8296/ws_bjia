@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>全部订单</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=yes">
+    <link rel="stylesheet" href="/modules/public/css/all.css">
+    <link rel="stylesheet" href="/modules/public/css/menu.css">
+    <link rel="stylesheet" href="/modules/purchase/css/order.css">
+    <link rel="stylesheet" href="/modules/purchase/css/Modaldialog.css">
+  </head>
+  <body >
+  <!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
+  <div class="page-group">
+    <div class="page page-current">
+    <!-- 主体html代码 -->
+    <header class="bar bar-nav">
+      	<a class="button button-link button-nav pull-left" href="javascript:window.history.go(-1)">
+		    <span class="icon icon-left"></span>
+		</a>
+  
+      	<h1 class="title">全部订单</h1>
+    </header>
+
+      <div class="content">
+        <!--弹出框-->
+        <div id="modal">
+          <div class="modal_box">
+            <p style="height:1.2rem;background: #ccc;text-align: right;position: relative">
+              <span  class="close" style="margin-right:5px;font-size: 1.8rem;position: absolute;right:0;top:-15px">&times</span>
+            </p>
+            <p style="color: #0000FF;font-size: 0.55rem;padding: 5px">您确定取消该订单吗?取消后无法恢复</p>
+            取消原因
+            <select name="" id="select_box">
+              <option class="sel"  value="请选择取消原因">请选择取消原因</option>
+              <option class="sel"  value="不想买了">不想买了</option>
+              <option class="sel"  value="信息填写错误,重新购买">信息填写错误,重新购买</option>
+              <option class="sel"  value="商品选择错误">商品选择错误</option>
+              <option class="sel"  value="其他原因">其他原因</option>
+            </select>
+            <div class="determine_box">
+              <input id="determine" type="button" value="确定">
+            </div>
+
+          </div>
+
+
+        </div>
+
+      <!-- 页面内容区 -->
+    	 
+		<div class="page_item">
+
+          <!--div class="order_msg">
+            <dl><dt class="d_num"></dt></dl>
+            <div class="list-block media-list"><ul></ul></div>
+            <div class="d_num"></div>
+
+          </div-->
+
+
+
+	  	</div>
+
+	<!-- 页面内容区 end -->
+    </div>
+
+	<!-- 主体html代码 -->
+  	</div>
+  </div>
+
+
+  <script type='text/javascript' src='/libs/seajs/seajs-3.0.0.js'></script>
+  <script type='text/javascript' src='/libs/zepto/zepto.min.js'></script>
+  <script type='text/javascript' src='/libs/zepto/zepto.cookie.min.js'></script>
+  <script>
+      // 加载入口模块
+      // seajs.use("center/js/personal");
+      seajs.use("purchase/js/orderlist");
+
+  </script>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+
+<!--子菜单-->
+<div ng-controller="ProductCtrl">
+    <!-- 内容部分 -->
+    <div class="main-content">
+        <div class="mContent wbg">
+            <!--产品价格-->
+            <ul class="contMain">
+                <li class="leftInfo leftIimgA" ng-repeat="item in allList" style="width:100%">
+                    <div class="title">
+                        <h5>{{item.disname}}</h5>
+                        <p>{{item.des}}</p>
+                    </div>
+                    <span class="idx_price">{{item.price}}</span>
+                    <a href="javascript:;" title="蓝白武士B-blue款" class="link"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- 内容部分 end -->
+
+</div>
+

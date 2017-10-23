@@ -1,0 +1,86 @@
+.top{height:49px;background:#333}
+.topMain{position:relative;right:0;margin:0 auto;width:1120px}
+.topMain,.topMain a,.topMain a:hover,.topMain a:link{color:#fff}
+.topMain .loginItem{position:absolute;top:15px;right:150px}
+.topMain .user{position:absolute;top:15px;right:150px;}
+.topMain .user span{margin:0 20px;}
+.topMain .loginItem span{float:left;padding:0 25px; cursor: pointer}
+.topMain .loginItem span:last-child{color:#ccc}
+.topMain .loginItem span:last-child:before{position:absolute;top:0;left:77px;width:3px;height:3px;color:#ccc;content:"|"}
+.topMain .loginItem span b{font-weight: normal}
+/*购物车*/
+.cartItem{float:right;width:140px;height:49px;background:#5b5b5b;text-align:center;line-height:49px}
+.cartIcon{padding-left:25px;background:url(../images/icon.png) no-repeat}
+/*导航*/
+.navDiv{background: #fff;
+	position: relative;
+	z-index: 89;
+}
+.navDiv .navMain{ width: 1120px; height:80px; margin:0 auto; box-sizing: border-box;}
+.navDiv .navMain .logo{float: left;
+margin-top: 14px;}
+.navDiv .navMain ul{ float: right; margin-right: -56px;}
+.navDiv .navMain ul >li{ float: left; width: 100px; margin:0 30px; font-size: 18px; line-height: 80px;
+}
+.navDiv .navMain ul >li a,.navDiv .navMain ul li a:link{ color: #333;}
+.navDiv .navMain ul >li a:hover{color: #fc581f;}
+
+/*二级导航*/
+.secNav1{ background: rgba(255,255,255,.95); background:rgba(255, 255, 255, 0.95)!important;
+filter:Alpha(opacity=95); background:#fff; /*　使用IE专属滤镜实现IE背景透明*/height: auto; padding:10px 0; overflow: hidden;
+	width: 100%;
+	position: absolute;
+	left: 0;
+	top: 66px;
+	display: none;
+	z-index: 999;
+	zoom:1;
+}
+.secNav1 ol{  padding-left: 49%;height: 100%;}
+.secNav1 ol li{ float: left; position: relative; width: 226px; line-height: 20px; border-right: 1px #ccc solid;}
+.secNav1 ol li:last-child{ border-right: 0px #ccc solid;}
+.secNav1 ol li img{ width: 100%}
+.secNav1 ol li:before{content: ""; width: 1px; height:85px;background: #ececec; position: absolute; top: 3px; left: 0;}
+.secNav1 ol li.clnLine:before{display: none;}
+.secNav1 ol li p{text-align: center;}
+
+.secNav2{ background: rgba(255,255,255,.95); background:rgba(255, 255, 255, 0.95)!important;
+	filter:Alpha(opacity=95); background:#fff; /*　使用IE专属滤镜实现IE背景透明*/height: auto; padding:10px 0; overflow: hidden;
+	width: 100%;
+	position: absolute;
+	left: 0;
+	top: 66px;
+	display: none;
+	z-index: 999;
+	zoom:1;
+}
+.secNav2 ol{  padding-left: 63%;height: 100%;}
+.secNav2 ol li{ float: left; position: relative; width: 226px; line-height: 20px;}
+.secNav2 ol li img{ width: 100%}
+.secNav2 ol li:before{content: ""; width: 1px; height:85px;background: #ececec; position: absolute; top: 3px; left: 0;}
+.secNav2 ol li.clnLine:before{display: none;}
+.secNav2 ol li p{text-align: center;}
+
+
+
+
+/*清浮动*/
+.clearfix:after{content:"";display:block;clear:both;}
+.clearfix{zoom:1;}
+
+/* banner */
+.banner{ width: 100%; height: auto; position: relative; overflow: hidden; margin: 0 auto;}
+.bannerBtn{display:none;}
+.bannerBtn a{display:block;line-height:40px;position:absolute;top:40%;width:82px;height:82px;background-color:#000;opacity:0.3;filter:alpha(opacity=30) color:rgb(255, 255, 255);overflow:hidden;z-index:4;}
+.prevBtn{left:5px;}
+.nextBtn{right:5px;}
+.bannerImg{font-size:0;*word-spacing:-1px;/* IE6、7 */ letter-spacing:-3px;position:relative;}
+.bannerImg li{display:inline-block;*display:inline;*zoom:1;/* IE6、7 */ vertical-align:top;letter-spacing:normal;word-spacing:normal;font-size:12px;}
+.banner i{ background: url(../images/tips.png) no-repeat; width: 30px; height: 40px; cursor: pointer; margin: 21px 0 0 23px; display: block;}
+.banner .nextBtn i{background-position:0 bottom;}
+.banner .prevBtn i{background-position:0 2px;}
+
+.bannerCircle{position:absolute;left:50%;bottom:25px;height:13px;text-align:center;font-size:0;border-radius:10px;background:rgba(255,255,255,0.3);filter:alpha(opacity:30);}
+.bannerCircle li{border-radius:10px;margin:2px;display:inline-block;display:-moz-inline-stack;vertical-align:middle;zoom:1;}
+.bannerCircle li a{display:block;padding-top:9px;width:9px;height:0;border-radius:50%;background:#B7B7B7;overflow:hidden;}
+.bannerCircle .selected a{background:#F40;}

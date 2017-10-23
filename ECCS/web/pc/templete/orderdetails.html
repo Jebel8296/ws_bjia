@@ -1,0 +1,138 @@
+<div class="mainContent" ng-controller="OrderDetail">
+	<div class="mContent">
+		<div ng-include="'templete/common/ordermenu.html'"></div>
+		<div class="contRight wbg">
+			<h1>订单详情</h1>
+			<div>
+				<div class="detailBar">
+					<div class="flowPic">
+						<div class="flowPic_on"></div>
+					</div>
+					<div class="detailBarMsg clearfix">
+						<ul>
+							<li  style="margin-left: 60px;">
+								<div><span ng-class="{color0:datadetail.status=='1'}">提交订单</span>
+									<p>{{ datadetail.ctime | date:'yyyy-MM-dd' }} <br/>{{ datadetail.ctime | date:'HH:mm:ss' }}</p>
+								</div>
+							</li>
+							<li ng-show="showStutas2" style="margin-left: 30px;">
+								<div><span ng-class="{color0:datadetail.status=='2'}">付款完成</span>
+									<p>{{ datadetail.ptime | date:'yyyy-MM-dd' }} <br/>{{ datadetail.ptime | date:'HH:mm:ss' }}</p>
+								</div>
+							</li>
+							<li ng-show="showStutas3" style="margin-left: 30px;">
+								<div>
+									<span ng-class="{color0:datadetail.status=='3'}">已发货</span>
+									<p>{{ datadetail.stime | date:'yyyy-MM-dd' }} <br/>{{ datadetail.stime | date:'HH:mm:ss' }}</p>
+								</div>
+							</li>
+							<li ng-show="showStutas4" style="margin:0 10px 0 20px;">
+								<div>
+									<span ng-class="{color0:datadetail.status=='4'}">确认收货</span>
+									<p>{{ datadetail.otime | date:'yyyy-MM-dd' }} <br/>{{ datadetail.otime | date:'HH:mm:ss' }}</p>
+								</div>
+							</li>
+							<li ng-show="showStutas5" style="margin:0 10px 0 20px;">
+								<div>
+									<span ng-class="{color0:datadetail.status=='5'}">订单取消</span>
+									<p>{{ datadetail.utime | date:'yyyy-MM-dd' }} <br/>{{ datadetail.utime | date:'HH:mm:ss' }}</p>
+								</div>
+							</li>
+							<li ng-show="showStutas6" style="margin:0 10px 0 20px;">
+								<div>
+									<span ng-class="{color0:datadetail.status=='6'}">拒绝收货</span>
+									<p>{{ datadetail.utime | date:'yyyy-MM-dd' }} <br/>{{ datadetail.utime | date:'HH:mm:ss' }}</p>
+								</div>
+							</li>
+							<li ng-show="showStutas7" style="margin:0 10px 0 20px;">
+								<div>
+									<span ng-class="{color0:datadetail.status=='7'}">交易关闭</span>
+									<p>{{ datadetail.utime | date:'yyyy-MM-dd' }} <br/>{{ datadetail.utime | date:'HH:mm:ss' }}</p>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="detailNum">
+						<span>订单编号：{{datadetail.code}}</span>
+						<span>订单创建时间：{{datadetail.ctime | date:'yyyy-MM-dd' }} {{ datadetail.ctime | date:'HH:mm:ss' }}</span>
+					</div>
+				</div>
+
+
+				<div class="tablearea">
+					<h5>商品清单</h5>
+					<table width="100%" border="0" cellspacing="0">
+						<tr>
+							<th>商品编号</th>
+							<th>商品名称</th>
+							<th>单价（元）</th>
+							<th>数量</th>
+							<th>实付款（元）</th>
+						</tr>
+						<tr ng-repeat="p in datadetail.prods">
+							<td style="max-width:100px">{{p.code}}</td>
+							<td style="max-width:150px">
+								<div class="proImg">
+									<img src="images/3/3C40A100010001.png">
+									<p>
+										<sapn>{{p.name}}</sapn><br/>
+										<span>型号：{{p.model}}</span><br/>
+										<span>颜色：{{p.color}}</span>
+									</p>
+								</div>
+							</td>
+							<td style="max-width:80px">{{p.price | number:2}}</td>
+							<td>{{p.total}}</td>
+							<td style="max-width:80px">
+								<p>{{p.fee | number:2}}</p>
+							</td>
+						</tr>
+
+					</table>
+					<div class="orderM">
+						<span>订单总金额： ¥ <span class="orderNum">{{datadetail.pay| number:2}}</span></span><br>
+						<span>(包含运费： ¥ {{datadetail.express_pay | number:2}}元)</span>
+					</div>
+					<div class="msg">
+						<dl class="mr">
+							<dt>支付信息</dt>
+							<dd>支付方式：
+								<p ng-if="datadetail.status =='2' ">{{datadetail.pay_type}}</p>
+							</dd>
+						</dl>
+						<dl>
+							<dt>发票信息</dt>
+							<dd>发票抬头： {{datadetail.invoce}}</dd>
+						</dl>
+					</div>
+
+					<div class="msg">
+						<dl class="mr">
+							<dt>收货人信息</dt>
+							<dd>姓 名：{{datadetail.express.name}}</dd>
+							<dd>联系电话：{{datadetail.express.phone}}</dd>
+							<dd>地 址：{{datadetail.express.provname+ datadetail.express.cityname + datadetail.express.areaname+ datadetail.express.address
+								+ ""}}</dd>
+							<dd>邮 编：{{datadetail.express.zipcode}}</dd>
+							<dd>送货时间：{{datadetail.stime | date:'yyyy-MM-dd'}} {{datadetail.stime | date:'HH:mm:ss'}}</dd>
+						</dl>
+						<dl>
+							<dt>配送信息</dt>
+							<dd>配送费用： ¥ {{datadetail.express_pay | number:2}}元</dd>
+							<dd>物流公司：{{datadetail.logistics_name}}</dd>
+							<dd>货运单号：{{detail.serialNumber}}</dd>
+							<dd>出库时间：{{datadetail.stime | date:'yyyy-MM-dd' }} {{ datadetail.stime | date:'HH:mm:ss' }}</dd>
+						</dl>
+					</div>
+
+					<div>
+						<d1>
+							<dt style="font-size:20px;">备注信息</dt><br/>
+							<dd>{{datadetail.pay_type}}</dd>
+						</d1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

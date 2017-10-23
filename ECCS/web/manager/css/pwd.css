@@ -1,0 +1,26 @@
+.forgetpw{ width: 500px; margin:0 auto; padding:60px 0;}
+.forgetpw li{ margin:20px 0;height: auto;
+overflow: hidden;}
+.forgetpw li label{ display: inline-block; float: left; width: 90px; line-height: 35px;}
+.forgetpw li input{ float: left;}
+/*margin-right*/
+.mr10{margin-right: 10px;}
+
+
+.pwOgM{ margin:30px 175px;}
+
+
+/*修改密码*/
+.chPwd{padding: 15px 0px 15px 120px}
+.chPwd li{ margin: 15px 0;}
+.chPwd .btn_pd{ margin: 20px 0;}
+.chPwd .btn_pd input{ margin-right: 25px;}
+
+
+
+/**/
+
+
+/*其他项目需求*/
+
+

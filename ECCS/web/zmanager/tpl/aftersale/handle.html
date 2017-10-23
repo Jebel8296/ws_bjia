@@ -1,0 +1,198 @@
+<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3">查看售后详情</h1>
+</div>
+<div class="wrapper-md" ng-controller="AfterSaleHandleCtrl">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td class="text-right">售后编号 : {{waitHandleData.aftercode}}</td>
+                        <td class="text-center">
+                            售后类型 : {{waitHandleData.aftertype}}
+                        </td>
+                        <td class="text-left">
+                            状态 :
+                            <span ng-show="waitHandleData.status==0">待受理</span>
+                            <span ng-show="waitHandleData.status==1">待邮寄</span>
+                            <span ng-show="waitHandleData.status==2">处理中</span>
+                            <span ng-show="waitHandleData.status==3">售后完成</span>
+                            <span ng-show="waitHandleData.status==4">关闭</span>
+                            <span ng-show="waitHandleData.status==5">待补充</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            商品信息
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="text-center">商品名称</th>
+                            <th class="text-center">单价（元）</th>
+                            <th class="text-center">数量</th>
+                            <th class="text-center">总金额（元）</th>
+                            <th class="text-center">关联订单号</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div>
+                                    <img src="img/3C40A100010001.png" />
+                                </div>
+                                <div style="margin: -80px 0px 0px 220px">
+                                    <p>名称：{{waitHandleData.prodname}}</p>
+                                    <p>型号：{{waitHandleData.prodcode|prodType }} &nbsp;&nbsp;颜色：{{waitHandleData.prodcode|prodColor
+                                        }}
+                                    </p>
+                                </div>
+                            </td>
+                            <td>{{waitHandleData.prodprice}}</td>
+                            <td>{{waitHandleData.total}}</td>
+                            <td>{{waitHandleData.total*waitHandleData.prodprice}}</td>
+                            <td>{{waitHandleData.ordercode}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="panel-footer text-right" style="color: red">
+            退款金额： {{waitHandleData.total*waitHandleData.prodprice}}元
+        </div>
+    </div>
+    <div ng-show="waitHandleData.aftertype!='退货'">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                收货信息
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <div class="panel-body">
+                        <label>收货人：</label>
+                        <span>{{waitHandleData.customer.name}}</span><br/>
+                        <label>手机号码：</label>
+                        <span>{{waitHandleData.customer.phone}}</span><br/>
+                        <label>收货地址:</label>
+                        <span>{{waitHandleData.customer.address}}</span><br/>
+                        <label>邮政编码：</label>
+                        <span>{{waitHandleData.customer.zipcode}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default" ng-show="waitHandleData.images">
+        <div class="panel-heading">
+            照片信息
+        </div>
+        <div class="panel-body">
+            <div class="choice-list">
+                <ul>
+                    <li ng-repeat="item in waitHandleData.images track by $index">
+                        <div><img ng-src="{{item}}"></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            其他信息
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <tr ng-show="waitHandleData.aftertype=='退货'">
+                        <td>
+                            <label>退货原因：</label>
+                            <span>{{waitHandleData.reason}}</span>
+                        </td>
+                    </tr>
+                    <tr ng-show="producttype.v1==1 || producttype.v2==1 || producttype.v3==1 || producttype.v4==1">
+                        <td>
+                            <label>售后产品：</label>
+                            <span ng-show="producttype.v1==1"> <span>智能手表</span></span>
+                            <span ng-show="producttype.v2==1">  <span>耳机</span></span>
+                            <span ng-show="producttype.v3==1"> <span> 数据线</span></span>
+                            <span ng-show="producttype.v4==1"> <span> 充电器</span></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>售后原因：</label>
+                            <span>{{waitHandleData.remark}}</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default" ng-show="waitHandleData.logisticName">
+        <div class="panel-heading">
+            退换/维修客户邮寄信息
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <tr>
+                        <td>
+                            <p>物流公司：{{waitHandleData.logisticName}}</p>
+                            <p>货运单号：{{waitHandleData.logisticScode}}</p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            反馈信息
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <tr ng-repeat="r in waitHandleData.replyResult">
+                        <td>
+                            <label>售后结果反馈（{{r.createTime|date:"yyyy-MM-dd HH:mm:ss"}}）：</label>
+                            <p style="margin-left: 100px;">{{r.reply}}</p>
+                        </td>
+                    </tr>
+                </table>
+                <table class="table table-bordered" ng-show="waitHandleData.status==0 || waitHandleData.status==2">
+                    <tr>
+                        <td>
+                            <label>客服处理结果：</label>
+                            <select ng-model="handleResult">
+                                <option value="0">请选择处理结果</option>
+                                <option value="4" ng-show="waitHandleData.status==0">拒绝</option>
+                                <option value="1" ng-show="waitHandleData.status==0">同意</option>
+                                <option value="5" ng-show="waitHandleData.status==0">客户补充信息</option>
+                                <option value="3" ng-show="waitHandleData.status==2">售后完成</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>售后结果反馈：</label>
+                            <div>
+                                <textarea class="textarea" style="height: 140px;" placeholder="限300个字" cols="200" rows="5" ng-model="resultReply"></textarea>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">
+                            <button type="button" class="btn btn-info" ng-click="submitAfterReply()">提交反馈</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

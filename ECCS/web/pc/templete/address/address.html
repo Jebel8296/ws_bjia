@@ -1,0 +1,54 @@
+<!-- 内容部分 -->
+<div class="mainContent" ng-controller="AddressCtrl">
+    <div class="mContent">
+        <div ng-include="'templete/common/ordermenu.html'"></div>
+        <div class="contRight wbg">
+            <h1 class="inlineH" style="position: relative">收货地址 <span style="float: right; position: absolute; right:0" class="newAdd font_16 color0" ng-click="openAddrLayer('new')"
+                    data-toggle="modal" data-target="#address">+增加新地址</span></h1>
+            <div class="tablearea">
+                <table width="100%" border="0" cellspacing="0">
+                    <tr>
+                        <th style="width: 1%">序号</th>
+                        <th style="width: 20%">收货人</th>
+                        <th style="width: 54%">收货地址</th>
+                        <th style="width: 10%">联系电话</th>
+                        <th style="width: 10%">操作</th>
+                        <th style="width: 5%">默认</th>
+                    </tr>
+                    <tr ng-repeat="item in addrlist">
+                        <td>{{$index+1}}</td>
+                        <td style="display: none">{{item.eid}}</td>
+                        <td> {{item.name}}</td>
+                        <td style="text-align: left;white-space:normal;">
+                            {{item.provname + item.cityname + item.areaname + item.address}}
+                        </td>
+                        <td> {{item.phone}}</td>
+                        <td><span class="color0 margin-right-2x spanpoint" ng-click="openAddrLayer(item)" data-toggle="modal"
+                                data-target="#address">修改</span>
+                            <span class="color0 spanpoint" ng-click="deladdr(item.eid)">删除</span>
+                        </td>
+                        <td>
+                            <label class="radioSe" ng-class="{selected:item.status==1}">
+                                <input type="radio" name="item.status"   ng-model="item.status"  class="checkboxclass" ng-change="setDef(item,$even)" />
+                            </label>
+                        </td>
+                    </tr>
+                </table>
+                <div class="modal fade bs-example-modal-lg" id="address" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" style="width: 800px; margin: 30px auto;">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title" id="myModalLabel">{{title}}</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div ng-include="'templete/common/newAddress.html'"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 内容部分 end -->

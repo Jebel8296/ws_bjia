@@ -1,0 +1,115 @@
+<!-- navbar header -->
+<div class="navbar-header {{app.settings.navbarHeaderColor}}">
+    <button class="pull-right visible-xs dk" ui-toggle-class="show" data-target=".navbar-collapse">
+        <i class="glyphicon glyphicon-cog"></i>
+    </button>
+    <button class="pull-right visible-xs" ui-toggle-class="off-screen" data-target=".app-aside" ui-scroll="app">
+        <i class="glyphicon glyphicon-align-justify"></i>
+    </button>
+    <!-- brand -->
+    <a href="#/" class="navbar-brand text-lt">
+        <i class="fa fa-btc"></i>
+        <!@<img src="img/zm_logo.png" alt="." class="hide">
+        <span class="hidden-folded m-l-xs">{{app.name}}</span>
+    </a>
+    <!-- / brand -->
+</div>
+<!-- / navbar header -->
+<!-- / navbar header -->
+
+<!-- navbar collapse -->
+<div class="collapse pos-rlt navbar-collapse box-shadow {{app.settings.navbarCollapseColor}}">
+    <!-- buttons -->
+    <div class="nav navbar-nav hidden-xs">
+        <a href class="btn no-shadow navbar-btn" ng-click="app.settings.asideFolded = !app.settings.asideFolded">
+            <i class="fa {{app.settings.asideFolded ? 'fa-indent' : 'fa-dedent'}} fa-fw"></i>
+        </a>
+    </div>
+    <!-- / buttons -->
+
+    <!-- search form -->
+    <form class="navbar-form navbar-form-sm navbar-left shift" ui-shift="prependTo" target=".navbar-collapse"
+          role="search" ng-controller="TypeaheadDemoCtrl">
+        <div class="form-group">
+            <div class="input-group">
+                <input type="text" ng-model="selected"
+                       typeahead="state for state in states | filter:$viewValue | limitTo:8"
+                       class="form-control input-sm bg-light no-border rounded padder" placeholder="Search projects...">
+                <span class="input-group-btn">
+                <button type="submit" class="btn btn-sm bg-light rounded"><i class="fa fa-search"></i></button>
+              </span>
+            </div>
+        </div>
+    </form>
+    <!-- / search form -->
+
+    <!-- nabar right -->
+    <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown hidden-sm" is-open="lang.isopen" dropdown>
+            <a href class="dropdown-toggle" dropdown-toggle>
+                {{selectLang}} <b class="caret"></b>
+            </a>
+            <!-- dropdown -->
+            <ul class="dropdown-menu animated fadeInRight w">
+                <li ng-repeat="(langKey, label) in langs">
+                    <a ng-click="setLang(langKey, $event)" href>{{label}}</a>
+                </li>
+            </ul>
+            <!-- / dropdown -->
+        </li>
+        <li class="hidden-xs">
+            <a ui-fullscreen></a>
+        </li>
+        <li class="dropdown" dropdown>
+            <a href class="dropdown-toggle" dropdown-toggle>
+                <i class="icon-bell fa-fw"></i>
+                <span class="badge badge-sm up bg-danger pull-right-xs">3</span>
+            </a>
+            <!-- dropdown -->
+            <div class="dropdown-menu w-xl animated fadeInUp">
+                <div class="panel bg-white">
+                    <div class="list-group">
+                        <a href class="media list-group-item">
+                            <span class="media-body block m-b-none text-danger">
+                                订单服务出现异常，请相关负责人及时处理.<br>
+                                <small class="text-muted">2分钟前</small>
+                            </span>
+                        </a>
+                        <a href class="media list-group-item">
+                            <span class="media-body block m-b-none text-success">
+                                小明提交了退货申请，请及时受理.<br>
+                                <small class="text-muted">10分钟前</small>
+                            </span>
+                        </a>
+                        <a href class="media list-group-item">
+                            <span class="media-body block m-b-none">
+                                小红通过手机端提交了订单.<br>
+                                <small class="text-muted">1小时前</small>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- / dropdown -->
+        </li>
+        <li class="dropdown" dropdown>
+            <a href class="dropdown-toggle clear" dropdown-toggle>
+              <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
+                <img src="img/a0.jpg" alt="...">
+                <i class="on md b-white bottom"></i>
+              </span>
+                <span class="hidden-sm hidden-md">中麦管理员</span> <b class="caret"></b>
+            </a>
+            <!-- dropdown -->
+            <ul class="dropdown-menu animated fadeInRight w">
+                <li>
+                    <a ui-sref="access.signin">退出</a>
+                </li>
+            </ul>
+            <!-- / dropdown -->
+        </li>
+    </ul>
+    <!-- / navbar right -->
+
+</div>
+<!-- / navbar collapse -->

@@ -1,0 +1,122 @@
+#mail{
+    background-color: #fff;
+    padding-bottom: 20px;
+
+}
+#logistics{
+    display: inline-block;
+    width:45%;
+}
+
+.order_msg{
+    padding-right:5px;
+}
+.title_content{
+    padding:5px;
+    width:92%;
+    margin-left: 5%;
+    border-bottom: 2px  solid #bbb
+
+}
+.options{
+    width: 70%;
+    height:70px;
+    margin: 0 auto;
+    padding-top: 30px;
+    text-align: center;
+}
+.options span{
+    padding: 10px;
+}
+.Items-total{
+    float: right;
+    font-size: 0.7rem;
+}
+.options span:nth-child(1){
+    margin-right: 8px;
+    position: relative;
+}
+.options span:nth-child(2){
+    margin-left: 8px;
+    position: relative;
+}
+.main_content{
+    width:100%;
+}
+.time_content h4{
+    padding:5px;
+    width:92%;
+    margin-left: 5%;
+    border-bottom: 2px  solid #bbb
+
+}
+.delivery_time{
+    padding-top:30px;
+}
+.delivery_time>span{
+
+    margin-left: 8%;
+    padding: 10px;
+    position: relative
+
+}
+.main_content>span{
+    padding-left:5%;
+    display: block;
+    padding-right:5%;
+}
+.logistics_style{
+
+    border: 1px solid #797979;
+}
+
+.logistics_blue{
+    border: 1px solid #0000FF;
+}
+.delivery_time_select{
+
+    border: 1px solid #797979;
+}
+.delivery_time_default{
+    border: 1px solid #0000FF;
+}
+.show_content{
+    display: block;
+}
+.hide_content{
+    display: none;
+}
+.cur:after{
+    background: url(../img/icon1.png);
+    background-size: 100%;
+    background-position: 0 -15.5rem;
+    content: "";
+    width: 1.2rem;
+    height: 1rem;
+    position: absolute;
+    right: 0;
+    bottom: 0px;
+
+}
+
+.regular-checkbox1 + label em.checked{
+    border: 1px solid #ff8a00;
+    background: #ff8a00;
+    font-size: 0.6rem;
+    color: #fff;
+}
+.checked:after {
+    content: '\2714';
+    font-size: .6rem;
+    position: absolute;
+    top: -0.2rem;
+    left: .08rem;
+    color: #fff;
+}
+.order_sum{
+    margin-left: 8px;
+    margin-right: 8px;
+}
+.right{
+    float: right;
+}

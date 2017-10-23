@@ -1,0 +1,34 @@
+<form name="loginForm" novalidate  ng-submit="userlogin(userPhone,userPwd)">
+    <div class="color1 js-error" style="padding-left:100px"></div>
+    <ul>
+        <li><span>手机号码：</span>
+            <input type="text" class="txtbox w_300" ng-model="userPhone"  name="userPhone" minlength="11" maxlength="11" ng-focus ng-pattern="/^0?1[3|4|5|8][0-9]\d{8}$/" required/>
+            <div class="form-error" ng-show="(loginForm.userPhone.$invalid && loginForm.userPhone.$dirty && !loginForm.userPhone.$focused) || (loginForm.userPhone.$invalid && submitted )">
+                <p ng-show="loginForm.userPhone.$error.required" class="color0">请输入11位手机号码</p>
+                <p ng-show="loginForm.userPhone.$error.pattern" class="color0">请输入正确的手机号码</p>
+            </div>
+        </li>
+        <li ><span>密码：</span>
+            <input type="password"placeholder="8-32位字符"class="txtbox w_300" ng-model="userPwd" name="userPwd" minlength="2" maxlength="20" ng-focus ng-pattern="/^[a-zA-Z0-9\u0391-\uFFE5]{2,20}$/ " required />
+            <div class="form-error" ng-show="(loginForm.userPwd.$invalid && loginForm.userPwd.$dirty && !loginForm.userPwd.$focused) || (loginForm.userPwd.$invalid && submitted )">
+                <p ng-show="loginForm.userPwd.$error.required" class="color0">请输入密码</p>
+                <p ng-show="loginForm.userPwd.$error.pattern" class="color0">2-20个字符，可由字母和数字组成</p>
+            </div>
+        </li>
+        <li class="pl70 js_rem" style="height:30px">
+            <label for="rebpwd" class="pay_list_c1" ng-class="{active:isActiveC(rebpwd)}">
+                <input type="checkbox" ng-model="rebpwd" id="rebpwd" class="checkboxclass"/>  记住手机号码
+            </label>
+        </li>
+    </ul>
+    <div class="btn_pd"><input type="submit" value="确定" class="btn btn_og"></div>
+    <div class="forget">
+        <a href="javascript:;" class="color3" id="regBtn" ng-click="showReginModal()">注册新账号</a>
+        <a href="javazcript:;" ng-click="tofindpwd()" class="color0 logincs">忘记密码?</a>
+    </div>
+    <div class="otherLogin">
+        <a href="javascript:;"></a>
+        <a href="javascript:;"></a>
+        <a href="javascript:;"></a>
+    </div>
+</form>

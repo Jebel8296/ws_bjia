@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>支付订单</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=yes">
+    <link rel="stylesheet" href="../../public/css/all.css">
+    <link rel="stylesheet" href="../css/pay.css">
+  </head>
+  <body>
+  <!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
+  <div class="page-group">
+    <div class="page page-current">
+    <!-- 主体html代码 -->
+    <header class="bar bar-nav">
+      	<a class="button button-link button-nav pull-left" href="javascript:window.history.go(-1)">
+		    <span class="icon icon-left"></span>
+	  	</a> 
+      	<h1 class="title">支付订单</h1>
+    </header>
+   
+    <div class="content">
+    <!-- 页面内容区 -->	
+    
+	    <div class="list-block">
+	    	<div class="itemBox">
+		 		<h3>订单信息</h3>
+		        <div class="item-content">
+		          <div class="item-inner">
+		            <div class="item-title-row">
+		              <div class="item-title">
+		              	<p>订单金额：￥<span class="orderAmt">988.0</span> </p>
+		              	<p>订 单  号 ：<span class="orderNum">2684u95154</span> </p>
+		              	<!-- <p>配送信息：<span class="orderDeliveryMsg">张晓明 / 17093721919 / 北京市朝阳区建外大街12号12层</span></p> -->
+		              </div>
+		            </div>
+		          </div> 
+		        </div>
+		        <span class="redColor f-12">重要提示：我们将在您完成支付后72小时内发货</span>
+	    	</div>
+	        
+	  	 </div>
+
+		<!--商品清单-->
+	 <div class="page_item list-block">
+			
+ 			<div class="itemBox">
+				<h3>商品清单</h3>		
+				<div class="list-block media-list commodityList">
+					<ul>
+						 
+					</ul>
+					<div class="row f-12 pd">
+				      	<div class="col-33 pro_Total"> <div>商品总计:</div>￥ <span>1530</span></div>
+				      	<div class="col-33 pro_Transport"><div>运费:</div>￥<span>0.00</span></div>
+				      	<div class="col-33 pro_Payable"><div>应付金额:</div>￥<span>1530</span></div>
+			    	</div>							    
+				</div>					
+			</div>
+				
+		<div class="itemBox">
+	  			<h3>请选择支付方式</h3>
+				<div class="row paycs">
+				    <div class="col-50">
+				      	<input type="radio" value="" id="1" name="cart-pro" class="regular-radio">
+						<label for="1" class="sel-this"><em></em><img src="../img/pay_03.png" class="w80" /></label>
+				    </div>
+				    <div class="col-50">
+				      	<input type="radio" value="" id="2" name="cart-pro" class="regular-radio">
+						<label for="2" class="sel-this"><em></em><img src="../img/pay_05.png" class=""/></label>	
+				    </div>
+				</div>
+			</div>
+									
+		</div>
+		
+	<!-- 页面内容区 end -->
+	</div>
+
+	<div class="bar bar-footer"><a href="#" class="button btn_org w50 payOrder_btn">立即支付</a></div>
+
+	<!-- 主体html代码 -->
+   </div>
+  </div>
+
+  <script type='text/javascript' src='/libs/seajs/seajs-3.0.0.js'></script>
+  <script type='text/javascript' src='/libs/zepto/zepto.min.js'></script>
+  <script type='text/javascript' src='/libs/zepto/zepto.cookie.min.js'></script>
+  <script> 
+      // 加载入口模块
+    seajs.use("/modules/pay/js/pay");
+  </script> 
+    
+  </body>
+</html>

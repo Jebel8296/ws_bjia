@@ -1,0 +1,194 @@
+<!-- 内容部分 -->
+<div class="mainContent" ng-controller="ServList">
+    <div class="mContent">
+
+        <!-- 左侧内容 -->
+        <div ng-include="'templete/common/ordermenu.html'"></div>
+
+        <!-- 右侧内容 -->
+        <div class="contRight wbg">
+            <h1>售后服务 <button data-toggle="modal" data-target="#reqbyo" style="font-size:12px; margin-left:30px" class="btn btn-og"
+                    ng-click="getCode()">通过设备编号提交售后服务要求</button></h1>
+            <!-- 表格 -->
+            <div class="tablearea">
+                <table width="100%" border="0" cellspacing="0">
+                    <tr>
+                        <th>售后编号</th>
+                        <th>申请时间</th>
+                        <th>商品名称</th>
+                        <th>数量</th>
+                        <th>售后类型</th>
+                        <th>处理进度</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr ng-repeat="item in serviceList.data">
+                        <td>{{item.aftercode}}</td>
+                        <td>{{item.applytime | date:'yyyy-MM-dd'}}</td>
+                        <td>{{item.prodname}} </td>
+                        <td>{{item.total}}</td>
+                        <td>{{item.aftertype}}</td>
+                        <td>
+                            <span ng-if="item.status==0">待受理</span>
+                            <span ng-if="item.status==1">待邮寄</span>
+                            <span ng-if="item.status==2">处理中</span>
+                            <span ng-if="item.status==3">售后完成</span>
+                            <span ng-if="item.status==4">关闭</span>
+                            <span ng-if="item.status==5">待补充</span>
+                        </td>
+                        <td>
+                            <button class="color0" ng-click="viewService(item)" style="background: none">详情</button>
+                            <span ng-if="item.status==0">
+                                <br><button class="color0" ng-click="cancelSale(item)" style="background: none">取消</button>
+                            </span>
+                            <span ng-if="item.status==1">
+                                <br><button class="color0" data-toggle="modal" data-target="#cannelModel" ng-click="setItem(item)" style="background: none">填写物流信息</button>
+                            </span>
+                            <span ng-if="item.status==5">
+                                <br><button class="color0" ng-click="secodeService(item)" style="background: none">再次申请</button>
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+                <div class="modal fade" tabindex="-1" role="dialog" id="cannelModel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h3 class="modal-title" style="color:#0000ff ;">
+                                    请您填写退换货/维修邮寄的物流信息，便于顺利完成您的售后申请处理 提交后无法修改，请谨慎填写！
+                                </h3>
+                            </div>
+                            <div class="modal-body">
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon1">物流公司:</span>
+                                    <select class="form-control formControl" style="height:auto" ng-model="logisticsName" aria-describedby="basic-addon1" required>
+                                        <option value="0">请选择物流公司</option>
+                                        <option value="顺丰">顺丰</option>
+                                        <option value="韵达">韵达</option>
+                                        <option value="EMS">EMS</option>
+                                        <option value="中通">中通</option>
+                                        <option value="圆通">圆通</option>
+                                        <option value="申通">申通</option>
+                                        <option value="宅急送">宅急送</option>
+                                        <option value="5">其他</option>
+                                     </select>
+                                </div>
+                                <br />
+                                <input type="text" class="form-control" ng-model="otherLogisticsName" placeholder="请输入其他物流公司" aria-describedby="basic-addon1" ng-show="logisticsName==5">
+                                <br />
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon2">货运单号：</span>
+                                    <input type="text" class="form-control" ng-model="logisticsCode" aria-describedby="basic-addon2">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                <button type="button" class="btn btn-primary" ng-click="uploadSale()">确定</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="serviceList.data.length==0" style="text-align: center; margin:30px 0;">没有数据哦</div>
+                <!-- paging -->
+                <div class="pagingContext" ng-if="serviceList.data.length != 0" style="float:right; margin-top:20px" ng-show="paging">
+                    <ul class="pagination">
+                        <li ng-class="{true:'disabled'}[p_current==1]">
+                            <a href="javascript:;" ng-click="Previous()">
+                                <span>上一页</span>
+                            </a>
+                        </li>
+                        <li ng-repeat="page in pageList" ng-class="{active: isActivePage(page)}">
+                            <a href="javascript:;" ng-click="selectPage(page)">{{ page }}</a>
+                        </li>
+                        <!--ng-class="{true:'disabled'}[p_current==8]"-->
+                        <li>
+                            <a href="javascript:;" ng-click="Next()">
+                                <span>下一页</span>
+                            </a>
+                        </li>
+                        <span style="line-height: 35px;margin-left: 15px;">  共：{{datatotal}} 条  </span>
+                    </ul>
+                </div>
+                <div class="clearfix" style="clear: both"></div>
+
+            </div>
+
+
+            <!-- Modal -->
+            <div class="modal fade bs-example-modal-lg" id="reqbyo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" style="width: 800px; margin: 30px auto;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title" id="myModalLabel">输入设备编号</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="reqByid jscode">
+                                <form name="reByIdForm" novalidate ng-submit="reqSeByI()">
+                                    <ul>
+                                        <li><label>设备编号：</label>
+                                            <input type="text" placeholder="请输入设备编号" class="txtbox1 txt_w280" ng-model="equipmentId" name="equipmentId" minlength="8"
+                                                maxlength="20" ng-focus ng-pattern="/^[a-zA-Z0-9\u0391-\uFFE5]{8,20}$/ " required/>
+                                            <div class="form-error" ng-show="(reByIdForm.equipmentId.$invalid && reByIdForm.equipmentId.$dirty && !reByIdForm.equipmentId.$focused) || (reByIdForm.equipmentId.$invalid && submitted )">
+                                                <span ng-show="reByIdForm.equipmentId.$error.required" class="color1">请输入设备编号</span>
+                                                <span ng-show="reByIdForm.equipmentId.$error.pattern" class="color1">请输入正确的设备编号</span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <label>购买日期：</label>
+                                            <input type="text" placeholder="请选择购买日期" class="txtbox1 txt_w280" datepicker-popup="yyyy-MM-dd" ng-model="buyDate" style="width:240px"
+                                                name="buyDate" is-open="opened" ng-required="true" close-text="关闭" required/>
+                                            <button class="btn" ng-click="open($event)">
+                                                <span class="glyphicon" ng-click="open($event)"></span>
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                            <div class="form-error" ng-show="(reByIdForm.buyDate.$invalid && reByIdForm.buyDate.$dirty && !reByIdForm.buyDate.$focused) || (reByIdForm.buyDate.$invalid && submitted )">
+                                                <span ng-show="reByIdForm.buyDate.$error.required" class="color1">请选择购买日期</span>
+                                            </div>
+                                            <!--
+
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label">购买日期：</label>
+                                                <div class="input-group date form_date col-md-5"  style="width:39%" data-date="" data-date-format="dd MM yyyy" data-link-field="buyDate" data-link-format="yyyy-mm-dd" >
+                                                    <input class="txtbox1 txt_w280" size="16" type="text" ng-model="buyDate" name="buyDate"/>
+                                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                                </div>
+                                            </div>
+-->
+                                        </li>
+                                        <li><label>验证码：</label>
+                                            <input type="text" id='' placeholder='请输入验证码' ng-model="codeR" name="codeR" class="txtbox1 txt_w280" style="width:199px"
+                                                required/>
+                                            <img ng-src={{scode}} src="images/codeDefault.png" class="yzm" ng-click="getCode()" id="imgDefault" />
+                                            <div class="form-error" ng-show="(reByIdForm.codeR.$invalid && reByIdForm.codeR.$dirty && !reByIdForm.codeR.$focused) || (reByIdForm.codeR.$invalid && submitted )">
+                                                <span ng-show="reByIdForm.codeR.$error.required" class="color1">验证码不能为空</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div style="margin-left:50px">
+                                        <dl>
+                                            <dt>如何找到设备编号？</dt>
+                                            <dd>1. 在关于本机-本机状态信息可查看</dd>
+                                            <dd>2. 在手机上拨打  可查询</dd>
+                                            <dd>3. 在包装盒</dd>
+
+                                            <dt style="margin-top:20px">如何填写购买日期？</dt>
+                                            <dd>1.线下购买的填写发票日期</dd>
+                                            <dd>2.线上购买的填写快递签收日期</dd>
+                                        </dl>
+                                    </div>
+                                    <div class="text-center margin-top-2x">
+                                        <button type="submit" class="btn btn-og margin-right-2x">确认提交</button>
+                                    </div>
+                                </form>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 内容部分 end -->

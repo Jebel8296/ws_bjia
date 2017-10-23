@@ -1,0 +1,35 @@
+<!-- 内容部分 -->
+<div class="mainContent" ng-controller="MonitorLogCtrl">
+    <div class="mContent wbg pdd">
+        <h1>日志监控</h1>
+        <button class="btn btn-xs" ng-click="freshMonitor()"><span>刷新</span></button>
+        <button ng-click="Previous()" class="btn btn-xs" >
+            <span>上一页</span>
+        </button>
+        <button ng-click="Next()" class="btn btn-xs" >
+            <span>下一页</span>
+        </button>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>日期</th>
+                    <th>主机</th>
+                    <th>路径</th>
+                    <th>日志</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in waitHandleList">
+                    <td>{{item.date}}</td>
+                    <td>{{item.host}}</td>
+                    <td>{{item.path}}</td>
+                    <td>{{item.log}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+<!-- 内容部分 end -->

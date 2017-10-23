@@ -1,0 +1,70 @@
+<!-- 内容部分 -->
+<div class="main-content" ng-controller="MyCartCtrl">
+	<div class="mContent">
+		<div ng-include="'templete/common/ordermenu.html'"></div>
+		<div class="contRight wbg">
+			<h1>我的购物车</h1>
+			<!-- 表格 -->
+			<div class="tablearea">
+				<div style="overflow-y: auto; overflow-x: auto; max-height: 400px;">
+					<table width="100%" border="0" cellspacing="0">
+						<tr>
+							<th  style="width:75px">
+								<label class="pay_list_c1" ng-class="{active:selectMain==true}">
+									<input type="checkbox" ng-model="selectMain" ng-click="checkAll(selectMain)" class="checkboxclass"/>
+									全选
+								</label>
+
+							</th>
+							<th>商品信息</th>
+							<th>单价（元）</th>
+							<th>数量</th>
+							<th>金额（元）</th>
+							<th>操作</th>
+						</tr>
+						<tr ng-repeat="item in mycartL.data" >
+							<td style="display: none;">{{item.prodcode}}</td>
+							<td style="display: none;">{{item.instanceid}}</td>
+							<td style="width:65px">
+								<label class="pay_list_c1" ng-class="{active:item.checked==true}">
+									<input type="checkbox" name="cartList" ng-model="item.checked" ng-checked="item.checked" ng-click="checkItem(item)" class="checkboxclass"/>
+								</label>
+							</td>
+							<td style="max-width:150px">
+								<div class="proImg">
+									<img src="images/3/3C40A100010001.png">
+									<p>
+										<span>{{item.prodname}}</span><br/>
+										<span>型号：{{item.model}}</span><br/>
+										<span>颜色：{{item.color}}</span>
+									</p>
+
+
+								</div>
+							</td>
+							<td>{{item.prodprice | number: 2}}</td>
+							<td>
+								<button type="button" ng-click = "minus($index,item.instanceid)" class="xsm_btn btn_og color5">-</button>
+								{{item.prodtotal}}
+								<button type="button" ng-click = "add($index,item.instanceid)" class="xsm_btn btn_og color5">+</button>
+							</td>
+							<td>{{item.prodprice*item.prodtotal | number: 2}}</td>
+							<td><a href="javascript:;" class="color0" ng-click="delItem(item.instanceid)">删除</a></td>
+						</tr>
+					</table>
+
+					<div ng-if="mycartL.data.length==0" style="text-align: center; margin:30px 0;">没有数据哦</div>
+
+				</div>
+
+				<!-- 已选商品 -->
+				<div class="cartmsg">已选商品（不含运费）：  <span class="total">￥{{total| number:2}}</span>
+					<button class="btn margin-left-2x margin-right-2x" type="button" ng-click="toShopping()">继续购物</button>
+					<button type="button" class="btn btn_og topay" ng-click="cartToPay(uid)">结 算</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 内容部分 end -->
+<div class="clearF"></div>

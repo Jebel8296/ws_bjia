@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>订单详情</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=yes">
+    <link rel="stylesheet" href="/modules/public/css/all.css">
+    <link rel="stylesheet" href="/modules/public/css/menu.css">
+    <link rel="stylesheet" href="/modules/purchase/css/order.css">
+    <link rel="stylesheet" href="/modules/purchase/css/Modaldialog.css">
+</head>
+<body>
+<!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
+<div class="page-group">
+    <div class="page page-current">
+        <!-- 主体html代码 -->
+        <header class="bar bar-nav">
+            <a class="button button-link button-nav pull-left" href="javascript:window.history.go(-1)">
+                <span class="icon icon-left"></span>
+            </a>
+
+            <h1 class="title">订单详情</h1>
+        </header>
+
+        <div class="content cl_bg">
+            <!-- 页面内容区 -->
+            <div class="page_item">
+
+                <div class="content">
+                    <!--弹出框-->
+                    <div id="modal">
+                        <div class="modal_box">
+                            <p style="height:1.2rem;background: #ccc;text-align: right;position: relative">
+                                <span class="close"
+                                      style="margin-right:5px;font-size: 1.8rem;position: absolute;right:0;top:-15px">&times</span>
+                            </p>
+
+                            <div>
+                                xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                                xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                                xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                                xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                            </div>
+                            <div class="determine_box">
+                                <button id="determine">确定</button>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="order_msg orderDetail">
+
+                    </div>
+
+                    <div class="order_msg">
+                        <dl>
+                            <dt>商品清单</dt>
+                        </dl>
+                        <div class="list-block media-list">
+                            <ul class="dddd"></ul>
+                            <div class="f-12 pd orderTotal"></div>
+                        </div>
+
+                    </div>
+                    <!--
+                    <div class="order_msg">
+                            <dl>
+                                <dt>支付信息</dt>
+                                <dd>支付方式：银联（招商银行）</dd>
+                            </dl>
+                    </div>
+
+                    <div class="order_msg">
+                            <dl>
+                                <dt>收货信息</dt>
+                                <dd>收货人：赵大宝</dd>
+                                <dd>联系电话：170938283727</dd>
+                                <dd>收货地址：北京市朝阳区建外大街</dd>
+                                <dd>邮      编：100222</dd>
+                                <dd>送货时间：节假日</dd>
+                            </dl>
+                    </div>
+
+                    <div class="order_msg">
+                            <dl>
+                                <dt>发票信息</dt>
+                                <dd>发票抬头：个人</dd>
+                            </dl>
+                    </div>
+
+                    <div class="order_msg">
+                            <dl>
+                                <dt>配送信息</dt>
+                                <dd>配送费用：10.00元</dd>
+                                <dd>物流公司：顺丰快递</dd>
+                                <dd>货运单号：2932984982482</dd>
+                                <dd>出库时间：2016-09-09  09：33：22</dd>
+                            </dl>
+                    </div> -->
+
+                </div>
+
+                <!-- 页面内容区 end -->
+            </div>
+
+            <!-- 主体html代码 -->
+        </div>
+    </div>
+
+
+    <script type='text/javascript' src='/libs/seajs/seajs-3.0.0.js'></script>
+    <script type='text/javascript' src='/libs/zepto/zepto.min.js'></script>
+    <script type='text/javascript' src='/libs/zepto/zepto.cookie.min.js'></script>
+    <script>
+        // 加载入口模块
+        seajs.use("purchase/js/orderdetails");
+    </script>
+
+    <!-- menu侧导航 -->
+</body>
+</html>

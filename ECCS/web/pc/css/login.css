@@ -1,0 +1,20 @@
+.tboxCont{padding-bottom:20px}
+.tboxCont ul{ margin: 10px 0; padding: 15px; display: block}
+.tboxCont li{ padding-bottom: 8px; height:61px}
+.tboxCont li span{ display: inline-block; float: left; text-align: right; width: 85px;height: 32px;
+    line-height: 32px;}
+.tboxCont li p{ padding: 5px 0 10px 85px;}
+.tboxCont .btn_pd{/* margin-left: 103px;*/  text-align:center}
+.pl70{ padding-left: 85px;}
+
+.forget{ margin: 10px; line-height: 20px; padding-top: 20px;}
+.forget a{ display: block; width: 50%; float: left;}
+.forget a.color0{ text-align: right;}
+
+.otherLogin{ background: url(../images/login.jpg) no-repeat; height: 28px; background-size: 100%; margin-top: 20px; padding: 30px 0 60px 80px;}
+.otherLogin a{ display: block; width: 50px; height: 50px; float: left; margin-right: 70px;}
+
+.tboxCont .sm_btn{ font-size: 14px !important; padding: 6px 16px;}
+.not{background: #ccc;}
+#userForm em{padding-right: 4px; font-weight: 700;}
+#loginForm em{padding-right: 4px; font-weight: 700;}

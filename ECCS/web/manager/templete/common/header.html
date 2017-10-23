@@ -1,0 +1,142 @@
+<div ng-controller="LoginCtrl">
+    <!-- 头部 登录注册 -->
+    <div class="top" style="position:relative; z-index:99">
+        <div class="topMain">
+            <div class="loginItem" ng-hide="user.phone">
+                <span class="logincs" data-toggle="modal" data-target="#login" ng-click="showLR('login')">登录</span>
+                <span class="regcs" data-toggle="modal" data-target="#login" ng-click="showLR('regin')">注册</span>
+            </div>
+            <div class="user" ng-show="user.phone">
+                <a ui-sref="mycart">{{user.phone}}</a>
+                <a href="javascript:;" class="regcs" ng-click="logout()">退出</a>
+            </div>
+        </div>
+    </div>
+    <!-- 头部导航 div -->
+    <div class="navDiv">
+        <div class="navMain">
+            <!-- logo -->
+            <div class="logo"><a href="index.html"><img src="images/logo.png"/></a></div>
+            <!-- 右侧导航 -->
+            <ul>
+                <li><a ui-sref="home">首页</a></li>
+                <li><a  ui-sref="handlelist">售后受理</a></li>
+                <li>
+                    <div class="btn-group">
+                        <button type="button" class="btn-default dropdown-toggle" data-toggle="dropdown">实时监控<span class="caret"></span></button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a ui-sref="logServiceCtrl">日志监控</a></li>
+                            <li><a ui-sref="monitorServicelist">服务监控</a></li>
+                            <li><a ui-sref="metricsServiceCtrl">应用监控</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="btn-group">
+                        <button type="button" class="btn-default dropdown-toggle" data-toggle="dropdown">产品管理<span class="caret"></span></button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a ui-sref="deviceProductManager">设备编号维护</a></li>
+                            <li><a ui-sref="productInfoManager">智能产品维护</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- 头部导航 end -->
+    <!-- 登录框 -->
+    <div class="modal fade bs-example-modal-lg" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+        <div class="modal-dialog" style="width: 500px; margin: 30px auto;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="logTitil">{{logTitil}}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="tboxCont">
+                        <form name="loginForm" novalidate  ng-submit="userlogin(userPhone,userPwd)" id="loginForm">
+                            <div class="color1 js-error" style="padding-left:100px"></div>
+                            <ul>
+                                <li><span>手机号码：</span>
+                                    <input type="text" placeholder="请输入11位手机号码" class="txtbox w_300" ng-model="userPhone"  name="userPhone" minlength="11" maxlength="11" ng-focus ng-pattern="/^(((13[0-9]{1})|159|153||152)+\d{8})$/" required/>
+                                    <div class="form-error" ng-show="(loginForm.userPhone.$invalid && loginForm.userPhone.$dirty && !loginForm.userPhone.$focused) || (loginForm.userPhone.$invalid && submitted )">
+                                        <p ng-show="loginForm.userPhone.$error.required" class="color0">请输入11位手机号码</p>
+                                        <p ng-show="loginForm.userPhone.$error.pattern" class="color0">请输入正确的手机号码</p>
+                                    </div>
+                                </li>
+                                <li ><span>密码：</span>
+                                    <input type="password"placeholder="8-32位字符"class="txtbox w_300" ng-model="userPwd" name="userPwd" minlength="2" maxlength="20" ng-focus ng-pattern="/^[a-zA-Z0-9\u0391-\uFFE5]{2,20}$/ " required />
+                                    <div class="form-error" ng-show="(loginForm.userPwd.$invalid && loginForm.userPwd.$dirty && !loginForm.userPwd.$focused) || (loginForm.userPwd.$invalid && submitted)">
+                                        <p ng-show="loginForm.userPwd.$error.required" class="color0">请输入密码</p>
+                                        <p ng-show="loginForm.userPwd.$error.pattern" class="color0">2-20个字符，可由中文、字母和数字组成</p>
+                                    </div>
+                                </li>
+                                <li class="pl70 js_rem" style="height:30px">
+                                    <label for="rebpwd" class="pay_list_c1" ng-class="{active:rebpwd==true}">
+                                        <input type="checkbox" ng-model="rebpwd" id="rebpwd" class="checkboxclass"/>  记住手机号码
+                                    </label>
+                                </li>
+                            </ul>
+                            <div class="btn_pd"><input type="submit" value="确定" class="btn btn_og" ></div>
+                            <div class="forget">
+                                <a href="javascript:;" class="color3" ng-click="showLR('regin')">注册新账号</a>
+                                <a href="javazcript:;" ng-click="tofindpwd()" class="color0 logincs">忘记密码?</a>
+                            </div>
+                            <div class="otherLogin">
+                                <a href="javascript:;"></a>
+                                <a href="javascript:;"></a>
+                                <a href="javascript:;"></a>
+                            </div>
+                        </form>
+                        <form name="userForm" novalidate  ng-submit="addUsers(reginU)" id="userForm">
+                            <div class="color1 js-error" style="padding-left:100px"></div>
+                            <ul class="row">
+                                <li><span>手机号码：</span>
+                                    <input type="text" placeholder="请输入11位手机号码" class="txtbox w_300" ng-model="reginU.phone"  name="phone" minlength="11" maxlength="11" ng-focus ng-pattern="/^(((13[0-9]{1})|159|153)+\d{8})$/" required/>
+                                    <div class="form-error" ng-show="(userForm.phone.$invalid && userForm.phone.$dirty && !userForm.phone.$focused) || (userForm.phone.$invalid && submitted )">
+                                        <p ng-show="userForm.phone.$error.required" class="color0">请输入11位手机号码</p>
+                                        <p ng-show="userForm.phone.$error.pattern" class="color0">请输入正确的手机号码</p>
+                                    </div>
+                                </li>
+                                <li><span>验证码：</span>
+                                    <input type="text" placeholder="8-32位字符"class="txtbox w_188" ng-model="reginU.code" name="code" minlength="2" maxlength="20" ng-focus ng-pattern="/^[a-zA-Z0-9\u0391-\uFFE5]{2,20}$/ " required/>
+
+                                    <button type="button" class="btn sm_btn font_14" style="*padding-left:0; *padding-right:0" ng-click="getCode(reginU.phone)" ng-disabled="paraevent" ng-class="paraclass">{{paracont}}</button>
+                                    <div class="form-error" ng-show="(userForm.code.$invalid && userForm.code.$dirty && !userForm.code.$focused) || (userForm.code.$invalid && submitted )">
+                                        <p ng-show="userForm.code.$error.required" class="color0">请输入正确验证码</p>
+                                        <p ng-show="userForm.code.$error.pattern" class="color0">2-20个字符，可由中文、字母和数字组成</p>
+                                    </div>
+                                </li>
+                                <li><span>密码：</span>
+                                    <input type="password" placeholder="8-32位字符" class="txtbox w_300" ng-model="reginU.pwd" name="pwd" minlength="2" maxlength="20" ng-focus ng-pattern="/^[a-zA-Z0-9\u0391-\uFFE5]{2,20}$/ " required />
+                                    <div class="form-error" ng-show="(userForm.pwd.$invalid && userForm.pwd.$dirty && !userForm.pwd.$focused) || (userForm.pwd.$invalid && submitted )">
+                                        <p ng-show="userForm.pwd.$error.required" class="color0">请输入密码</p>
+                                        <p ng-show="userForm.pwd.$error.pattern" class="color0">2-20个字符，可由中文、字母和数字组成</p>
+                                    </div>
+                                </li>
+                                <li><span>确认密码：</span><input type="password" placeholder="8-32位字符" class="txtbox w_300" name="pwd2" ng-model="reginU.pwd2" minlength="2" maxlength="20" ng-focus ng-pattern="/^[a-zA-Z0-9\u0391-\uFFE5]{2,20}$/ " required/>
+                                    <div class="form-error" ng-show="(userForm.pwd2.$invalid && userForm.pwd2.$dirty && !userForm.pwd2.$focused) || (userForm.pwd2.$invalid && submitted )">
+                                        <p ng-show="userForm.pwd2.$error.required" class="color0">两次输入的密码必须一致</p>
+                                        <p ng-show="userForm.pwd2.$error.pattern" class="color0 pwd2">两次输入的密码必须一致</p>
+                                    </div>
+
+
+                                </li>
+                                <li>
+                                    <p class="pl70" style="height:30px; padding-bottom:0; margin-bottom:0">
+                                        <label><input type="checkbox" name="protocol" ng-model="protocol" required /> 阅读并同意入网服务协议</label><a href="javascript:;" class="color1">服务条款、隐私政策</a>
+                                    </p>
+                                    <p class="color0" ng-show="!protocol && submitted">请先同意协议</p>
+                                </li>
+
+                            </ul>
+                            <div class="text-center"> <input type="submit" value="立即注册" class="btn btn_og" /></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 登录框 end -->
+
+</div>

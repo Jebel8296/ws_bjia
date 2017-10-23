@@ -1,0 +1,36 @@
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                                 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                                 http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<context:property-placeholder location="classpath*:application.properties" />
+	<!-- Component scan to find all Spring components -->
+	<context:component-scan base-package="com.chinamcom.framework.task" />
+
+	<!-- dataSource configuration -->
+	<beans:bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<beans:property name="driverClassName" value="${jdbc.driverClassName}"></beans:property>
+		<beans:property name="url" value="${jdbc.url}"></beans:property>
+		<beans:property name="username" value="${jdbc.username}"></beans:property>
+		<beans:property name="password" value="${jdbc.password}"></beans:property>
+	</beans:bean>
+
+	<beans:bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<beans:property name="dataSource" ref="dataSource"></beans:property>
+	</beans:bean>
+
+	<beans:bean id="ky.requestFactory"
+		class="org.springframework.http.client.SimpleClientHttpRequestFactory">
+		<beans:property name="readTimeout" value="10000" />
+		<beans:property name="connectTimeout" value="5000" />
+	</beans:bean>
+
+	<beans:bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+		<beans:constructor-arg ref="ky.requestFactory" />
+	</beans:bean>
+
+
+</beans:beans>

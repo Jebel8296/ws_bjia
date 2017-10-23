@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta name="format-detection" content="telephone=no, email=no">
+    <title>我的账单</title>
+    <link rel="stylesheet" href="../css/style.css"/>
+	<link rel="stylesheet" href="../css/style1.css"/>
+</head>
+<body>
+<div class="loading turn absolute" id="loading">
+	 <span class="changeBgColor absolute"></span>
+</div>
+
+<div class="page-wrap" id="main" >
+    <div class="page">
+			<div id="text">
+				
+			</div>
+			<img class="img_title" src="../img/title.png" alt="">
+			<img class="img_plant" src="../img/planet.png" alt="">
+			<img class="img_logo"src="../img/logo.png" alt="">
+    </div>
+</div>
+
+<script src="../js/zepto.min.js"></script>
+<script src="../js/PageSlider.js"></script>
+
+<script >
+	/*未加载时候显示的动画事件*/
+    document.onreadystatechange = loading;    
+    function loading(){
+	    if(document.readyState == "complete")  { 
+		    $("#loading").hide();
+			$("#dangao").show();
+		    $("#main").show();
+			 
+	    }
+    }
+    var p = new PageSlider({
+        pages: $('.page-wrap .page')
+    });
+	//console.log($('#text').html());
+	var phone=localStorage.getItem('userPhone');
+	var XHR=null;  
+	console.log(phone);
+		if (window.XMLHttpRequest) {  
+			XHR = new XMLHttpRequest();  
+		} else if (window.ActiveXObject) {  
+			XHR = new ActiveXObject("Microsoft.XMLHTTP");    
+		} else {  
+			XHR = null;  
+		}  
+		if(XHR){  
+			XHR.open("GET", "http://10.12.12.129:8084/api/public/prize/bill/"+phone); 
+			_this=this;
+			XHR.onreadystatechange = function () { 
+            if (XHR.readyState == 4 && XHR.status == 200) { 
+				var data=JSON.parse(XHR.responseText);
+				console.log(data);
+				if(data.code=="0"){
+					var today=getTise();
+					if(data.obj.length===0){
+						var content=`<p>今天是${today}</p>
+									 <p>暂时未查到您相关记录</p>`
+						$("#text").append(content);
+						return;
+					}
+					if(data.obj[0].sum_tele!==null&&data.obj[0].sum_gprs!==null){
+						console.log("通话流量都不为0")
+						var today=getTise();
+						var _time=numtime(data.obj[0].start_time);
+						var content1=`<p>今天是${today}</p>
+								      <p>你已和中麦一同走过的${_time}的日子</p>
+									  <p>总通话${data.obj[0].sum_tele}分钟,使用流量${data.obj[0].sum_gprs}M</p>
+									  <p>${data.obj[0].con_number}是你关系最紧密的人</p>
+									  <p>在${data.obj[0].con_date}的那一天</p>
+									  <p>你们通话时长达到了${data.obj[0].con_value}分钟</p>
+									  <p>还记得那一天你忙啥了么?</p>`
+						$("#text").append(content1);
+						return;
+					}
+					if(data.obj[0].sum_tele==null&&data.obj[0].sum_gprs==null||data.obj[0].sum_tele==0&&data.obj[0].sum_gprs==0){
+						var content4=`<p>今天是${today}</p>
+									  <p>你已和中麦一同走过的${_time}的日子</p>
+									  <p>还记得那一天你忙啥了么?</p>`
+						retrun;
+					}
+					if(data.obj[0].sum_tele==null||data.obj[0].sum_tele==0){
+						console.log("通话时间为0")
+						var content2=`<p>今天是${today}</p>
+								      <p>你已和中麦一同走过的$(_time)的日子</p>
+									  <p>总计使用流量${data.obj[0].sum_gprs}M</p>
+									  <p>${data.obj[0].con_date}是你最忙碌的一天</p>
+									  <p>你那一天用了${data.obj[0].max_gprs_value}M的流量</p>
+									  <p>还记得那一天你忙啥了么？</p>
+									  `
+						$("#text").append(content2);
+						return;
+					}
+					if(data.obj[0].sum_gprs==null||data.obj[0].sum_gprs==0){
+						console.log("流量为0")
+						var content3=`<p>今天是${today}</p>
+								      <p>你已和中麦一同走过的X2的日子</p>
+									  <p>总计通话${data.obj[0].sum_tele}</p
+									  <p>${data.obj[0].con_number}是你关系最紧密的人</p>
+									  <p>你们通话时长达到了${data.obj[0].con_value}分钟</p>
+									  <p>还记得那一天你忙啥了么?</p>`
+						$("#text").append(content3);
+						return;
+					}
+					
+					
+				}
+
+            }
+			
+        };  
+        XHR.send();  
+		}
+		function getTise() {
+          var oDate = new Date();
+          var year = oDate.getFullYear();
+          var month = oDate.getMonth() + 1;
+          var day = oDate.getDate();
+          return year+"-"+month+"-"+day;
+		}
+		function numtime(time){
+			if(!time){
+				return 0;
+			}
+			var Nowtime= new Date().getTime();
+			var starttime= new Date(time).getTime();
+			var milliseconds=Nowtime-starttime;
+			var days    = Math.floor(milliseconds / 1000 / 60 / 60 / 24);
+			var year   =Math.floor(days/365);
+			var day    =Math.floor(days%365);
+			var hours    = Math.floor(milliseconds/ 1000 / 60 / 60 - (24 * days));
+			var minutes   = Math.floor(milliseconds / 1000 /60 - (24 * 60 * days) - (60 * hours));
+			var seconds   = Math.floor(milliseconds/ 1000 - (24 * 60 * 60 * days) - (60 * 60 * hours) - (60 * minutes));
+
+			return year+"年"+day+"天"+hours+"小时"+minutes+"分钟";
+		}
+</script>
+</body>
+</html>

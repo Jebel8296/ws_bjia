@@ -1,0 +1,100 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>我的售后</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=yes">
+    <link rel="stylesheet" href="/modules/public/css/all.css">
+    <link rel="stylesheet" href="/modules/aftersales/css/sales.css">
+    <link rel="stylesheet" href="/modules/aftersales/css/modal.css">
+  </head>
+  <body>
+  
+  <div id="afterSales_my" class="page-group">
+    <div class="page page-current">
+      <!-- 主体html代码 -->
+      <header class="bar bar-nav">
+        	<a class="button button-link button-nav pull-left" href="javascript:window.history.go(-1)">
+  		    <span class="icon icon-left"></span>
+  		</a>
+        	<h1 class="title">我的售后</h1>
+      </header>
+     
+
+      <!-- 页面内容区 -->
+      <div class="content" >
+        <!--弹出内容区域-->
+          <div id="modal" >
+            <div class="modal_box">
+              <p style="height:1.2rem;background: #ccc;text-align: right;position: relative">
+                <span  class="close" style="margin-right:5px;font-size: 1.8rem;position: absolute;right:0;top:-15px">&times</span>
+              </p>
+              <p style="font-size: 0.55rem;padding: 5px">您确定取消该订单吗?取消后无法恢复</p>
+              <div>
+                <input id="determine" type="button" value="确定">
+
+              </div>
+            </div>
+          </div>
+        <!--弹出的物流信息区域-->
+         <div id="modal_logistics" >
+          <div class="modal_box">
+            <p style="height:1.2rem;background: #ccc;text-align: right;position: relative">
+              <span  class="close close1" style="margin-right:5px;font-size: 1.8rem;position: absolute;right:0;top:-15px">&times</span>
+            </p>
+            <p style="color: #0000FF;font-size: 0.5rem;margin: -5px 0px 5px">请您填写邮寄物流信息，便于顺利完成您的售后申请处理。提交后无法修改，请谨慎填写！</p>
+            <div style="text-align: center;padding-left: 5px">
+              <span style="font-size: 0.5rem">物流公司:</span>
+              <select name="" id="selected_box">
+                <option class="selected_type" selected value="请选择物流公司">请选择物流公司</option>
+                <option class="selected_type"  value="顺丰">顺丰</option>
+                <option class="selected_type"  value="韵达">韵达</option>
+                <option class="selected_type"  value="圆通">圆通</option>
+                <option class="selected_type"  value="中通">中通</option>
+                <option class="selected_type"  value="申通">申通</option>
+                <option class="selected_type"  value="EMS">EMS</option>
+                <option class="selected_type"  value="宅急送">宅急送</option>
+                <option class="selected_type"  value="其他">其他</option>
+              </select><br/>
+              <label style="font-size: 0.5rem">物流单号:</label>
+              <input placeholder="请填写物流单号" type="text" id="logistics_Order"><br/>
+              <input  id="determine1" type="button" value="提交">
+            </div>
+          </div>
+        </div>
+  		<div class="page_item">
+            <button style="padding: 0px 15px 0px;margin-top: 10px;margin-left: 5px">
+                <a href="/modules/aftersales/html/afterSales_app.html">
+                    通过设备编号发起售后
+                </a>
+            </button>
+  			<div id="afterMsgList" class="order_msg m_right">
+
+  			</div>
+
+  	  </div>
+  		
+  		<!-- 页面内容区 end -->
+      </div>
+
+	  <!-- 主体html代码 -->
+    </div>
+  </div>
+
+  <script type='text/javascript' src='/libs/seajs/seajs-3.0.0.js'></script>
+  <script type='text/javascript' src='/libs/zepto/zepto.min.js'></script>
+  <script type='text/javascript' src='/libs/zepto/zepto.cookie.min.js'></script>
+  <script type='text/javascript' src='/libs/sui/js/sm.min.js'></script>
+  <script type='text/javascript' src='/libs/sui/js/sm-extend.min.js'></script>
+  <script type='text/javascript' src='/libs/sui/js/sm-city-picker.min.js'></script>
+  <script> 
+    // 加载入口模块
+    seajs.use("aftersales/js/afterSaleslist");
+  </script> 
+
+ 
+  </body>
+</html>

@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinamcom.framework.order.mapper.TbOrderMapper">
+  <resultMap id="BaseResultMap" type="com.chinamcom.framework.order.model.TbOrder">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-05-22 14:16:05.
+    -->
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="SERIAL_NUMBER" jdbcType="VARCHAR" property="serialNumber" />
+    <result column="ORDER_TYPE" jdbcType="INTEGER" property="orderType" />
+    <result column="FEE" jdbcType="DECIMAL" property="fee" />
+    <result column="PAY_FEE" jdbcType="DECIMAL" property="payFee" />
+    <result column="REDUCE_FEE" jdbcType="DECIMAL" property="reduceFee" />
+    <result column="EXPRESS_PAY" jdbcType="DECIMAL" property="expressPay" />
+    <result column="CHANNEL" jdbcType="VARCHAR" property="channel" />
+    <result column="STATUS" jdbcType="INTEGER" property="status" />
+    <result column="USER_ID" jdbcType="INTEGER" property="userId" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="PAY_TIME" jdbcType="TIMESTAMP" property="payTime" />
+    <result column="SEND_TIME" jdbcType="TIMESTAMP" property="sendTime" />
+    <result column="COMPATE_TIME" jdbcType="TIMESTAMP" property="compateTime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+    <result column="EXPRESS_ID" jdbcType="INTEGER" property="expressId" />
+    <result column="LOGISTICS_NAME" jdbcType="VARCHAR" property="logisticsName" />
+    <result column="LOGISTICS_CDOE" jdbcType="VARCHAR" property="logisticsCdoe" />
+    <result column="LOGISTICS_NUMBER" jdbcType="VARCHAR" property="logisticsNumber" />
+    <result column="DELIVERS_TIME" jdbcType="VARCHAR" property="deliversTime" />
+    <result column="INVOCE_HEAD" jdbcType="VARCHAR" property="invoceHead" />
+    <result column="AFTERSALE_CODE" jdbcType="VARCHAR" property="aftersaleCode" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-05-22 14:16:05.
+    -->
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-05-22 14:16:05.
+    -->
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-05-22 14:16:05.
+    -->
+    ID, SERIAL_NUMBER, ORDER_TYPE, FEE, PAY_FEE, REDUCE_FEE, EXPRESS_PAY, CHANNEL, STATUS, 
+    USER_ID, CREATE_TIME, PAY_TIME, SEND_TIME, COMPATE_TIME, UPDATE_TIME, DESCRIPTION, 
+    EXPRESS_ID, LOGISTICS_NAME, LOGISTICS_CDOE, LOGISTICS_NUMBER, DELIVERS_TIME, INVOCE_HEAD, 
+    AFTERSALE_CODE, REMARK
+  </sql>
+  <select id="selectByExample" parameterType="com.chinamcom.framework.order.model.TbOrderExample" resultMap="BaseResultMap">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-05-22 14:16:05.
+    -->
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tb_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-05-22 14:16:05.
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from tb_order
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-05-22 14:16:05.
+    -->
+    delete from tb_order
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chinamcom.framework.order.model.TbOrderExample">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-05-22 14:16:05.
+    -->
+    delete from tb_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chinamcom.framework.order.model.TbOrder" useGeneratedKeys="true" keyProperty="id">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-05-22 14:16:05.
+    -->
+    insert into tb_order (ID, SERIAL_NUMBER, ORDER_TYPE, 
+      FEE, PAY_FEE, REDUCE_FEE, 
+      EXPRESS_PAY, CHANNEL, STATUS, 
+      USER_ID, CREATE_TIME, PAY_TIME, 
+      SEND_TIME, COMPATE_TIME, UPDATE_TIME, 
+      DESCRIPTION, EXPRESS_ID, LOGISTICS_NAME, 
+      LOGISTICS_CDOE, LOGISTICS_NUMBER, DELIVERS_TIME, 
+      INVOCE_HEAD, AFTERSALE_CODE, REMARK
+      )
+    values (#{id,jdbcType=INTEGER}, #{serialNumber,jdbcType=VARCHAR}, #{orderType,jdbcType=INTEGER}, 
+      #{fee,jdbcType=DECIMAL}, #{payFee,jdbcType=DECIMAL}, #{reduceFee,jdbcType=DECIMAL}, 
+      #{expressPay,jdbcType=DECIMAL}, #{channel,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{userId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{payTime,jdbcType=TIMESTAMP}, 
+      #{sendTime,jdbcType=TIMESTAMP}, #{compateTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{description,jdbcType=VARCHAR}, #{expressId,jdbcType=INTEGER}, #{logisticsName,jdbcType=VARCHAR}, 
+      #{logisticsCdoe,jdbcType=VARCHAR}, #{logisticsNumber,jdbcType=VARCHAR}, #{deliversTime,jdbcType=VARCHAR}, 
+      #{invoceHead,jdbcType=VARCHAR}, #{aftersaleCode,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.chinamcom.framework.order.model.TbOrder" useGeneratedKeys="true" keyProperty="id">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-05-22 14:16:05.
+    -->
+    insert into tb_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="serialNumber != null">
+        SERIAL_NUMBER,
+      </if>
+      <if test="orderType != null">
+        ORDER_TYPE,
+      </if>
+      <if test="fee != null">
+        FEE,
+      </if>
+      <if test="payFee != null">
+        PAY_FEE,
+      </if>
+      <if test="reduceFee != null">
+        REDUCE_FEE,
+      </if>
+      <if test="expressPay != null">
+        EXPRESS_PAY,
+      </if>
+      <if test="channel != null">
+        CHANNEL,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="payTime != null">
+        PAY_TIME,
+      </if>
+      <if test="sendTime != null">
+        SEND_TIME,
+      </if>
+      <if test="compateTime != null">
+        COMPATE_TIME,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+      <if test="description != null">
+        DESCRIPTION,
+      </if>
+      <if test="expressId != null">
+        EXPRESS_ID,
+      </if>
+      <if test="logisticsName != null">
+        LOGISTICS_NAME,
+      </if>
+      <if test="logisticsCdoe != null">
+        LOGISTICS_CDOE,
+      </if>
+      <if test="logisticsNumber != null">
+        LOGISTICS_NUMBER,
+      </if>
+      <if test="deliversTime != null">
+        DELIVERS_TIME,
+      </if>
+      <if test="invoceHead != null">
+        INVOCE_HEAD,
+      </if>
+      <if test="aftersaleCode != null">
+        AFTERSALE_CODE,
+      </if>
+      <if test="remark != null">
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="serialNumber != null">
+        #{serialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null">
+        #{orderType,jdbcType=INTEGER},
+      </if>
+      <if test="fee != null">
+        #{fee,jdbcType=DECIMAL},
+      </if>
+      <if test="payFee != null">
+        #{payFee,jdbcType=DECIMAL},
+      </if>
+      <if test="reduceFee != null">
+        #{reduceFee,jdbcType=DECIMAL},
+      </if>
+      <if test="expressPay != null">
+        #{expressPay,jdbcType=DECIMAL},
+      </if>
+      <if test="channel != null">
+        #{channel,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payTime != null">
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sendTime != null">
+        #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="compateTime != null">
+        #{compateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="expressId != null">
+        #{expressId,jdbcType=INTEGER},
+      </if>
+      <if test="logisticsName != null">
+        #{logisticsName,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticsCdoe != null">
+        #{logisticsCdoe,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticsNumber != null">
+        #{logisticsNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="deliversTime != null">
+        #{deliversTime,jdbcType=VARCHAR},
+      </if>
+      <if test="invoceHead != null">
+        #{invoceHead,jdbcType=VARCHAR},
+      </if>
+      <if test="aftersaleCode != null">
+        #{aftersaleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chinamcom.framework.order.model.TbOrderExample" resultType="java.lang.Integer">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-05-22 14:16:05.
+    -->
+    select count(*) from tb_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-05-22 14:16:05.
+    -->
+    update tb_order
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.serialNumber != null">
+        SERIAL_NUMBER = #{record.serialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderType != null">
+        ORDER_TYPE = #{record.orderType,jdbcType=INTEGER},
+      </if>
+      <if test="record.fee != null">
+        FEE = #{record.fee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.payFee != null">
+        PAY_FEE = #{record.payFee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.reduceFee != null">
+        REDUCE_FEE = #{record.reduceFee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.expressPay != null">
+        EXPRESS_PAY = #{record.expressPay,jdbcType=DECIMAL},
+      </if>
+      <if test="record.channel != null">
+        CHANNEL = #{record.channel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        STATUS = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        USER_ID = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.payTime != null">
+        PAY_TIME = #{record.payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sendTime != null">
+        SEND_TIME = #{record.sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.compateTime != null">
+        COMPATE_TIME = #{record.compateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.description != null">
+        DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.expressId != null">
+        EXPRESS_ID = #{record.expressId,jdbcType=INTEGER},
+      </if>
+      <if test="record.logisticsName != null">
+        LOGISTICS_NAME = #{record.logisticsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logisticsCdoe != null">
+        LOGISTICS_CDOE = #{record.logisticsCdoe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logisticsNumber != null">
+        LOGISTICS_NUMBER = #{record.logisticsNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deliversTime != null">
+        DELIVERS_TIME = #{record.deliversTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.invoceHead != null">
+        INVOCE_HEAD = #{record.invoceHead,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aftersaleCode != null">
+        AFTERSALE_CODE = #{record.aftersaleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-05-22 14:16:05.
+    -->
+    update tb_order
+    set ID = #{record.id,jdbcType=INTEGER},
+      SERIAL_NUMBER = #{record.serialNumber,jdbcType=VARCHAR},
+      ORDER_TYPE = #{record.orderType,jdbcType=INTEGER},
+      FEE = #{record.fee,jdbcType=DECIMAL},
+      PAY_FEE = #{record.payFee,jdbcType=DECIMAL},
+      REDUCE_FEE = #{record.reduceFee,jdbcType=DECIMAL},
+      EXPRESS_PAY = #{record.expressPay,jdbcType=DECIMAL},
+      CHANNEL = #{record.channel,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=INTEGER},
+      USER_ID = #{record.userId,jdbcType=INTEGER},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      PAY_TIME = #{record.payTime,jdbcType=TIMESTAMP},
+      SEND_TIME = #{record.sendTime,jdbcType=TIMESTAMP},
+      COMPATE_TIME = #{record.compateTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+      EXPRESS_ID = #{record.expressId,jdbcType=INTEGER},
+      LOGISTICS_NAME = #{record.logisticsName,jdbcType=VARCHAR},
+      LOGISTICS_CDOE = #{record.logisticsCdoe,jdbcType=VARCHAR},
+      LOGISTICS_NUMBER = #{record.logisticsNumber,jdbcType=VARCHAR},
+      DELIVERS_TIME = #{record.deliversTime,jdbcType=VARCHAR},
+      INVOCE_HEAD = #{record.invoceHead,jdbcType=VARCHAR},
+      AFTERSALE_CODE = #{record.aftersaleCode,jdbcType=VARCHAR},
+      REMARK = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chinamcom.framework.order.model.TbOrder">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-05-22 14:16:05.
+    -->
+    update tb_order
+    <set>
+      <if test="serialNumber != null">
+        SERIAL_NUMBER = #{serialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null">
+        ORDER_TYPE = #{orderType,jdbcType=INTEGER},
+      </if>
+      <if test="fee != null">
+        FEE = #{fee,jdbcType=DECIMAL},
+      </if>
+      <if test="payFee != null">
+        PAY_FEE = #{payFee,jdbcType=DECIMAL},
+      </if>
+      <if test="reduceFee != null">
+        REDUCE_FEE = #{reduceFee,jdbcType=DECIMAL},
+      </if>
+      <if test="expressPay != null">
+        EXPRESS_PAY = #{expressPay,jdbcType=DECIMAL},
+      </if>
+      <if test="channel != null">
+        CHANNEL = #{channel,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        USER_ID = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payTime != null">
+        PAY_TIME = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sendTime != null">
+        SEND_TIME = #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="compateTime != null">
+        COMPATE_TIME = #{compateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="expressId != null">
+        EXPRESS_ID = #{expressId,jdbcType=INTEGER},
+      </if>
+      <if test="logisticsName != null">
+        LOGISTICS_NAME = #{logisticsName,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticsCdoe != null">
+        LOGISTICS_CDOE = #{logisticsCdoe,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticsNumber != null">
+        LOGISTICS_NUMBER = #{logisticsNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="deliversTime != null">
+        DELIVERS_TIME = #{deliversTime,jdbcType=VARCHAR},
+      </if>
+      <if test="invoceHead != null">
+        INVOCE_HEAD = #{invoceHead,jdbcType=VARCHAR},
+      </if>
+      <if test="aftersaleCode != null">
+        AFTERSALE_CODE = #{aftersaleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chinamcom.framework.order.model.TbOrder">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-05-22 14:16:05.
+    -->
+    update tb_order
+    set SERIAL_NUMBER = #{serialNumber,jdbcType=VARCHAR},
+      ORDER_TYPE = #{orderType,jdbcType=INTEGER},
+      FEE = #{fee,jdbcType=DECIMAL},
+      PAY_FEE = #{payFee,jdbcType=DECIMAL},
+      REDUCE_FEE = #{reduceFee,jdbcType=DECIMAL},
+      EXPRESS_PAY = #{expressPay,jdbcType=DECIMAL},
+      CHANNEL = #{channel,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=INTEGER},
+      USER_ID = #{userId,jdbcType=INTEGER},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      PAY_TIME = #{payTime,jdbcType=TIMESTAMP},
+      SEND_TIME = #{sendTime,jdbcType=TIMESTAMP},
+      COMPATE_TIME = #{compateTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      EXPRESS_ID = #{expressId,jdbcType=INTEGER},
+      LOGISTICS_NAME = #{logisticsName,jdbcType=VARCHAR},
+      LOGISTICS_CDOE = #{logisticsCdoe,jdbcType=VARCHAR},
+      LOGISTICS_NUMBER = #{logisticsNumber,jdbcType=VARCHAR},
+      DELIVERS_TIME = #{deliversTime,jdbcType=VARCHAR},
+      INVOCE_HEAD = #{invoceHead,jdbcType=VARCHAR},
+      AFTERSALE_CODE = #{aftersaleCode,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

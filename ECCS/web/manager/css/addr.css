@@ -1,0 +1,118 @@
+/*收货信息*/
+
+.addr{ padding: 20px;width: 850px;margin: 0 auto;}
+.addrList{ width: 990px; margin: 0 auto;}
+.addrList li{ margin-bottom: 5px; cursor: pointer;}
+.addrList li span{ display: inline-block; padding-right: 30px;}
+
+.newAdd{ color: #868686; margin:15px 30px; cursor: pointer;}
+
+.newAdd_open{position: relative;display: none; margin-top: -15px; width: 880px; z-index: 9;}
+.newadd_msg{  background: #fbfbfb; border:1px solid #d9d9d9; padding: 15px 15px 35px 15px;   }
+.tip{ position: relative;top: 5px;
+    left: 26px;}
+.newadd_msg ul li{ margin: 10px 0; height:50px}
+.newadd_msg ul li label{ display: inline-block; width: 100px; text-align: right;}
+
+.newadd_msg .btn_pd{ margin:30px 250px;}
+.newadd_msg .btn_pd input{ margin-right: 30px;}
+
+.add_Area input { display: inline-block; margin-right: 23px; margin-left: -4px;}
+
+
+.txt_w280{ width: 280px;}
+.txt_w230{ width: 230px;}
+.txt_w740{ width: 740px;}
+.txt_w196{ width: 196px;}
+
+.add_Area input.clearm{ margin: 0;}
+
+/*tocart*/
+.tocartform ul li label{ width: auto}
+.tocartform ul li span{ width: 100px}
+/*发票信息*/
+.pmsg{ margin: 0 50px 20px 50px; cursor: pointer;}
+.pmsg span{ padding-right: 20px; display: inline-block;}
+
+.pro_table{  position: relative;  right: 0;  top:-20px;  margin-left: 375px;  text-align: center;  }
+.pro_table th{ color:#fd8124;}
+.pro_table tr{ height: 40px}
+
+.pro_cont h1,.pro_cont h3{padding: 20px; overflow: hidden;}
+
+.pro_cont h3.orgline{ border-top: 4px solid #fd8124;}
+.agree{ margin-left: 600px;}
+.agree input{ position: relative; top:2px;}
+
+.consented{ border-top: 1px solid #ddd; padding: 20px; position: relative; height: 260px; padding: 30px 0;}
+.consented dl{ position: absolute; right: 30px; top: 28px; text-align: right; line-height: 25px;}
+.consented dl dt{font-size: 16px; font-weight: 700; margin-bottom: 10px;}
+
+.consented .fontcss{ font-size: 20px; margin-top: 10px; font-weight: 700;}
+.consented .btn_pd{ position: absolute; top: 175px; right: 30px;}
+
+/*申请售后服务*/
+a.sub_btn{ color:#ff7917; background: #ffefe3; border: 1px solid #ff7917; font-size: 14px; padding: 3px 7px;    position: absolute;  right: 0;  top: 10px;}
+.subReq{ text-align:center}
+.subReq label{margin-bottom:0}
+.subReq label em{ display: inline-block;  float: left;  margin: 20px 25px;  padding: 35px;  font-size: 24px;  font-style: normal; color: #333;  background: #f9f9f9;  border: 1px solid #e6e6e6;  }
+.subReq label em input{opacity: 0;}
+.subReq label.on{border-color:#ff7917; color: #ff7917;}
+
+.infoMsg{ width: 990px; margin: 0 auto;}
+.infoMsg .lf,.infoMsg .rt{ border: 1px solid #e0e0e0; padding: 30px; width: 420px;
+    height: 200px; position: relative}
+.infoMsg .lf dl{ padding-left: 30px; line-height: 30px;}
+.infoMsg .lf input{  margin-top:20px;margin-right: 30px;}
+.infoMsg .rt{ position: relative;}
+.infoMsg .ad{ background: url(../images/icon.png) 0 -100px no-repeat; padding-left: 30px; position: absolute; height: 25px; line-height: 25px; font-size: 27px;    top: 78px;
+    left: 143px;}
+
+.pageItem{ width: 990px; margin: 0 auto;}
+.pageItem h5{padding: 10px 0; font-size: 18px; font-weight: normal;}
+.pageItemCont{ background: #fafafa; padding: 30px 0; margin: 30px 0;}
+.Item_msg{ padding: 20px 50px; line-height: 25px;}
+.Item_t_msg{ border-top: 1px solid #e3e3e3; border-bottom: 1px solid #e3e3e3; padding: 20px 50px;}
+
+/*填写售后服务原因：*/
+.selects{ padding: 20px 0;}
+.selects label{ cursor: pointer; display: inline-block;}
+.selects span{ padding-right: 60px;}
+.uppic ul li{ position: relative;}
+.uppic li a{ background: url(../images/icon.png) 0 -100px no-repeat; padding-left: 30px; position: absolute; top: 70px; left: 70px;height: 30px; line-height: 30px; }
+.colPicmsg p{ padding-left: 33px; margin-bottom: 30px;}
+
+.pageItem .btn_pd{ margin-left: 370px;}
+
+p.padding110{padding-left:103px}
+.form-error span{  padding-left:100px;  }
+.tocartform img ul{display: inline}
+
+
+/* 加入购物车样式*/
+.tocartform{position: relative}
+.tocartform img.productIMG{width:350px; height: 250px;  position: absolute;  left: 0px;  top: 0; vertical-align: top; border:1px #ccc solid}
+
+.tocartform ul{text-align: left;margin-left:380px}
+.tocartform ul li label{border:1px #ccc solid; padding:7px; width:22%; text-align: center;}
+.tocartform ul li label.active{border:1px #000 solid; padding:5px 10px}
+.tocartform ul li em{font-style: normal}
+.tocartform input[type=radio]{  }
+.reqByid{  background: #fbfbfb; border:1px solid #d9d9d9; padding: 15px 15px 35px 15px;   }
+.reqByid ul li{ margin: 10px 0;}
+.reqByid ul li label{ display: inline-block; width: 100px; text-align: right;}
+.reqByid table td button{  color: #333;  background-color: #fff; font-size:12px; padding:8px;  border:1px #ccc solid  }
+.reqByid ul li ul li button{ font-size:14px; }
+.reqByid ul li ul li{ margin:0}
+.datetimepicker table tr td{cursor: pointer}
+
+.full button span {
+    background-color: limegreen;
+    border-radius: 32px;
+    color: black;
+}
+.partially button span {
+    background-color: orange;
+    border-radius: 32px;
+    color: black;
+}

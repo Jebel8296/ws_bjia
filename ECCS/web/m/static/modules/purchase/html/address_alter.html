@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>确认订单</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=yes">
+
+    <link rel="stylesheet" href="/modules/public/css/all.css">
+    <link rel="stylesheet" href="/modules/public/css/menu.css">
+    <link rel="stylesheet" href="/modules/purchase/css/order.css">
+    
+  </head>
+  <body>
+  <div class="page-group orderCont">
+    <!-- 主体html代码 -->
+    <div class="page">
+      	
+    <header class="bar bar-nav">
+	     <a class="button button-link button-nav pull-left" href="javascript:window.history.go(-1)">
+			   <span class="icon icon-left"></span>
+			 </a>
+	     <h1 class="title">修改收货地址</h1>
+    </header>
+
+    <div class="content">
+      <!-- 页面内容区 -->
+	    <div class="order_msg content-block" >
+          <div class="input-Item"> 
+            <span>收货人：</span>
+              <input type="text" id='' placeholder='' value="" class="txtbox w70 orderAddr_Name"/>
+              <p class="color0"></p>
+          </div>
+						
+					<div class="input-Item"> 
+            <span>所在地区：</span>
+            <input type="text" id='city-picker' value="" placeholder='' class="txtbox w70 orderAddr_area"/>
+            <p class="color2"></p>
+          </div>
+							
+          <div class="input-Item"> 
+            <span>详细地址：</span>
+            <input type="text" id='' value="" placeholder='' class="txtbox w70 orderAddr_Msg"/>
+            <p class="color2"></p>
+          </div>
+              
+          <div class="input-Item"> 
+            <span>手机号码：</span>
+            <input type="text" id='' value="" placeholder='' class="txtbox w70 orderAddr_Tel"/>
+            <p class="color2"></p>
+          </div>
+               
+          <div class="input-Item"> 
+              <span>邮政编码：</span>
+              <input type="text" id='' value="" placeholder='' class="txtbox w70 orderAddr_Code"/>
+              <p class="color2"></p>         	                
+          </div>
+              
+          <div class="input-Item">
+            <p class="pd">
+	            <a href="javascript:;" class="color0 confirm-ok">删除该地址</a>
+            </p>
+					  <a id="addrChange" href="javascript:;" class="button btn_org">修 改</a> 
+					</div>
+      </div>
+        
+   	</div>
+   	<!-- 页面内容区 end -->
+          
+   </div>
+  <!-- 主体html代码 -->
+  </div>
+	
+  <script type='text/javascript' src='/libs/seajs/seajs-3.0.0.js'></script>
+  <script type='text/javascript' src='/libs/zepto/zepto.min.js'></script>
+  <script type='text/javascript' src='/libs/zepto/zepto.cookie.min.js'></script>
+  <script type='text/javascript' src='/libs/sui/js/sm.min.js'></script>
+  <script type='text/javascript' src='/libs/sui/js/sm-extend.min.js'></script>
+  <script type='text/javascript' src='/libs/sui/js/sm-city-picker.min.js'></script>
+
+  <script> 
+    // 加载入口模块
+    seajs.use("purchase/js/addrdel");
+  </script> 
+  
+  <!-- menu侧导航 --> 
+  </body>
+</html>

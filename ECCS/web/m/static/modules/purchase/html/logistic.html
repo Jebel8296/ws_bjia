@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=yes">
+    <title>配送方式时间</title>
+
+    <link rel="stylesheet" href="/modules/public/css/all.css">
+    <link rel="stylesheet" href="/modules/public/css/menu.css">
+    <link rel="stylesheet" href="/modules/purchase/css/order.css">
+    <link rel="stylesheet" href="/modules/purchase/css/orderOther.css">
+
+</head>
+<body>
+<header class="bar bar-nav">
+    <a class="button button-link button-nav pull-left" href="javascript:window.history.go(-1)">
+        <span class="icon icon-left"></span>
+    </a>
+    <h1 class="title">选择配送方式</h1>
+</header>
+<div id="mail" style="margin-top: 50px">
+    <h4 class="title_content">物流公司</h4>
+    <div class="options">
+        <span class="logistics_style logistics_blue cur">EMS免费</span>
+        <span class="logistics_style">顺丰(收费)</span>
+    </div>
+    <div class="main_content">
+        <span>1、若您选择顺丰速运，需要支付18元运费，且暂不提供发票，请您谨慎选择。</span>
+        <span>2、以下情况，本订单快递运费不予退还：</span>
+        <span>1)客户填写的收货地址超出顺丰速运服务端地域范围。此情况顺丰速运会在目的地就近合理地点转交第三方快递公司进行派送，服务时效以第三方快递公司的官方承诺为准。</span>
+        <span>2)客户拒收本订单快递。</span>
+        <span>3)客户支付运费后，申请更换其他物流公司</span>
+    </div>
+    <div class="time_content">
+        <h4>送货时间</h4>
+        <div class="delivery_time">
+            <span class="delivery_time_select delivery_time_default cur">周一至周五</span>
+            <span class="delivery_time_select" >工作日</span>
+            <span class="delivery_time_select" >节假日</span>
+        </div>
+    </div>
+
+
+</div>
+
+<script type='text/javascript' src='/libs/jQuery/1.10.1/jquery-3.2.1.min.js'></script>
+<script type='text/javascript' src='/libs/seajs/seajs-3.0.0.js'></script>
+<script type='text/javascript' src='/libs/zepto/zepto.min.js'></script>
+<script type='text/javascript' src='/libs/zepto/zepto.cookie.min.js'></script>
+
+<script type='text/javascript' src='/libs/sui/js/sm.min.js'></script>
+<script type='text/javascript' src='/libs/sui/js/sm-extend.min.js'></script>
+<script type='text/javascript' src='/libs/sui/js/sm-city-picker.min.js'></script>
+<script>
+    // 加载入口模块
+    seajs.use("purchase/js/logistics");
+</script>
+</body>
+</html>

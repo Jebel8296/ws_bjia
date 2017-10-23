@@ -1,0 +1,30 @@
+/*支付页面样式 orderpay.html*/
+.pCollect{ padding: 20px;}
+.pCollect h1{ border:none; font-size: 18px; font-weight: 500;}
+.pcollectMsg{text-align: center;}
+.pcollectMsg p{font-size: 20px;}
+.pcollectMsg h3{font-size: 26px; font-weight: normal; color: #fd8124; margin: 18px 0;}
+
+.pCollect ul{width: 760px; margin: 0 auto;}
+.pCollect ul li{ background: #eee; line-height: 40px; padding: 8px 20px; margin: 10px; font-size: 20px; position: relative; cursor: pointer; }
+.pCollect ul li .bank{ position: absolute; display: inline-block; top:10px; left: 45px;}
+.pCollect ul li span{ padding-left: 60px;}
+.pCollect ul li label{ display: block;}
+.pCollect .btn_pd{ margin: 30px auto; text-align: center;}
+
+/*pay*/
+.paydetail_open{position: relative;display: none; margin-top: -15px; width: 650px; z-index: 9;}
+.paydetail_msg{  background: #fbfbfb; border:1px solid #d9d9d9; padding: 15px;   }
+.paydetail_msg ul li{ margin: 10px 0; height:35px}
+.paydetail_msg ul li label{ display: inline-block; width: 100px; text-align: right;}
+
+
+.showBox{width:auto; display: none;}
+.showD{width:auto;margin-left: 60px; margin-top: 20px;display: inline; position: absolute; border: 1px #ccc solid;  padding: 10px 20px;  z-index: 99;   text-align: left; background: #fbfbfb;}
+.showD table{
+    border:1px #ccc solid
+}
+.showD table td{
+    border-right:1px #ccc solid
+}
+

@@ -1,0 +1,51 @@
+
+<!-- 通栏轮播 banner -->
+<div class="banner"  ng-controller="Scroll" data-ng-init="init()">
+    <div class="bannerBtn">
+        <a href="javascript:;" class="prevBtn"><i></i></a>
+        <a href="javascript:;" class="nextBtn"><i></i></a>
+    </div>
+    <ul class="bannerImg">
+        <li><a ui-sref="ad"><img src="images/slides/index-normal-3.jpg"></a></li>
+        <li><a href="#"><img src="images/slides/banner-new.jpg"></a></li>
+        <!--li><a href="#"><img src="images/slides/banner0-.jpg"></a></li-->
+    </ul>
+    <ul class="bannerCircle"></ul> 
+</div>
+<!-- 通栏轮播 banner  end -->
+<div class="mainContent" ng-controller="ProductCtrl">
+    <div class="mContent">
+        <ul class="contMain">
+            <li class="rightInfo" ng-repeat="head in headsetModel">
+                <div class="title">
+                    <h5>{{head.name}}</h5>
+                    <p>{{head.des}}</p>
+                </div>
+                <span style="color: #fc581f; font-size: 30px;   display: block;">即将发售</span>
+                <!--span class="idx_price">00</span-->
+                <a href="javascript:;"title="{{head.name}}" class="link"></a>
+            </li>
+            <li class="leftInfo leftIimgA"  ng-repeat="item in watchModel">
+                <div class="title">
+                    <h5>{{item.name}}</h5>
+                    <p>{{item.des}}</p>
+                </div>
+                <span style="color: #fc581f; font-size: 30px;   display: block;">即将发售</span>
+                <a href="javascript:;" ng-click="toproduct(40,item)" title="{{item.name}}" class="link"></a>
+            </li>
+
+            <!--
+            <li class="leftInfo leftIimgB">
+                <div class="title">
+                    <h5>五彩缤纷B-color款</h5>
+                    <p>时尚达人的选择</p>
+                </div>
+                <span class="idx_price">899</span>
+                <a href="#" title="蓝白武士B-blue款" class="link"></a>
+            </li>
+            -->
+        </ul>
+
+        <div class="clearf"></div>
+    </div>
+</div>

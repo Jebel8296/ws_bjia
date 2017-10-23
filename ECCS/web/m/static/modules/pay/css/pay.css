@@ -1,0 +1,66 @@
+/*模块分割*/
+.itemBox{
+	padding: .6rem .5rem;
+	background: #fff; 
+	border-bottom: .5rem solid #eee;  
+}
+.itemBox h3{
+	font-size: .85rem;
+	margin: 0;
+	font-weight: normal;
+    padding-bottom: .5rem;
+    border-bottom: 1px solid #bbb;
+    margin-bottom: .5rem;
+}
+.itemBox .item-title p{
+    margin: 0;
+}
+.itemBox:last-child{
+	border: none;
+}
+
+.row .col-33 {
+    width: 30.333333%; !important;
+    margin-left: 3%; !important;
+}
+.paycs{
+	margin: 1rem auto;
+    width: 90%;
+}
+.paycs .col-50{
+	margin: 0;
+    width: 48%;
+}
+.paycs .col-50 em{
+	position: relative;
+	top: -.6rem;
+}
+.paycs .col-50 img{
+	height: 2rem;
+}
+
+.paycs .col-50:last-child{
+ 	float: right;
+    text-align: right;
+}
+
+.payover_content {
+    font-size: 0.75rem;
+    padding: 0.3rem 3rem;
+}       
+.contact dl {
+     width: 100%;
+    line-height: 1.5rem;
+    text-align: left;
+    overflow: hidden;
+}
+.contact dl dt {
+    float: left;
+    display: inline-block;
+}
+.contact dl dd {
+    float: left;
+    display: inline-block;
+    margin: 0;
+}
+

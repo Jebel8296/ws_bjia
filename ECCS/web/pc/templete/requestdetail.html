@@ -1,0 +1,90 @@
+
+<!-- 内容部分 -->
+<div class="main-content" ng-controller="reqDetailCtrl">
+	<div class="mContent wbg pdd">
+ 		<h1>查看售后详情</h1>
+ 		<div class="dtlMsg">
+ 			<dl>
+ 				<dt>编　　号：u3492492</dt>
+ 				<dd>售后类型：提交换货要求</dd>
+ 				<dd>状　　态：<span class="color1">待处理</span></dd>
+ 			</dl>
+ 			<div class="cartmsg">
+				<input type="button" value="受理" class="btn sm_btn" />
+				<input type="button" value="取消" class="btn btn_og sm_btn" />
+			</div>
+ 		</div>
+
+ 		<h2>商品信息</h2>
+
+ 		<!-- 表格 -->
+		<div class="tablearea tablewd">	
+				<table width="100%" border="0" cellspacing="0"> 
+				    <tr><th>商品名称</th><th>数量</th><th>订单状态</th></tr>
+				    <tr> 
+				        <td>
+					        <div class="pro-img">
+					        	<img src="">
+					        	<p>什么什么什么手表</p>
+					        	<p class="pr-msg">
+					        		<span>商品编号：48714891</span>              
+					        		<span>签收日期：2016-09-08</span>
+					        	</p>
+					        	<p class="pr-msg">
+					        		<span>设备编号：48298928492</span>              
+					        		<span>手机号码：17093782728</span>
+					        	</p>
+					        </div>
+				        </td> 
+				        <td>1</td> 
+				        <td>订单完成</td>  
+				    </tr> 
+				    <tr> 
+				    	<td>
+					        <div class="pro-img">
+					        	<img src="">
+					        	<p>什么什么什么手表</p>
+					        	<p class="pr-msg">
+					        		<span>商品编号：48714891</span>              
+					        		<span>签收日期：2016-09-08</span>
+					        	</p>
+					        	<p class="pr-msg">
+					        		<span>设备编号：48298928492</span>              
+					        		<span>手机号码：17093782728</span>
+					        	</p>
+					        </div>
+				        </td> 
+				        <td>1</td> 
+				        <td>订单完成</td> 
+				    </tr> 
+				</table> 
+					 
+		</div>
+
+		<h2>照片信息</h2>
+		<div class="colPicmsg">
+			<ul>
+				<li ng-repeat="item in srcimg" >
+					<a href="javascript:;"ng-click="shouBigImage(item.src)"><img ng-src="{{item.src}}" style="width:295px" />
+						<p>点击查看大图</p>
+					</a>
+				</li>
+			</ul>
+			<div id="rightDisplay" ng-show="bigImage" class="popover-backdrop" ng-click="hideBigImage()">
+				<img class="img-responsive" ng-src="{{Url}}"/>
+			</div>
+
+		</div>
+		
+		<h2>反馈信息</h2>
+		<div class="f_msg">
+			<div class="f_tarea">
+				<p>售后结果反馈：</p>
+				<textarea class="textarea" id="baidu_translate_input" data-height="140" style="height: 140px;" ng-model="resultText"></textarea>
+				<span>您还可以输入300字</span>
+			</div>	
+			<div class="btn_pd"><button type="button" class="btn btn_og" ng-click="submitService()">提交服务单</button></div>
+		</div>
+	</div>
+</div>
+<!-- 内容部分 end -->

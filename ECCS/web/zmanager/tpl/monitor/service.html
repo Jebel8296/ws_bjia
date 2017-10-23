@@ -1,0 +1,45 @@
+<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3">服务监控</h1>
+</div>
+<div class="wrapper-md" ng-controller="MonitorServiceCtrl">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <button type="button" class="btn m-b-xs w-xs btn-info" ng-click="submitQuery();">刷新</button>
+        </div>
+        <div class="table-responsive">
+            <div class="col-md-11">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>
+                            服务名称
+                        </th>
+                        <th>
+                            服务状态
+                        </th>
+                        <th>服务节点</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in services">
+                        <td>{{item.service}}</td>
+                        <td>
+                            <div ng-switch on="item.stat">
+                                <div ng-switch-when="1">
+                                    <span class="text-primary">服务中</span>
+                                </div>
+                                <div ng-switch-when="0">
+                                    <span class="text-danger">已停止</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div ng-repeat="h in item.host">【{{h}}】</div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

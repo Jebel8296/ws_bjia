@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinamcom.framework.aftersale.mapper.TbAftersaleMapper">
+  <resultMap id="BaseResultMap" type="com.chinamcom.framework.aftersale.model.TbAftersale">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-06-05 14:54:37.
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="aftercode" jdbcType="VARCHAR" property="aftercode" />
+    <result column="aftertype" jdbcType="INTEGER" property="aftertype" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="order_id" jdbcType="INTEGER" property="orderId" />
+    <result column="order_code" jdbcType="VARCHAR" property="orderCode" />
+    <result column="product_code" jdbcType="VARCHAR" property="productCode" />
+    <result column="uid" jdbcType="INTEGER" property="uid" />
+    <result column="reason" jdbcType="VARCHAR" property="reason" />
+    <result column="product_type" jdbcType="VARCHAR" property="productType" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="reply" jdbcType="VARCHAR" property="reply" />
+    <result column="channel" jdbcType="VARCHAR" property="channel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="handle_time" jdbcType="TIMESTAMP" property="handleTime" />
+    <result column="finish_time" jdbcType="TIMESTAMP" property="finishTime" />
+    <result column="replenish_time" jdbcType="TIMESTAMP" property="replenishTime" />
+    <result column="logistics_time" jdbcType="TIMESTAMP" property="logisticsTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-06-05 14:54:37.
+    -->
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-06-05 14:54:37.
+    -->
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-06-05 14:54:37.
+    -->
+    id, aftercode, aftertype, status, order_id, order_code, product_code, uid, reason, 
+    product_type, remark, reply, channel, create_time, update_time, handle_time, finish_time, 
+    replenish_time, logistics_time
+  </sql>
+  <select id="selectByExample" parameterType="com.chinamcom.framework.aftersale.model.TbAftersaleExample" resultMap="BaseResultMap">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-06-05 14:54:37.
+    -->
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tb_aftersale
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-06-05 14:54:37.
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from tb_aftersale
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-06-05 14:54:37.
+    -->
+    delete from tb_aftersale
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chinamcom.framework.aftersale.model.TbAftersaleExample">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-06-05 14:54:37.
+    -->
+    delete from tb_aftersale
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chinamcom.framework.aftersale.model.TbAftersale" useGeneratedKeys="true" keyProperty="id">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-06-05 14:54:37.
+    -->
+    insert into tb_aftersale (id, aftercode, aftertype, 
+      status, order_id, order_code, 
+      product_code, uid, reason, 
+      product_type, remark, reply, 
+      channel, create_time, update_time, 
+      handle_time, finish_time, replenish_time, 
+      logistics_time)
+    values (#{id,jdbcType=INTEGER}, #{aftercode,jdbcType=VARCHAR}, #{aftertype,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{orderCode,jdbcType=VARCHAR}, 
+      #{productCode,jdbcType=VARCHAR}, #{uid,jdbcType=INTEGER}, #{reason,jdbcType=VARCHAR}, 
+      #{productType,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{reply,jdbcType=VARCHAR}, 
+      #{channel,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{handleTime,jdbcType=TIMESTAMP}, #{finishTime,jdbcType=TIMESTAMP}, #{replenishTime,jdbcType=TIMESTAMP}, 
+      #{logisticsTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chinamcom.framework.aftersale.model.TbAftersale" useGeneratedKeys="true" keyProperty="id">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-06-05 14:54:37.
+    -->
+    insert into tb_aftersale
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="aftercode != null">
+        aftercode,
+      </if>
+      <if test="aftertype != null">
+        aftertype,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="orderCode != null">
+        order_code,
+      </if>
+      <if test="productCode != null">
+        product_code,
+      </if>
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="reason != null">
+        reason,
+      </if>
+      <if test="productType != null">
+        product_type,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="reply != null">
+        reply,
+      </if>
+      <if test="channel != null">
+        channel,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="handleTime != null">
+        handle_time,
+      </if>
+      <if test="finishTime != null">
+        finish_time,
+      </if>
+      <if test="replenishTime != null">
+        replenish_time,
+      </if>
+      <if test="logisticsTime != null">
+        logistics_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="aftercode != null">
+        #{aftercode,jdbcType=VARCHAR},
+      </if>
+      <if test="aftertype != null">
+        #{aftertype,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="orderCode != null">
+        #{orderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productCode != null">
+        #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="reason != null">
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="productType != null">
+        #{productType,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="reply != null">
+        #{reply,jdbcType=VARCHAR},
+      </if>
+      <if test="channel != null">
+        #{channel,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="handleTime != null">
+        #{handleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishTime != null">
+        #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replenishTime != null">
+        #{replenishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logisticsTime != null">
+        #{logisticsTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chinamcom.framework.aftersale.model.TbAftersaleExample" resultType="java.lang.Integer">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-06-05 14:54:37.
+    -->
+    select count(*) from tb_aftersale
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-06-05 14:54:37.
+    -->
+    update tb_aftersale
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.aftercode != null">
+        aftercode = #{record.aftercode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aftertype != null">
+        aftertype = #{record.aftertype,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderId != null">
+        order_id = #{record.orderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderCode != null">
+        order_code = #{record.orderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productCode != null">
+        product_code = #{record.productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uid != null">
+        uid = #{record.uid,jdbcType=INTEGER},
+      </if>
+      <if test="record.reason != null">
+        reason = #{record.reason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productType != null">
+        product_type = #{record.productType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reply != null">
+        reply = #{record.reply,jdbcType=VARCHAR},
+      </if>
+      <if test="record.channel != null">
+        channel = #{record.channel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.handleTime != null">
+        handle_time = #{record.handleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.finishTime != null">
+        finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.replenishTime != null">
+        replenish_time = #{record.replenishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.logisticsTime != null">
+        logistics_time = #{record.logisticsTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-06-05 14:54:37.
+    -->
+    update tb_aftersale
+    set id = #{record.id,jdbcType=INTEGER},
+      aftercode = #{record.aftercode,jdbcType=VARCHAR},
+      aftertype = #{record.aftertype,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      order_id = #{record.orderId,jdbcType=INTEGER},
+      order_code = #{record.orderCode,jdbcType=VARCHAR},
+      product_code = #{record.productCode,jdbcType=VARCHAR},
+      uid = #{record.uid,jdbcType=INTEGER},
+      reason = #{record.reason,jdbcType=VARCHAR},
+      product_type = #{record.productType,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      reply = #{record.reply,jdbcType=VARCHAR},
+      channel = #{record.channel,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      handle_time = #{record.handleTime,jdbcType=TIMESTAMP},
+      finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
+      replenish_time = #{record.replenishTime,jdbcType=TIMESTAMP},
+      logistics_time = #{record.logisticsTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chinamcom.framework.aftersale.model.TbAftersale">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-06-05 14:54:37.
+    -->
+    update tb_aftersale
+    <set>
+      <if test="aftercode != null">
+        aftercode = #{aftercode,jdbcType=VARCHAR},
+      </if>
+      <if test="aftertype != null">
+        aftertype = #{aftertype,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="orderCode != null">
+        order_code = #{orderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productCode != null">
+        product_code = #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null">
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="reason != null">
+        reason = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="productType != null">
+        product_type = #{productType,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="reply != null">
+        reply = #{reply,jdbcType=VARCHAR},
+      </if>
+      <if test="channel != null">
+        channel = #{channel,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="handleTime != null">
+        handle_time = #{handleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishTime != null">
+        finish_time = #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replenishTime != null">
+        replenish_time = #{replenishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logisticsTime != null">
+        logistics_time = #{logisticsTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chinamcom.framework.aftersale.model.TbAftersale">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-06-05 14:54:37.
+    -->
+    update tb_aftersale
+    set aftercode = #{aftercode,jdbcType=VARCHAR},
+      aftertype = #{aftertype,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      order_id = #{orderId,jdbcType=INTEGER},
+      order_code = #{orderCode,jdbcType=VARCHAR},
+      product_code = #{productCode,jdbcType=VARCHAR},
+      uid = #{uid,jdbcType=INTEGER},
+      reason = #{reason,jdbcType=VARCHAR},
+      product_type = #{productType,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      reply = #{reply,jdbcType=VARCHAR},
+      channel = #{channel,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      handle_time = #{handleTime,jdbcType=TIMESTAMP},
+      finish_time = #{finishTime,jdbcType=TIMESTAMP},
+      replenish_time = #{replenishTime,jdbcType=TIMESTAMP},
+      logistics_time = #{logisticsTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

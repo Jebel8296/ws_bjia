@@ -1,0 +1,121 @@
+<!-- 内容部分 -->
+<div class="main-content">
+	<div class="mContent">
+		<div ng-include="'templete/common/ordermenu.html'"></div>
+		<!-- 右侧内容 -->
+		<div class="contRight wbg">
+			<h1>我的订单</h1>
+			<!-- 表格 -->
+			<div class="tablearea">
+				<div class="thead">
+					<table class="table">
+						<tr>
+							<td style="padding: 0">
+								<ul>
+									<li style="width:43%">商品名称</li>
+									<li style="width:10%">单价（元）</li>
+									<li style="width:12%">数量</li>
+									<li style="width:15%">实付款（元）</li>
+									<li style="width:2%"></li>
+									<li style="width:8%">订单状态</li>
+									<li style="width:10%">操作</li>
+								</ul>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<!-- 表格一行 -->
+				<div class="tab_list" ng-repeat="item in ols.data" style="margin: -16px 0 -10px 0">
+					<div class="tr_msg">
+						<span>{{item.ctime | date:'yyyy-MM-dd'}} {{item.ctime | date:'HH:mm:ss'}}</span>
+						<span>订单编号：{{item.code}}</span>
+						<span>物流公司：{{item.logistics_name}}</span>
+						<span>运单号：{{item.logistics_code}}</span>
+					</div>
+					<table class="table">
+						<tr>
+							<td style="width:90%">
+								<table class="table table-striped" style="margin:0 0 0 0">
+									<tr ng-repeat="product in item.prods">
+										<td style="width:45%">
+											<div class="picMsg">
+												<img src="images/watch02.png" />
+												<p>
+													<span>{{product.name}}</span><br/><span>型号：{{product.model}}</span> <br/><span>颜色：{{product.color}}</span>
+												</p>
+											</div>
+										</td>
+										<td style="width:15%;text-align: center;vertical-align: middle;">{{product.price | number:2}}</td>
+										<td style="width:15%;text-align: center;vertical-align: middle;">{{product.total}}</td>
+										<td style="width:15%;text-align: center;vertical-align: middle;">{{product.fee | number:2}}</td>
+										<td ng-if="item.status==3 || item.status==4 || item.status==5 || item.status==6" style="width:5%;text-align: center;vertical-align: middle;">
+											<a style="color: #C0C0C0" ng-show="item.status==3" title="确认收货后才可申请售后服务">申请售后</a>
+											<a class="color0" ng-click="serviceDetail(item,product)" ng-show="item.status==4 || item.status==5 || item.status==6">申请售后</a>
+										</td>
+									</tr>
+								</table>
+							</td>
+							<td style="text-align: center;vertical-align: middle;"><span>{{formatstatus(item.status)}}</span></td>
+							<td style="text-align: center;vertical-align: middle;">
+								<span><a href="javascript:;" class="color0" ng-click="orderDetail(item)">查看详情</a></span>
+								<span ng-if="item.status=='1'"><br/><a href="javascript:;" class="color0"  ng-click="toPayinOrderP(item)">去付款</a></span>
+								<span ng-if="item.status==1 || item.status==2"><br/><a href="javascript:;" class="color0" data-toggle="modal" data-target="#cannelModel" ng-click="setItem(item)">取消订单</a></span>
+								<span ng-if="item.status==3"><br/><a href="javascript:;" class="color0" ng-click="receiptGoods(item)">确认收货</a></span>
+							</td>
+						</tr>
+					</table>
+				</div>
+
+				<!-- 取消订单 模态框 -->
+				<div class="modal fade" tabindex="-1" role="dialog" id="cannelModel">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								<h3 class="modal-title" style="color:#0000ff ;">您确定要取消该订单吗？取消后，无法恢复。</h3>
+							</div>
+							<div class="modal-body">
+								<span>请选择取消订单原因：</span>
+								<select class="form-control formControl" style="height:auto;width: 50%" ng-model="cannelReason" required>
+			  						<option value ="0">请选择取消订单原因</option>
+			  						<option value ="1">不想买了</option>
+			  						<option value ="2">信息填写错误，重新购买</option>
+			  						<option value ="3">付款遇到问题</option>
+									<option value ="4">商品选择错误</option>
+									<option value ="5">其他原因</option>
+								</select>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+								<button type="button" class="btn btn-primary" ng-click="orderCancel()">确定</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div style="text-align: center; margin:30px 0;" ng-if="paging">没有数据哦</div>
+				<!-- paging -->
+				<div class="pagingContext" style="float:right" ng-if="showpage">
+					<ul class="pagination">
+						<li ng-class="{true:'disabled'}[p_current==1]">
+							<a href="javascript:;" ng-click="Previous()">
+								<span>上一页</span>
+							</a>
+						</li>
+						<li ng-repeat="page in pageList" ng-class="{active: isActivePage(page)}">
+							<a href="javascript:;" ng-click="selectPage(page)">{{ page }}</a>
+						</li>
+						<!--ng-class="{true:'disabled'}[p_current==8]"-->
+						<li>
+							<a href="javascript:;" ng-click="Next()">
+								<span>下一页</span>
+							</a>
+						</li>
+						<span style="line-height: 35px;margin-left: 15px;">  共：{{datatotal}} 条  </span>
+					</ul>
+				</div>
+				<div style="clear:both"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 内容部分 end -->

@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinamcom.framework.aftersale.mapper.TbAftersaleLogisticsMapper">
+  <resultMap id="BaseResultMap" type="com.chinamcom.framework.aftersale.model.TbAftersaleLogistics">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-11-09 13:35:22.
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="after_id" jdbcType="INTEGER" property="afterId" />
+    <result column="after_code" jdbcType="VARCHAR" property="afterCode" />
+    <result column="express_id" jdbcType="INTEGER" property="expressId" />
+    <result column="logistics_code" jdbcType="VARCHAR" property="logisticsCode" />
+    <result column="logistics_status" jdbcType="VARCHAR" property="logisticsStatus" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="zipcode" jdbcType="VARCHAR" property="zipcode" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="area" jdbcType="VARCHAR" property="area" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-11-09 13:35:22.
+    -->
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-11-09 13:35:22.
+    -->
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-11-09 13:35:22.
+    -->
+    id, after_id, after_code, express_id, logistics_code, logistics_status, name, phone, 
+    zipcode, address, province, city, area
+  </sql>
+  
+  <select id="selectByExample" parameterType="com.chinamcom.framework.aftersale.model.TbAftersaleLogisticsExample" resultMap="BaseResultMap">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-11-09 13:35:22.
+    -->
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tb_aftersale_logistics
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  
+  <!-- 便于地址信息  自动生成xml时，不要覆盖此内容-->
+  <sql id="Custom_Column_list">
+  	a.id, a.after_id, a.after_code, a.express_id, a.logistics_code, a.logistics_status, b.name, b.phone, 
+    b.zipcode, b.address, b.province, b.city, b.area
+  </sql>
+  <select id="selectByExampleWithExpress" parameterType="com.chinamcom.framework.aftersale.model.TbAftersaleLogisticsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Custom_Column_list" />
+    from tb_aftersale_logistics a left join tb_user_express b on a.express_id=b.id
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-11-09 13:35:22.
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from tb_aftersale_logistics
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-11-09 13:35:22.
+    -->
+    delete from tb_aftersale_logistics
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chinamcom.framework.aftersale.model.TbAftersaleLogisticsExample">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-11-09 13:35:22.
+    -->
+    delete from tb_aftersale_logistics
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chinamcom.framework.aftersale.model.TbAftersaleLogistics">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-11-09 13:35:22.
+    -->
+    insert into tb_aftersale_logistics (id, after_id, after_code, 
+      express_id, logistics_code, logistics_status, 
+      name, phone, zipcode, 
+      address, province, city, 
+      area)
+    values (#{id,jdbcType=INTEGER}, #{afterId,jdbcType=INTEGER}, #{afterCode,jdbcType=VARCHAR}, 
+      #{expressId,jdbcType=INTEGER}, #{logisticsCode,jdbcType=VARCHAR}, #{logisticsStatus,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{zipcode,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+      #{area,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chinamcom.framework.aftersale.model.TbAftersaleLogistics">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-11-09 13:35:22.
+    -->
+    insert into tb_aftersale_logistics
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="afterId != null">
+        after_id,
+      </if>
+      <if test="afterCode != null">
+        after_code,
+      </if>
+      <if test="expressId != null">
+        express_id,
+      </if>
+      <if test="logisticsCode != null">
+        logistics_code,
+      </if>
+      <if test="logisticsStatus != null">
+        logistics_status,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="zipcode != null">
+        zipcode,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="province != null">
+        province,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="area != null">
+        area,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="afterId != null">
+        #{afterId,jdbcType=INTEGER},
+      </if>
+      <if test="afterCode != null">
+        #{afterCode,jdbcType=VARCHAR},
+      </if>
+      <if test="expressId != null">
+        #{expressId,jdbcType=INTEGER},
+      </if>
+      <if test="logisticsCode != null">
+        #{logisticsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticsStatus != null">
+        #{logisticsStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="zipcode != null">
+        #{zipcode,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        #{area,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chinamcom.framework.aftersale.model.TbAftersaleLogisticsExample" resultType="java.lang.Integer">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-11-09 13:35:22.
+    -->
+    select count(*) from tb_aftersale_logistics
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-11-09 13:35:22.
+    -->
+    update tb_aftersale_logistics
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.afterId != null">
+        after_id = #{record.afterId,jdbcType=INTEGER},
+      </if>
+      <if test="record.afterCode != null">
+        after_code = #{record.afterCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.expressId != null">
+        express_id = #{record.expressId,jdbcType=INTEGER},
+      </if>
+      <if test="record.logisticsCode != null">
+        logistics_code = #{record.logisticsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logisticsStatus != null">
+        logistics_status = #{record.logisticsStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zipcode != null">
+        zipcode = #{record.zipcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null">
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.province != null">
+        province = #{record.province,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null">
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.area != null">
+        area = #{record.area,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-11-09 13:35:22.
+    -->
+    update tb_aftersale_logistics
+    set id = #{record.id,jdbcType=INTEGER},
+      after_id = #{record.afterId,jdbcType=INTEGER},
+      after_code = #{record.afterCode,jdbcType=VARCHAR},
+      express_id = #{record.expressId,jdbcType=INTEGER},
+      logistics_code = #{record.logisticsCode,jdbcType=VARCHAR},
+      logistics_status = #{record.logisticsStatus,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      zipcode = #{record.zipcode,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      province = #{record.province,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR},
+      area = #{record.area,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chinamcom.framework.aftersale.model.TbAftersaleLogistics">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-11-09 13:35:22.
+    -->
+    update tb_aftersale_logistics
+    <set>
+      <if test="afterId != null">
+        after_id = #{afterId,jdbcType=INTEGER},
+      </if>
+      <if test="afterCode != null">
+        after_code = #{afterCode,jdbcType=VARCHAR},
+      </if>
+      <if test="expressId != null">
+        express_id = #{expressId,jdbcType=INTEGER},
+      </if>
+      <if test="logisticsCode != null">
+        logistics_code = #{logisticsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticsStatus != null">
+        logistics_status = #{logisticsStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="zipcode != null">
+        zipcode = #{zipcode,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chinamcom.framework.aftersale.model.TbAftersaleLogistics">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2016-11-09 13:35:22.
+    -->
+    update tb_aftersale_logistics
+    set after_id = #{afterId,jdbcType=INTEGER},
+      after_code = #{afterCode,jdbcType=VARCHAR},
+      express_id = #{expressId,jdbcType=INTEGER},
+      logistics_code = #{logisticsCode,jdbcType=VARCHAR},
+      logistics_status = #{logisticsStatus,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      zipcode = #{zipcode,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

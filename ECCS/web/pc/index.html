@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="utf-8">
+    <title ng-bind="title"></title>
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/bootstrap/bootstrap-datetimepicker.min.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/nav.css" />
+    <link rel="stylesheet" href="css/mains.css" />
+    <link rel="stylesheet" href="css/footer.css" />
+    <link rel="stylesheet" href="css/login.css" />
+    <link rel="stylesheet" href="css/list.css" />
+    <link rel="stylesheet" href="css/addr.css" />
+    <link rel="stylesheet" href="css/pay.css" />
+    <link rel="stylesheet" href="css/service.css"/>
+
+
+</head>
+
+<body ng-controller="MainController">
+    <!-- header 部分 --><!---->
+    <div ng-include="'templete/common/header.html'"></div>
+        <!-- 页面展示 部分 -->
+        <div ui-view></div>
+    <!-- footer 部分 -->
+    <div ng-include="'templete/common/footer.html'"></div>
+    <!-- footer 部分 end -->
+
+    <!-- angular -->
+    <script src="js/lib/angular.js"></script>
+    <script src="js/lib/angular-ui-router.min.js"></script>
+    <!-- jq -->
+    <script type="text/javascript" src="js/lib/jquery-1.11.1.min.js"></script>
+    <!-- NgStorage -->
+    <script src="js/lib/ngStorage.js"></script>
+    <script type="text/javascript" src="js/lib/angular-local-storage.min.js"></script>
+
+    <!--cookies -->
+    <script src="js/lib/ngCookies.js"></script>
+    <script src="js/lib/jquery.cookie.js"></script>
+
+    <!--加密 -->
+    <script src="js/lib/sha1.js"></script>
+    <script src="js/lib/md5.min.js"></script>
+    <script src="js/lib/angular-md5.min.js"></script>
+
+    <!--bendi -->
+    <script src="js/lib/angular-local-zh-cn.js"></script>
+    <!-- bootstrap -->
+    <script type="text/javascript" src="js/lib/bootstrap.js"></script>
+    <script type="text/javascript" src="js/scroll.js"></script>
+    <!-- 自定义 -->
+    <script src="js/app.js"></script>
+    <script src="js/basic.js"></script>
+    <script type="text/javascript" src="js/MainController.js"></script>
+    <script type="text/javascript" src="js/controller/LoginCtrl.js"></script>
+    <script type="text/javascript" src="js/controller/MyCartCtrl.js"></script>
+    <script type="text/javascript" src="js/controller/AddressCtrl.js"></script>
+    <script type="text/javascript" src="js/controller/ConfirmCtrl.js"></script>
+    <script type="text/javascript" src="js/controller/ConfirmByIdCtrl.js"></script>
+    <script type="text/javascript" src="js/controller/PwdActionCtrol.js"></script>
+    <script type="text/javascript" src="js/controller/ProductCtrl.js"></script>
+    <script type="text/javascript" src="js/controller/seviceRes.js"></script>
+    <script type="text/javascript" src="js/controller/ServiceCtrl.js"></script>
+    <script type="text/javascript" src="js/controller/ServiceReqByIdCtrl.js"></script>
+    <script type="text/javascript" src="js/controller/ServList.js"></script>
+    <script type="text/javascript" src="js/controller/ServiceDetal.js"></script>
+    <script type="text/javascript" src="js/controller/OrderCtrl.js"></script>
+    <script type="text/javascript" src="js/controller/OrderDetail.js"></script>
+    <script type="text/javascript" src="js/controller/orderPay.js"></script>
+    <script type="text/javascript" src="js/controller/SecondServiceCtrl.js"></script>
+
+
+
+    <!--script src="http://cdn.bootcss.com/angular-ui-bootstrap/0.11.2/ui-bootstrap-tpls.js"></script-->
+    <script type="text/javascript" src="js/lib/ui-bootstrap-tpls.min.js"></script>
+    <script type="text/javascript" src="js/lib/bootstrap-datetimepicker.js"></script>
+    <script type="text/javascript" src="js/lib/bootstrap-datetimepicker.zh-CN.js"></script>
+
+    <script type="text/javascript" src="js/controller/AfterSaleHandleCtrl.js"></script>
+    <script type="text/javascript" src="js/controller/AfterHandleListCtrl.js"></script>
+    <script type="text/javascript" src="js/controller/MonitorCtrl.js"></script>
+    <script type="text/javascript" src="js/controller/PaySuccessCtr.js"></script>
+    <!-- 自定义 end-->
+
+</body>
+</html>

@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <meta content="initial-scale=1,maximum-scale=1,user-scalable=no,width=device-width" name="viewport"/>
+  <title>转盘</title>
+  <style>
+   body{
+     background:#3b233b;
+     overflow:hidden;
+	 
+   } 
+  body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,form,fieldset,table,td,img,div{margin:0;padding:0;border:0;}
+body{color:#333; font-size:12px;font-family:"Microsoft YaHei";padding-top:1rem;}
+ul,ol{list-style-type:none;}
+select,input,img,select{vertical-align:middle;}
+input{ font-size:12px;}
+a{ text-decoration:none; color:#000;}
+a:hover{color:#c00; text-decoration:none;}
+.clear{clear:both;}
+.banner{display:block;width:60%;margin-left:auto;margin-right:auto;margin-bottom: 20px;margin-top:15px;}
+.banner .turnplate{display:block;width:100%;position:relative;z-index:1}
+.banner .turnplate canvas.item{width:100%;}
+.banner .turnplate img.pointer{   
+	position: absolute;
+    width: 29.5%;
+    height: 45.5%;
+    left: 35.5%;
+    top: 18.5%;
+	z-index:100;
+	}
+.text_box{padding:20px 0px}
+.text_box h1{
+	text-align:center;
+	color:#FFBE15;
+	font-size:2rem;
+	 background-image: linear-gradient(0, #FFAC13, #FDFC00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.title_img{
+	width: 56%;
+    margin-left: 22%;
+	
+}
+.content_Drag{
+	position:relative;
+	z-index:-1;
+
+}
+.content_Drag img:first-child{
+	position:relative;
+	z-index:-100;
+	width:80%;
+	margin-left:10%;
+	margin-top:-15%;
+}
+.content_Drag img:nth-child(2){
+	position: absolute;
+    top: 2.5rem;
+    left: 0;
+    width: 70%;
+    margin-left: 15%;
+}
+.content_Drag img:nth-child(3){
+	position: absolute;
+    top: 1.1rem;
+    left: 0;
+    width: 70%;
+    margin-left: 15%;
+}
+.content_Drag img:nth-child(4){
+	    position: absolute;
+    top: 0.8rem;
+    left: 0;
+    width: 15%;
+    margin-left: 42%;
+}
+.banner .suihua1{
+	position: absolute;
+    top: 116px;
+    left: 5px;
+    z-index: 2;
+    width: 22%;
+    margin-left: 15%;
+
+}
+.banner .suihua2{
+	position: absolute;
+    top: 116px;
+    right: 5px;
+    z-index: 2;
+    width: 22%;
+    margin-right: 15%;
+
+}
+.banner .liwping{
+	position: absolute;
+    top: 234px;
+    left: 0;
+    z-index: 2;
+    width: 70%;
+    margin-left: 15%;
+}
+.logo {
+	margin:0 auto 0;
+	width:98px;
+	height:31px;
+	text-indent:-9999px;
+	background:url("images/logo.png") no-repeat center center;
+	-webkit-background-size:98px auto;
+	-moz-background-size:98px auto;
+	background-size:98px auto;
+	position:absolute;
+	bottom:-3rem;
+	right:37.2%;
+}
+@media (max-width:359px) and (min-width:320px){
+    .banner .liwping{
+    top: 237px;
+	}
+	.content_Drag img:nth-child(3){
+		
+	}
+}
+@media  (min-width:360px) and (max-width:374px) {
+    .banner .liwping{
+    top: 257px;
+	}
+}
+@media screen and (min-width:375px){
+    .banner .liwping{
+    top: 267px;
+	}
+}
+@media screen and (min-width:414px){
+    .banner .liwping{
+    top: 285px;
+	}
+}
+@media screen and (min-width:412px){
+    .banner .liwping{
+    top: 284px;
+	}
+}
+@media screen and (min-width:768px){
+    .banner .liwping{
+    top: 487px;
+	}
+}
+#modal{
+    position: fixed;
+    width: 100%;
+    height:100%;
+    background-color: rgba(0,0,0,0.28);
+    z-index: 1000;
+    text-align: center;
+    display: none;
+}
+.modal_box{
+    background-color: #e4393c;
+    width: 70%;
+    margin-left:17%;
+    margin-top: 50%;
+    height:auto;
+    border-radius: 5px;
+}
+.btn_jump{
+	padding:0.8rem 0;
+}
+#determine{
+    padding:5px 30px 5px;
+    background-color: #B84633;
+    border: 1px solid #FFCE44;
+	color:#fff;
+	border-radius:5px;
+	
+}
+.Draw_content a{
+	color:#fff;
+
+	word-wrap:break-word; word-break:normal;
+}
+  </style>
+ </head>
+ <body >
+   <!-- 弹出内容区域 -->
+	 <div id="modal" >
+            <div class="modal_box">
+              <p style="height:1.2rem;background: #FFCE44;text-align: right;position: relative">
+                
+              </p>
+              <p class="Draw_content" style="font-size: 0.65rem;padding: 5px">
+					<a href="" id="showcontent"></a>
+			  </p>
+              <div class="btn_jump">
+                <input id="determine" type="button" value="确定" onclick="turnplate.closemodal()">
+              </div>
+            </div>
+      </div>
+
+  <img src="images/face.png" id="face-img"   style="display:none"/>
+  <img src="images/voice.png" id="voice-img"  style="display:none"/>
+  <img src="images/watch.png" id="watch-img"  style="display:none"/>
+  <img src="images/title.png" class="title_img" >
+ <!--   <div class="text_box">
+     		<h1>中 麦 三 周 年</h1>
+     		<h1>欢 乐 大 抽 奖</h1>
+     </div>  -->
+	<div class="banner">
+		<img class="suihua1" src="images/suihua1.png" alt="">
+		<img class="suihua2" src="images/suihua2.png" alt="">
+		<div class="turnplate" style="background-image:url(images/zhuanpan_box.png);background-size:100% 100%;">
+			<canvas class="item" id="wheelcanvas" width="380px" height="380px"></canvas>
+			<img class="pointer" src="images/turnplate-pointer.png" onclick="turnplate.pointer()"  />
+		</div>
+		<img src="images/lihe.png" id="lipinghe" class="liwping" alt="">
+	</div>
+	<div class="content_Drag">
+
+		<img src="images/panel.png" alt="">
+		<img src="images/text_long.png" alt="">
+		<img src="images/xuxian.png" alt="">
+		<img src="images/shuoming.png" alt="">
+		<div class="logo">中麦通信 10020.cn</div>
+	</div>
+   <script src="js/jquery-1.10.2.js"  ></script>
+   <script src="js/awardRotate.js"></script>
+   <script>
+
+	if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+		
+	} else if (/(Android)/i.test(navigator.userAgent)) {
+		//alert("是iandroid客户端")
+	} 
+
+    var turnplate={
+      restaraunts:[], // TODO 奖项
+      colors:[], //TODO 奖项背景颜色
+      outsideRadius:165,// TODO 大转盘道外圆的半径
+      textRadius:140,	// TODO 大转盘奖品到原点的距离
+      insideRadius:68, // 大转盘内的圆的半径
+      startAngle:0,	// 开始的角度
+      item:null,// 产生的随机数
+      bRotate:false,
+	  ban_btn:true,
+      num:null,
+	  userphone:null,
+      init:function(){//初始化数据
+		/*var url= decodeURIComponent(window.location.search); //获取url中"?"符后的字串
+			if(url==""){
+			console.log("没有电话号码")
+		}else{
+			var theRequest = new Object();
+			if (url.indexOf("?") != -1) {
+				var str = url.substr(1);
+				strs = str.split("&");
+				for(var i = 0; i < strs.length; i ++) {
+				theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+			}
+		}
+			//TODO 获取url的跳转号码
+			phone=theRequest.phoneNumber;//TODO 用户电话号码
+			console.log(phone);
+		}*/
+		this.userphone=localStorage.getItem('userPhone')
+		
+        this.restaraunts=["B+梦享家智能腕表","中麦通信30分钟语音","谢谢参加","B+梦享家智能腕表","中麦通信30分钟语音","谢谢参加"];
+		
+        this.colors=["#FFFFFF", "#FFF4D6","#FFFFFF","#FFF4D6","#FFFFFF", "#FFF4D6","#FFFFFF","#FFF4D6","#FFFFFF", "#FFF4D6","#FFFFFF"]
+        
+        //console.log(this.rotateFn(6));
+        
+      },
+      rotateTimeOut:function (){// TODO 旋转超时做出的操作 
+        $('#wheelcanvas').rotate({
+          angle:0,
+          animateTo:2160,
+          duration:10000,
+          callback:function(){
+            $('#modal').css('display','block')
+			$('#showcontent').html("网络超时,稍后在试");
+				
+          }  
+        })
+      },
+      rotateFn:function(item,items,txt){//TODO 旋转角度
+        var angles = item * (360 / this.restaraunts.length) - (360 / (this.restaraunts.length*2));
+        if(angles<270){
+          angles=270-angles
+        }else{
+          angles = 360 - angles + 270;
+        }
+        $('#wheelcanvas').stopRotate();
+        $('#wheelcanvas').rotate({
+			    angle:0,
+			    animateTo:angles+1800,
+			    duration:8000,
+			    callback:function (){
+					$('#modal').css('display','block')
+					$('#showcontent').html(txt);
+				
+					if(items==="谢谢参加"){
+						//跳转到，没关系，邀请好友加入中麦获10元话费。（链接到邀请好友活动页面）
+						console.log("跳转");
+					}
+				    this.bRotate = !this.bRotate;
+			    }.bind(this)
+		    });
+      },
+	  closemodal:function(){
+		$('#modal').css('display','none')
+	  },
+      pointer:function(){//TODO 绑定指针事件
+             if(this.bRotate){
+               $('#modal').css('display','block')
+			    $('#showcontent').html('您的机会用完了');
+               return;
+             }
+			 if(this.ban_btn){
+			
+             // 这里写ajax代码
+               //this.item= this.rnd(1,this.restaraunts.length);
+        
+             //这个是抽奖代码 this.item=3;
+		
+			 this.ajax();	
+			
+			 this.ban_btn=false;
+			 }
+             
+      },
+      rnd:function(n, m){//TODO 产生随机数
+            var random=Math.floor(Math.random()*(m-n+1)+n);
+                console.log("随机数是"+random);
+                return random
+      },
+      drawRouletteWheel:function(){
+            var canvas = document.getElementById("wheelcanvas");    
+            if (canvas.getContext) {
+            //根据奖品个数计算圆周角度
+            var arc = Math.PI / (this.restaraunts.length/2);
+            var ctx = canvas.getContext("2d");
+            //在给定矩形内清空一个矩形
+            ctx.clearRect(0,0,380,380);
+            //strokeStyle 属性设置或返回用于笔触的颜色、渐变或模式  
+            ctx.strokeStyle = "#FFBE04";
+            //font 属性设置或返回画布上文本内容的当前字体属性
+            ctx.font = '16px Microsoft YaHei';      
+            for(var i = 0; i < this.restaraunts.length; i++) {       
+              var angle = this.startAngle + i * arc;
+              ctx.fillStyle = this.colors[i];
+              ctx.beginPath();
+              //arc(x,y,r,起始角,结束角,绘制方向) 方法创建弧/曲线（用于创建圆或部分圆）    
+              ctx.arc(190, 190, this.outsideRadius, angle, angle + arc, false);    
+              ctx.arc(190, 190, this.insideRadius, angle + arc, angle, true);
+              ctx.stroke();  
+              ctx.fill();
+              //锁画布(为了保存之前的画布状态)
+              ctx.save();   
+              
+              //----绘制奖品开始----
+              ctx.fillStyle = "#000";
+              var text = this.restaraunts[i];
+              var line_height = 19;
+              //translate方法重新映射画布上的 (0,0) 位置
+              ctx.translate(190 + Math.cos(angle + arc / 2) * this.textRadius, 190 + Math.sin(angle + arc / 2) * this.textRadius);
+			  //rotate方法旋转当前的绘图
+              ctx.rotate(angle + arc / 2 + Math.PI / 2);
+              // 字体长度自己换行
+			  if(text.indexOf("B+梦享家")!==-1&& text.length>5){
+				text = text.substring(0,5)+"||"+text.substring(5);
+				var texts = text.split("||");
+				for(var j = 0; j<texts.length; j++){
+				  ctx.fillText(texts[j], -ctx.measureText(texts[j]).width / 2, j * line_height);
+			    }
+			  }
+			  else if(text.indexOf("中麦通信")!==-1&& text.length>4){
+				text = text.substring(0,4)+"||"+text.substring(4);
+				var texts = text.split("||");
+				for(var j = 0; j<texts.length; j++){
+				  ctx.fillText(texts[j], -ctx.measureText(texts[j]).width / 2, j * line_height);
+			    }
+
+			  }
+			  else{
+				ctx.fillText(text, -ctx.measureText(text).width / 2, 0);
+			  }
+			if(text.indexOf("B+梦享家")!==-1){
+
+				var img= document.getElementById("watch-img");
+				img.onload=function(){  
+				  ctx.drawImage(img,-35,10,20,20);      
+				 }; 
+				ctx.drawImage(img,-35,10);  
+			}else if(text.indexOf("谢谢参加")!==-1){
+				var img= document.getElementById("face-img");
+				img.onload=function(){  
+				  ctx.drawImage(img,-35,10,20,20);
+				 };
+				 ctx.drawImage(img,-35,10);  
+
+			}else{
+				var img= document.getElementById("voice-img");
+				img.onload=function(){  
+				  ctx.drawImage(img,-35,10,20,20);      
+				 }; 
+				 ctx.drawImage(img,-35,10);  
+			}
+              ctx.restore();
+              //----绘制奖品结束----
+             }     
+          } 
+      },
+		//TODO 如果换成图片的话旋转函数
+		/*drawRouletteWheelImg:function(){
+			var canvas = document.getElementById("wheelcanvas");    
+			 if (canvas.getContext) {
+				var ctx = canvas.getContext("2d");
+				var img = new Image(); 
+				img.onload = function(){
+				// 执行drawImage语句
+				ctx.drawImage(img,0,0,422,422);
+				}
+				img.src = 'images/zhuanpan.png';
+				
+			 }
+		},*/
+	   ajax:function(){
+		var XHR=null;  
+		if (window.XMLHttpRequest) {  
+			XHR = new XMLHttpRequest();  
+		} else if (window.ActiveXObject) {  
+			XHR = new ActiveXObject("Microsoft.XMLHTTP");    
+		} else {  
+			XHR = null;  
+		}  
+		var phoneNum=localStorage.getItem('userPhone');
+		console.log(phoneNum);
+		if(!phoneNum){
+			alert("您还没有绑定手机号")
+			return;
+		}
+		if(XHR){  
+			XHR.open("GET", "http://pay.bjia.cn/activity/api/public/prize/draw/"+phoneNum); 
+			_this=this;
+			XHR.onreadystatechange = function () {
+			if(XHR.readyState == 4 && XHR.status == 404){
+				alert("网络异常，请稍后在试")
+			}
+            if (XHR.readyState == 4 && XHR.status == 200) { 
+				var data=JSON.parse(XHR.responseText);
+                console.log(data);
+				this.item=parseInt(data.obj.prizeId);
+			
+				if(this.item==1){
+					Math.floor(Math.random()*10)>5?this.item=1:this.item=4;
+				}
+				if(this.item==2){
+					Math.floor(Math.random()*10)>5?this.item=2:this.item=5;
+				}
+				if(this.item==3){
+					Math.floor(Math.random()*10)>5?this.item=3:this.item=6;
+				}
+				_this.rotateFn(this.item, _this.restaraunts[this.item-1],data.obj.remark);
+                XHR = null;  
+            }
+			
+        };  
+        XHR.send();  
+		}
+	}
+
+    }
+    $(document).ready(function(){
+     turnplate.init();
+     turnplate.drawRouletteWheel();
+	// turnplate.drawRouletteWheelImg();
+    })
+  
+  </script>
+ </body>
+</html>

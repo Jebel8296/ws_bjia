@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>管理收货地址</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=yes">
+
+    <link rel="stylesheet" href="/modules/public/css/all.css">
+    <link rel="stylesheet" href="/modules/public/css/menu.css">
+    <link rel="stylesheet" href="/modules/purchase/css/order.css">
+  </head>
+  <body>
+
+  <div class="page-group">
+    <div class="page page-current">
+    <!-- 主体html代码 -->
+	    <header class="bar bar-nav">
+	      	<a class="button button-link button-nav pull-left" href="javascript:window.history.go(-1)">
+				<span class="icon icon-left"></span>
+			</a>
+	      	<h1 class="title">管理收货地址</h1>
+	    </header>
+   
+	    <div class="content">
+	    <!-- 页面内容区 -->	
+			<div class="page_item">				
+				<div class="order_addr">
+					<h3>收货信息</h3>
+					<div class="list-block media-list">
+					    <ul id="addrList" class="pdm">
+					      	<!-- 默认地址 -->
+					    </ul>
+					     
+					</div>		
+				</div>
+		  	</div>
+			
+			<!-- 页面内容区 end -->
+	    </div>
+
+
+	    <div class="bar bar-footer">
+			<a href="address_add.html" class="button btn_org">新增收货地址</a>
+		</div><!-- footer -->
+	<!-- 主体html代码 -->
+  	</div>
+  </div>
+   
+
+ 
+  <script type='text/javascript' src='/libs/seajs/seajs-3.0.0.js'></script>
+  <script type='text/javascript' src='/libs/zepto/zepto.min.js'></script>
+  <script type='text/javascript' src='/libs/zepto/zepto.cookie.min.js'></script>
+  <script type='text/javascript' src='/libs/sui/js/sm.min.js'></script>
+  <script type='text/javascript' src='/libs/sui/js/sm-extend.min.js'></script>
+  <script type='text/javascript' src='/libs/sui/js/sm-city-picker.min.js'></script>
+  <script> 
+    // 加载入口模块
+    seajs.use("purchase/js/addrlist");
+	//seajs.use("center/js/personal");
+  </script> 
+  
+ 
+    
+  </body>
+</html>

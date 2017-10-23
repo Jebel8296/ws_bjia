@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>忘记密码</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=yes">
+    <link rel="stylesheet" href="/libs/sui/css/sm.min.css">
+    <link rel="stylesheet" href="/libs/sui/css/sm-extend.min.css">
+    <link rel="stylesheet" href="/modules/public/css/all.css">
+    <link rel="stylesheet" href="/modules/passport/css/login.css">
+    <link rel="stylesheet" href="/modules/public/css/header.css">
+    
+  </head>
+  <body>
+  <div id="forgetPwdCont" class="page-group">
+    <!-- 主体html代码 -->
+    <div class="page">
+      	
+      <header class="bar bar-nav">
+        <a class="button button-link button-nav pull-left" href="javascript:window.history.go(-1)">
+        <span class="icon icon-left"></span>
+        </a>
+        <h1 class="title">忘记密码</h1>
+      </header>
+
+      <div class="content">
+      <!-- 页面内容区 -->
+      		<div class="content-block pd_top">   
+
+              <div class="input-Item pd"> 
+                <span>手机号码：</span>
+                <div class="vCode">
+                  <input type="text" id='phone' placeholder='' class="txtbox w50 fl"/>
+                  <input id="sendCode" type="button" value="获取短信验证码"class="btn_grey f-12 w47 fr" />
+
+                </div>
+                <p class="color2 df"></p>
+
+            </div>
+
+              <div class="input-Item"> 
+                <span class="cl">短信验证码：</span>
+                <input type="text" id='dxvCode' placeholder='请输入验证码' class="txtbox w70"/>
+                <p class="color2 df"></p>
+              </div>
+
+              <div class="input-Item">
+                <span>新密码：</span>
+                <input type="password" id='pwdNew' placeholder='8-32位字符' class="txtbox w70"/>
+                <p class="color2 df">请输入密码</p>
+              </div>
+
+              <div class="input-Item">
+                <span>确认密码：</span>
+                <input type="password" id='pwdNew2' placeholder='请再次输入密码' class="txtbox w70"/>
+                <p class="color2 df">再次输入密码必须一致</p>
+              </div>
+           
+              <p><a id="pwdforgetSubmit" href="javascript:;" class="button btn_org">确 定</a></p>
+						
+          </div>
+              <!-- 页面内容区 end -->
+      </div>
+   </div>
+      <!-- 主体html代码 -->
+  </div>
+	
+ 
+  <script type='text/javascript' src='/libs/seajs/seajs-3.0.0.js'></script>
+  <script type='text/javascript' src='/libs/zepto/zepto.min.js'></script>
+  <script type='text/javascript' src='/libs/zepto/zepto.cookie.min.js'></script>
+  <script type='text/javascript' src='/libs/mds/md5.min.js'></script>
+  <script type='text/javascript' src='/libs/mds/sha1.js'></script>
+  <script> 
+      // 加载入口模块
+    seajs.use("/modules/passport/js/pwdforget");
+  </script> 
+  </body>
+</html>

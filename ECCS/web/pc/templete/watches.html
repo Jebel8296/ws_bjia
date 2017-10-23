@@ -1,0 +1,98 @@
+<!--子菜单-->
+<div ng-controller="ProductCtrl">
+    <div class="box">
+        <div class="info">
+            <div class="subNav">
+                <ul class="subul">
+                    <li ng-repeat="tab in tabs">
+                        <a href="javascript:;"  ng-click="onClickTab(tab)">{{tab.title}}</a>
+                    </li>
+                </ul>
+                <div class="buysty">
+                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#tocart">立即购买</button>
+                </div>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+    </div>
+<!-- 内容部分 -->
+<div class="main-content">
+    <div class="mContent wbg">
+        <!--产品价格-->
+        <ul class="contMain">
+            <li class="leftInfo leftIimgA">
+                <div class="title">
+                    <h5>{{prod.prodname}}</h5>
+                    <p>{{prod.des}}</p>
+                </div>
+                <span style="color: #fc581f; font-size: 30px;   display: block;">即将发售</span>
+                <a href="javascript:;" title="{{prod.prodname}}" class="link"></a>
+            </li>
+        </ul>
+        <div style="padding:0 20px; border-top:1px #ccc solid">
+            <div ng-include="currentTab"></div>
+        </div>
+        <!--产品价格 end-->
+        <!--产品说明-->
+        <div style="display: none">
+            <ul class="tabList" style="border:1px #ccc solid; overflow: auto">
+                <li ng-repeat="tab in tabs" ng-class="{active:isActiveTab(tab.url)}" ng-click="onClickTab(tab)">{{tab.title}}</li>
+            </ul>
+            <div class="clearF"></div>
+            <div id="mainView" style="padding:50px">
+                <div ng-include="currentTab"></div>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade bs-example-modal-lg" id="tocart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+            <div class="modal-dialog" style="width: 800px; margin: 30px auto;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="myModalLabel">{{prod.prodname}}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="newadd_msg" style="position: relative">
+                            <div class="tocartform">
+                                <img src="images/slides/index_08.jpg" class="productIMG"/>
+                                <ul>
+                                    <li><span style="width:100px">价格：</span><em class="color0" style="font-size:26px">￥{{prod.prodprice+""}}</em></li>
+                                    <!---->
+                                    <li hidden><span>选择型号：</span>
+                                        <em class="sel">
+                                            <label><input type="radio" value="type1" ng-model="pType" name="pType"/> 型号1</label>
+                                            <label><input type="radio" value="type2" ng-model="pType" name="pType" /> 型号2</label>
+                                        </em>
+                                    </li>
+                                    <li><span>选择颜色：</span>
+                                        <label class="proRadio" ng-class="{selected:selected==$index}">
+                                            <input type="radio"  ng-model="pColor" name="pColor" value="black" /> 全黑
+                                        </label>
+                                        <label class="proRadio">
+                                            <input type="radio"  ng-model="pColor" name="pColor" value="white"/> 白蓝
+                                        </label>
+                                    </li>
+                                    <li><span>购买数量：</span>
+                                        <button type="button" ng-click = "minusCount()" class="btn" ng-disable = "itemcount = 1">-</button>
+                                        <input type="text" class="txtbox" ng-model="itemcount" style="width:50px"/>
+                                        <button type="button" ng-click = "addCount()" class="btn">+</button>
+                                    </li>
+                                    <li>
+                                        <button type="button" class="btn sm_btn" ng-click="addToCart('tocart')">加入购物车</button>
+                                        <button type="button" class="btn btn_og sm_btn topay" ng-click="addToCart('')">立即购买</button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- 内容部分 end -->
+
+</div>
+

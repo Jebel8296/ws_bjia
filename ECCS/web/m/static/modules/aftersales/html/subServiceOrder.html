@@ -1,0 +1,178 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>发起售后</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=yes">
+    <link rel="stylesheet" href="/modules/public/css/all.css">
+    <link rel="stylesheet" href="/modules/aftersales/css/sales.css">
+	  <link rel="stylesheet" href="/modules/aftersales/css/modal.css">
+  </head>
+ 
+  <body>
+  <!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
+  <div class="page-group">
+    <div class="page page-current">
+    <!-- 主体html代码 -->
+    <header class="bar bar-nav">
+      <a class="button button-link button-nav pull-left" href="javascript:window.history.go(-1)">
+		    <span class="icon icon-left"></span>
+		  </a>
+  
+      <h1 class="title">发起售后</h1>
+    </header>
+   
+    <div class="content cl_bg">
+    <!-- 页面内容区 -->		
+
+		<div class="page_item">	
+			<div class="order_msg">
+ 				<h2>选择售后类型</h2>
+				<div class="sel">
+					<button data-type="1" title="1" href="javascript:;"  class="">退 货</button>
+					<button data-type="2" title="2" href="javascript:;">换 货</button>
+					<button data-type="3" title="3" href="javascript:;">维 修</button>
+				</div>
+			</div>
+			
+			<div class="order_msg">
+				<dl>
+					<dt>重要提示</dt>
+					<dd>择售后类型选择售后类型选择售后类型选择售后类型选择售后类型选择售后类型选择售后类型选择售后类型选择售后类型选择售后类型选择售后类型选择售后类型选型选择售后类型选择售后类型选择售后类型选择售后类型选择售后</dd>
+				</dl>				
+			</div>
+			
+			<div class="order_msg">
+				<dl>
+					<dt>商品清单</dt>
+				</dl>		
+					
+				<div class="list-block media-list bigImgList">
+				    <ul>
+				      
+				    </ul>
+				</div>
+					
+			</div>
+			<div id="receiptAddress" class="order_msg list-block media-list">
+				<h3>收货地址</h3>
+				<a href="javascript:;" class="item-link item-content addrEid">
+					<div class="item-inner">
+						<div class="item-title-row addItemjs">
+
+
+						</div>
+					</div>
+
+				</a>
+
+			</div>
+			<div class="order_msg uploadImg">
+				<h3>上传照片</h3>
+				<div class="up_pic clearfix">
+					
+					<!-- <ul id="report" class="report ">
+						<li class="imgUpload"><a href="javascript:;"><input type="file"  capture="camera" name="imageUpload" class="imageUpload">点击上传照片</a></li>
+					</ul> -->
+					<ul class="up_pic" id="up_pic">
+		                <li class="up_li" id="up_li">
+		                    <input type="file" name="imageUpload"/>
+		                    <span> <em>+</em> 添加图片</span>
+		                </li>
+					</ul>
+						 
+				</div>	
+
+				<div class="f-12 pd">说明：支持jpg、gif、png、bmp格式照片，大小不超过2M</div>
+			</div>
+			
+			<div class="order_msg">
+				
+				<dl>
+					<dt>其他信息</dt>
+					<div id="show_select">
+						<span>请选择退货原因：</span>
+						<select name="" id="selectwhy" style="margin-bottom: 10px">
+							<option selected value="请选择退货原因">请选择退货原因</option>
+							<option value="七天无理由退换">七天无理由退换</option>
+							<option value="商品错发漏发">商品错发漏发</option>
+							<option value="商品质量问题">商品质量问题</option>
+						</select>
+					</div>
+					<dd class="tit">请选择售后产品： </dd>
+				</dl>
+				
+				<ul class="orderMsg_radio">
+					<!--单选-->
+
+						<input value="1"  type="checkbox" value=1 id="1" name="cart-pro" class="regular-radio">
+					    <label  for="1" class="sel-this"><em style="border-radius: 0"></em>电子手表</label>
+
+						<input value="2" type="checkbox" value=2 id="2" name="cart-pro" class="regular-radio">
+					    <label for="2" class="sel-this"><em style="border-radius: 0"></em>耳机</label>
+
+						<input value="3" type="checkbox" value=3 id="3" name="cart-pro" class="regular-radio">
+					    <label for="3" class="sel-this"><em style="border-radius: 0"></em>数据线</label>
+
+						<input value="4" type="checkbox" value=4 id="4" name="cart-pro" class="regular-radio">
+					    <label for="4" class="sel-this"><em style="border-radius: 0"></em>充电器</label>
+
+				</ul>
+				<div class="area_box">
+					<textarea name="" cols="20" rows="5" placeholder="请填写售后原因" class="txtarea jsarea"></textarea>
+					<span><em class="hasNum">0</em>/<em class="allNum">300</em></span> 
+				</div>		
+			</div>
+			<div class="order_msg">
+				<dl>
+					<dt>退换/维修客户邮寄信息</dt>
+					<dd>物流公司：xxxxxxxxx</dd>
+					<dd>货运单号：12111111111</dd>
+				</dl>
+			</div>
+			<div class="order_msg">
+				<dl>
+					<dt>客服反馈</dt>
+					<dd class="item-subtitle">货物已经收到，维修后于2016年10月15日发出，</dd>
+					<dd class="item-subtitle">快递公司：顺丰快递  快递单号：543132142343</dd>
+					<dd class="item-subtitle">请您注意查收。</dd>
+				</dl>
+				<dl>
+					<dt class="item-subtitle">
+						提交售后服务单后，请您保持手机畅通，以便客户服务中心与您联系。
+					</dt>
+					<dd class="item-subtitle">重要提示</dd>
+					<dd class="item-subtitle">1：****运费说明*****</dd>
+					<dd class="item-subtitle">2：七天无理由退货以及退款，产生的运费将由您来承担；</dd>
+
+				</dl>
+			</div>
+	  	</div> 
+		<!-- 页面内容区 end -->
+    
+			
+
+    </div>
+    
+	<div class="bar bar-footer">
+		<a id="subOrderBtn" href="javascript:;" class="button btn_org">提交服务单</a>
+	</div>
+	<!-- 主体html代码 -->
+  </div>
+ </div>
+ <footer></footer>
+
+
+  <script type='text/javascript' src='/libs/seajs/seajs-3.0.0.js'></script>
+  <script type='text/javascript' src='/libs/zepto/zepto.min.js'></script>
+  <script type='text/javascript' src='/libs/zepto/zepto.cookie.min.js'></script>
+  <script> 
+    // 加载入口模块
+    seajs.use("aftersales/js/subServiceOrder");
+	//seajs.use("purchase/js/addrchoose");
+  </script>
+  </body>
+</html>

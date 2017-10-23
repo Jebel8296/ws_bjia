@@ -1,0 +1,130 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>个人中心</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=yes">
+    <link rel="stylesheet" href="/modules/public/css/all.css">
+    <link rel="stylesheet" href="/modules/public/css/menu.css">
+    <link rel="stylesheet" href="/modules/center/css/center.css">
+  </head>
+  <body>
+  <div class="page-group">
+      <!-- 主体html代码 -->
+      <div class="page">
+      	
+          <header class="bar bar-nav">
+			    	<a class="icon icon-menu pull-left  open-panel"></a>
+			      <h1 class="title">个人中心</h1>
+			    </header>
+			    
+          <div class="content profile">
+              <!-- 页面内容区 -->
+              <div class="list-block">
+                <ul>
+                  <li class="item-myHead item-content">
+                        <div class="item-media"><i class="icon icon-f1"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title" id="nickname"></div>
+                        </div>
+                        <a href="javascript:;" class="btn_yel pd2 w40" id="quit_btn">退出</a>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="list-block">
+                <ul>
+                  <li>
+                  <a href="/modules/purchase/html/myCart.html" class="item-link item-content">
+                      <div class="item-media"><i class="icon icon-f2"></i></div>
+                      <div class="item-inner">
+                          <div class="item-title">我的购物车</div>
+                          <div class="item-after"></div>
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                      <a href="/modules/purchase/html/orders_All.html" class="item-link item-content">
+                          <div class="item-media"><i class="icon icon-f3"></i></div>
+                          <div class="item-inner">
+                              <div class="item-title">我的订单</div>
+                              <div class="item-after"></div>
+                          </div>
+                        </a>
+                    </li>
+                    <!--<li>-->
+                        <!--<a href="/modules/aftersales/html/afterSales.html" class="item-link item-content">-->
+                          <!--<div class="item-media"><i class="icon icon-f4"></i></div>-->
+                          <!--<div class="item-inner">-->
+                              <!--<div class="item-title">发起售后</div>-->
+                          <!--<div class="item-after"></div>-->
+                          <!--</div>-->
+                        <!--</a>-->
+                  <!--</li>-->
+                </ul>
+              </div>
+
+              <div class="list-block">
+                <ul>
+                  <li>
+                      <a href="/modules/aftersales/html/afterSales_list.html" class="item-link item-content">
+                        <div class="item-media"><i class="icon icon-f5"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title">我的售后</div>
+                          <div class="item-after"></div>
+                        </div>
+                      </a>
+                  </li> 
+                   
+                </ul>
+              </div>
+
+              <div class="list-block">
+                <ul>
+                  <li>
+                      <a href="/modules/purchase/html/address.html" class="item-link item-content">
+                        <div class="item-media"><i class="icon icon-f5"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title">地址管理</div>
+                          <div class="item-after"></div>
+                        </div>
+                      </a>
+                  </li> 
+                   
+                </ul>
+              </div>
+
+              <div class="list-block">
+                <ul>
+                  <li>
+                      <a href="/modules/passport/html/pwdchange.html" class="item-link item-content">
+                        <div class="item-media"><i class="icon icon-f5"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title">修改密码</div>
+                          <div class="item-after"></div>
+                        </div>
+                      </a>
+                  </li> 
+                   
+                </ul>
+              </div>
+               <!-- 页面内容区 end -->
+          </div>
+      </div>
+      <!-- 主体html代码 -->
+  </div>
+
+  <script type='text/javascript' src='/libs/seajs/seajs-3.0.0.js'></script>
+  <script type='text/javascript' src='/libs/zepto/zepto.min.js'></script>
+  <script type='text/javascript' src='/libs/zepto/zepto.cookie.min.js'></script>
+  <script> 
+    // 加载入口模块
+    seajs.use("center/js/personal");
+  </script> 
+  
+  <!-- menu侧导航 --> 
+  </body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>产品介绍页面</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=yes">
+    <link rel="stylesheet" href="/modules/public/css/all.css">
+    <link rel="stylesheet" href="/modules/public/css/menu.css">
+    <link rel="stylesheet" href="/modules/propage/css/propage.css">
+  </head>
+  <body>
+  <!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
+  <div class="page-group proPage">
+    <div class="page page-current">
+    <!-- 主体html代码 -->
+    <header class="bar bar-nav">
+      <a class="icon icon-menu pull-left  open-panel"></a>
+      <div class="icon icon-refresh pull-right">
+          <a id="psonID" href="javascript:;" class="icon-pson"></a>
+          <a  id="toCart" href="javascript:;" class="icon-cart">(<span class="color1">0</span>)</a>
+      </div>
+      <h1 class="title"><img src="/modules/public/img/logo.png" /></h1>
+    </header>
+   
+    <div class="content">
+      <div class="content cl_bg">
+    <!-- 页面内容区 -->
+      	<div class="t_banner">
+          <img src="/modules/propage/img/A750.jpg" alt="">
+      	</div>
+
+    <!--信息说明-->
+		<div class="page_item">
+
+	  </div>
+		
+		<!-- 页面内容区 end -->
+    </div>
+
+ <div class="bar bar-footer">
+	<div class="row">
+      <div class="col-50"><a id="buyNow" href="javascript:;" class="button button-big  btn_org">立即购买</a></div>
+      <div class="col-50"><a id="addCart" href="javascript:;" class="button button-big  btn_yel">加入购物车</a></div>
+   </div>
+ </div>
+
+ 
+ 
+	<!-- 主体html代码 -->
+  </div>
+</div>
+
+
+
+  <script type='text/javascript' src='/libs/seajs/seajs-3.0.0.js'></script>
+  <script type='text/javascript' src='/libs/zepto/zepto.min.js'></script>
+  <script type='text/javascript' src='/libs/zepto/zepto.cookie.min.js'></script>
+  <script> 
+    // 加载入口模块
+    seajs.use("propage/js/propage");
+  </script> 
+  
+  <!-- menu侧导航 --> 
+    
+  </body>
+</html>

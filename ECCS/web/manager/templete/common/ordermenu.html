@@ -1,0 +1,27 @@
+<!-- 左侧内容 -->
+<div class="contLeft wbg" ng-show="isLogin">
+    <ul class="sideNav">
+        <li><a href="javascript:;">购物车</a>
+            <div class="t_stage">
+                <a ui-sref="mycart">我的购物车</a>
+            </div>
+        </li>
+        <li><a href="javascript:;">售后服务</a>
+            <div class="t_stage">
+                <a ui-sref="servicelist">我的售后</a><!--
+                <a ui-sref="servicedetail">售后详情</a>-->
+            </div>
+        </li>
+        <li><a href="javascript:;">订单服务</a>
+            <div class="t_stage">
+                <a ui-sref="orderlist">我的订单</a>
+            </div>
+        </li>
+        <li><a href="javascript:;">个人中心</a>
+            <div class="t_stage">
+                <a ui-sref="changepwd">修改密码</a>
+                <a ui-sref="address">收货地址</a>
+            </div>
+        </li>
+    </ul>
+</div>
